@@ -145,12 +145,14 @@ const HomeScreen = () => {
 
       {/* All Courses */}
       <View style={{ marginBottom: 20 }}>
+        {/* Heading */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-          <Text style={{ fontSize: 18, fontWeight: '600', color: '#333' }}>All Courses</Text>
-          <TouchableOpacity>
-            <Text style={{ color: '#007BFF', fontWeight: '600' }}>See all</Text>
+          <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>All Courses</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Courses')}>
+            <Text style={{ color: darkGreen, fontWeight: '600' }}>See all</Text>
           </TouchableOpacity>
         </View>
+
         <FlatList
           data={courses}
           horizontal
