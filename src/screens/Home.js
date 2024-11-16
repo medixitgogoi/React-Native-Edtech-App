@@ -1,11 +1,15 @@
-import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { darkGreen, lightGreen } from '../utils/colors';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { useEffect, useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { trending } from '../utils/trending';
 
 const { width } = Dimensions.get('window');
 
@@ -139,26 +143,6 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Continue Course */}
-      <View style={{ marginBottom: 20 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-          <Text style={{ fontSize: 18, fontWeight: '600', color: '#333' }}>Continue Course</Text>
-          <TouchableOpacity>
-            <Text style={{ color: '#007BFF', fontWeight: '600' }}>See all</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity style={{ backgroundColor: '#FFF', borderRadius: 10, padding: 15, flexDirection: 'row', alignItems: 'center' }}>
-          <View style={{ backgroundColor: '#E6F7FF', padding: 10, borderRadius: 10, marginRight: 10 }}>
-            <Text style={{ fontSize: 20, color: '#007BFF' }}>△</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 16, fontWeight: '600', color: '#333' }}>Basic Calculus</Text>
-            <Text style={{ fontSize: 14, color: '#555' }}>Easy 6 steps can make perfect</Text>
-          </View>
-          <Text style={{ fontSize: 16, fontWeight: '600', color: '#007BFF' }}>60%</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* All Courses */}
       <View style={{ marginBottom: 20 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
@@ -184,6 +168,78 @@ const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
       </View>
+
+      {/* Trending Courses */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
+      </View>
+
+      <FlatList
+        data={trending}
+        horizontal
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(42), aspectRatio: 1 / 1.25, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
+            {/* Image */}
+            <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
+              <Image
+                source={require('../assets/trending.jpeg')}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  opacity: 0.9
+                }}
+                resizeMode="cover"
+              />
+
+              <View style={{ position: 'absolute', bottom: '38%', left: '39%' }}>
+                <AntDesign name="play" size={30} color={'#4c669f'} />
+              </View>
+            </View>
+
+            {/* Details */}
+            <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
+              {/* Title */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4 }}>
+                <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <FontAwesome name="book" size={responsiveFontSize(2)} color={darkGreen} style={{}} />
+                </View>
+                <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
+              </View>
+
+              {/* Author */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4 }}>
+                <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <FontAwesome name="user" size={responsiveFontSize(2)} color={darkGreen} style={{}} />
+                </View>
+                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#888', fontWeight: '500' }}>By {item.teacher}</Text>
+              </View>
+
+              {/* Details */}
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
+                {/* Files */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                  <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={darkGreen} style={{}} />
+                  </View>
+                  <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.lessons} lessons</Text>
+                </View>
+
+                {/* Time */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                  <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={darkGreen} style={{}} />
+                  </View>
+                  <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.duration} Mins</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
+      />
+
     </SafeAreaView>
   );
 };
