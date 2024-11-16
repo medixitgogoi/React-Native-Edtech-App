@@ -171,7 +171,7 @@ const HomeScreen = () => {
 
       {/* Trending Courses */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
+        <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
       </View>
 
       <FlatList
