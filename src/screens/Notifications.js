@@ -4,7 +4,7 @@ import React from 'react'
 const Notifications = () => {
     return (
         <View>
-            <Text style={{ color: '#000' }}>Notifications</Text>
+            <Text style={{ color: '#000' }}>Notifications screen</Text>
         </View>
     )
 }
