@@ -5,7 +5,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Slider from "@react-native-community/slider";
 import { useNavigation } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
-import { background, backIconColor } from "../utils/colors";
+import { background } from "../utils/colors";
+import { responsiveFontSize } from "react-native-responsive-dimensions";
 
 export default function UtubeVideo() {
 
@@ -68,10 +69,18 @@ export default function UtubeVideo() {
     return (
         <View style={{ flex: 1, backgroundColor: background, }}>
             {/* Back Button */}
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 10, paddingVertical: 5 }}>
-                <LinearGradient colors={['#2e4838', '#07682b']} style={{ borderRadius: 10, justifyContent: 'center', alignItems: 'center', padding: 8 }}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
+                <LinearGradient colors={['#2e4838', '#07682b']} style={{ borderRadius: 10, justifyContent: 'center', alignItems: 'center', width: 35, height: 35 }}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </LinearGradient>
+
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>Mathematics</Text>
+                </View>
+
+                <View style={{ width: 35, height: 35 }}>
+
+                </View>
             </TouchableOpacity>
 
             <ScrollView contentContainerStyle={styles.container}>
