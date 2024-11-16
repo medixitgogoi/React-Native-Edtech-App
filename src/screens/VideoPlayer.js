@@ -5,6 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Slider from "@react-native-community/slider";
 import { useNavigation } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
+import { background, backIconColor } from "../utils/colors";
 
 export default function UtubeVideo() {
 
@@ -65,17 +66,13 @@ export default function UtubeVideo() {
     }, [playing, isSliding]);
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#000', }}>
+        <View style={{ flex: 1, backgroundColor: background, }}>
             {/* Back Button */}
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ flexDirection: 'row', alignItems: 'flex-start', paddingHorizontal: 10, paddingVertical: 5 }}>
-                <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{ borderRadius: 50, justifyContent: 'center', alignItems: 'center', padding: 8 }}>
-                    <AntDesign name="arrowleft" style={{ color: '#fff' }} size={20} />
+                <LinearGradient colors={['#2e4838', '#07682b']} style={{ borderRadius: 10, justifyContent: 'center', alignItems: 'center', padding: 8 }}>
+                    <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </LinearGradient>
             </TouchableOpacity>
-
-            {/* <TouchableOpacity style={{ backgroundColor: '#000', paddingHorizontal: 10, paddingVertical: 5 }} onPress={() => navigation.goBack()}>
-                <AntDesign name="arrowleft" style={{ color: '#fff' }} size={20} />
-            </TouchableOpacity> */}
 
             <ScrollView contentContainerStyle={styles.container}>
                 <YoutubePlayer
@@ -121,7 +118,7 @@ export default function UtubeVideo() {
                         onSlidingStart={handleSlidingStart}
                         onSlidingComplete={handleSlidingComplete}
                         minimumTrackTintColor="red"
-                        maximumTrackTintColor="#858585"
+                        maximumTrackTintColor="#000"
                         thumbTintColor="red"
                     />
                 </View>
@@ -135,7 +132,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: '#000',
+        backgroundColor: background,
     },
     overlay: {
         position: "absolute",
