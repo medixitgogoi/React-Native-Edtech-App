@@ -117,9 +117,9 @@ export default function UtubeVideo() {
                         onValueChange={onSliderValueChange}
                         onSlidingStart={handleSlidingStart}
                         onSlidingComplete={handleSlidingComplete}
-                        minimumTrackTintColor="red"
+                        minimumTrackTintColor="#ec2736"
                         maximumTrackTintColor="#000"
-                        thumbTintColor="red"
+                        thumbTintColor="#ec2736"
                     />
                 </View>
             </ScrollView>
