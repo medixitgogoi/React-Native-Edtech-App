@@ -106,7 +106,7 @@ const HomeScreen = () => {
           onScroll={handleScroll}
           onMomentumScrollEnd={handleMomentumScrollEnd} // Snap to nearest slide
           scrollEventThrottle={16}
-          style={{ width: '100%', borderRadius: 10, overflow: 'hidden' }}
+          style={{ width: '100%', borderRadius: 12, overflow: 'hidden' }}
         >
           {bannerImages.map((image, index) => (
             <Image
@@ -138,18 +138,6 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      {/* Categories */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
-        <TouchableOpacity style={{ backgroundColor: '#ADD8E6', borderRadius: 10, padding: 20, flex: 1, marginRight: 10 }}>
-          <Text style={{ color: '#333', fontWeight: 'bold', fontSize: 16 }}>Basic Math Easy</Text>
-          <Text style={{ color: '#333', fontSize: 14 }}>28 Lessons</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ backgroundColor: '#D8BFD8', borderRadius: 10, padding: 20, flex: 1 }}>
-          <Text style={{ color: '#333', fontWeight: 'bold', fontSize: 16 }}>Language Studies</Text>
-          <Text style={{ color: '#333', fontSize: 14 }}>28 Lessons</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* All Courses */}
       <View style={{ marginBottom: 20 }}>
         {/* Heading */}
@@ -171,12 +159,12 @@ const HomeScreen = () => {
               end={{ x: 1, y: 0 }}
               style={{
                 flex: 1,
-                padding: 12,
+                padding: 14,
                 borderRadius: 12,
                 width: responsiveWidth(60),
               }}
             >
-              <TouchableOpacity style={{ overflow: 'hidden' }}>
+              <TouchableOpacity style={{ overflow: 'hidden' }} onPress={() => navigation.navigate('CourseDetails')}>
                 {/* Text Content */}
                 <Text
                   style={{
@@ -248,7 +236,6 @@ const HomeScreen = () => {
       </View>
 
       {/* Trending Courses */}
-      {/* Heading */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
         <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
       </View>
