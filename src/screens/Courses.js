@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { background, darkblue, darkGreen, lightGreen } from '../utils/colors';
+import { background, darkBlue, darkGreen, lightGreen } from '../utils/colors';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -38,18 +38,27 @@ const Courses = () => {
                     flex: 1,
                     padding: 14,
                     borderRadius: 12,
-                    width: responsiveWidth(60),
+                    width: responsiveWidth(65),
                 }}
             >
                 <TouchableOpacity
                     style={{ overflow: 'hidden' }}
                     onPress={() => navigation.navigate('CourseDetails')}
                 >
-                    {/* Title */}
-                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3, }}>{item.title}</Text>
+                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <View style={{}}>
+                            {/* Title */}
+                            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3, }}>{item.title}</Text>
 
-                    {/* Author */}
-                    <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500',  }}>{item.author}</Text>
+                            {/* Author */}
+                            <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500', }}>{item.author}</Text>
+                        </View>
+
+                        <View style={{ alignItems: 'center', flexDirection: 'row', gap: 3, backgroundColor: '#b2d9f3', padding: 6, borderColor: darkBlue, borderWidth: 1 }}>
+                            <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} />
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.time}</Text>
+                        </View>
+                    </View>
 
                     {/* Key Highlights Heading with Star Icon */}
                     {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
@@ -94,7 +103,7 @@ const Courses = () => {
         <View style={{ flex: 1, backgroundColor: background, }}>
             {/* Header */}
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
-                <View style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkblue }}>
+                <View style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </View>
 
