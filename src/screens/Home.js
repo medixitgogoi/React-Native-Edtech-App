@@ -10,6 +10,7 @@ import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { useEffect, useRef, useState } from 'react';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -23,8 +24,14 @@ const HomeScreen = () => {
 
   // Sample data
   const courses = [
-    { id: '1', title: 'Biology for class XIII', author: 'By Smith J.', files: '17 Files', time: '40 Mins', color: '#FFDAB9' },
-    { id: '2', title: 'Math for class XIII', author: 'By Smith J.', files: '17 Files', time: '40 Mins', color: '#ADD8E6' },
+    { id: '1', title: 'Biology for class XIII', author: 'By Smith J.', files: '17 lessons', time: '40 Mins', color: '#FFDAB9' },
+    { id: '2', title: 'Math for class XIII', author: 'By Smith J.', files: '20 lessons', time: '50 Mins', color: '#ADD8E6' },
+    { id: '3', title: 'Chemistry Basics', author: 'By John D.', files: '12 lessons', time: '35 Mins', color: '#98FB98' },
+    { id: '4', title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lessons', time: '45 Mins', color: '#FFB6C1' },
+    { id: '5', title: 'History of Arts', author: 'By Alice K.', files: '10 lessons', time: '30 Mins', color: '#E6E6FA' },
+    { id: '6', title: 'Geography: World Maps', author: 'By David P.', files: '15 lessons', time: '40 Mins', color: '#FFE4B5' },
+    { id: '7', title: 'Introduction to Coding', author: 'By Emily W.', files: '25 lessons', time: '60 Mins', color: '#AFEEEE' },
+    { id: '8', title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lessons', time: '38 Mins', color: '#F0E68C' },
   ];
 
   // Banner Images
@@ -149,7 +156,7 @@ const HomeScreen = () => {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
           <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>All Courses</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Courses')}>
-            <Text style={{ color: darkGreen, fontWeight: '600' }}>See all</Text>
+            <Text style={{ color: '#0073c4', fontWeight: '600' }}>See all</Text>
           </TouchableOpacity>
         </View>
 
@@ -158,83 +165,155 @@ const HomeScreen = () => {
           horizontal
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity style={{ backgroundColor: item.color, borderRadius: 10, padding: 15, marginRight: 10, width: 200 }}>
-              <Text style={{ fontSize: 16, fontWeight: '600', color: '#333', marginBottom: 5 }}>{item.title}</Text>
-              <Text style={{ fontSize: 14, color: '#555', marginBottom: 10 }}>{item.author}</Text>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={{ fontSize: 12, color: '#777' }}>{item.files}</Text>
-                <Text style={{ fontSize: 12, color: '#777' }}>{item.time}</Text>
-              </View>
-            </TouchableOpacity>
+            <LinearGradient
+              colors={['#98ccef', '#d9efff']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={{
+                flex: 1,
+                padding: 12,
+                borderRadius: 12,
+                width: responsiveWidth(60),
+              }}
+            >
+              <TouchableOpacity style={{ overflow: 'hidden' }}>
+                {/* Text Content */}
+                <Text
+                  style={{
+                    fontSize: responsiveFontSize(2.1),
+                    fontWeight: '600',
+                    color: '#000',
+                    marginBottom: 3,
+                  }}
+                >
+                  {item.title}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: responsiveFontSize(1.6),
+                    color: '#666',
+                    marginBottom: 10,
+                    fontWeight: '500',
+                  }}
+                >
+                  {item.author}
+                </Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  {/* Files */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                      <MaterialCommunityIcons
+                        name="file-multiple"
+                        size={responsiveFontSize(1.8)}
+                        color={'#0073c4'}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: responsiveFontSize(1.5),
+                        color: '#000',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {item.files}
+                    </Text>
+                  </View>
+
+                  {/* Time */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                      <FontAwesome
+                        name="clock-o"
+                        size={responsiveFontSize(2)}
+                        color={'#0073c4'}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: responsiveFontSize(1.5),
+                        color: '#000',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {item.time}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </LinearGradient>
           )}
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 8 }}
         />
       </View>
 
       {/* Trending Courses */}
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-        <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
-      </View>
+      <View style={{ marginBottom: 20 }}>
+        {/* Heading */}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+          <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
+        </View>
 
-      <FlatList
-        data={trending}
-        horizontal
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.22, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
-            {/* Image */}
-            <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
-              <Image
-                source={require('../assets/trending.jpeg')}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  opacity: 0.9
-                }}
-                resizeMode="cover"
-              />
+        <FlatList
+          data={trending}
+          horizontal
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.22, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
+              {/* Image */}
+              <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
+                <Image
+                  source={require('../assets/trending.jpeg')}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    opacity: 0.9
+                  }}
+                  resizeMode="cover"
+                />
 
-              <View style={{ position: 'absolute', bottom: '38%', left: '39%' }}>
-                <AntDesign name="play" size={30} color={'#4c669f'} />
-              </View>
-            </View>
-
-            {/* Details */}
-            <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
-              {/* Title */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
-                <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
-              </View>
-
-              {/* Author */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4, paddingHorizontal: 4 }}>
-                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#888', fontWeight: '500' }}>By {item.teacher}</Text>
+                <View style={{ position: 'absolute', bottom: '38%', left: '39%' }}>
+                  <AntDesign name="play" size={30} color={'#0073c4'} />
+                </View>
               </View>
 
               {/* Details */}
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                {/* Files */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-                  <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#4b66ca'} style={{}} />
-                  </View>
-                  <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.lessons} lessons</Text>
+              <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
+                {/* Title */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
+                  <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
                 </View>
 
-                {/* Time */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-                  <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#4b66ca'} style={{}} />
+                {/* Author */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4, paddingHorizontal: 4 }}>
+                  <Text style={{ fontSize: responsiveFontSize(1.7), color: '#888', fontWeight: '500' }}>By {item.teacher}</Text>
+                </View>
+
+                {/* Details */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                  {/* Files */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+                    <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                      <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#0073c4'} style={{}} />
+                    </View>
+                    <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.lessons} lessons</Text>
                   </View>
-                  <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.duration} Mins</Text>
+
+                  {/* Time */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+                    <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                      <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} style={{}} />
+                    </View>
+                    <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.duration} Mins</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        )}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
-      />
+            </TouchableOpacity>
+          )}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
+        />
+      </View>
 
     </SafeAreaView>
   );
