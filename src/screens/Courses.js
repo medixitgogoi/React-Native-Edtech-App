@@ -28,6 +28,52 @@ const Courses = () => {
         { id: '8', title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lessons', time: '38 Mins', color: '#F0E68C' },
     ];
 
+    const cardItem = ({ item }) => {
+        return (
+            <LinearGradient
+                colors={['#98ccef', '#d9efff']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={{
+                    flex: 1,
+                    padding: 14,
+                    borderRadius: 12,
+                    width: responsiveWidth(60),
+                }}
+            >
+                <TouchableOpacity
+                    style={{ overflow: 'hidden' }}
+                    onPress={() => navigation.navigate('CourseDetails')}
+                >
+                    {/* Text Content */}
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3 }}>
+                        {item.title}
+                    </Text>
+                    <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500' }}>
+                        {item.author}
+                    </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        {/* Files */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#0073c4'} />
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.files}</Text>
+                        </View>
+
+                        {/* Time */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                <FontAwesome name="clock-o" size={responsiveFontSize(1.8)} color={'#0073c4'} />
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.time}</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </LinearGradient>
+        )
+    }
+
     return (
         <View style={{ flex: 1, backgroundColor: background, }}>
             {/* Header */}
@@ -46,105 +92,42 @@ const Courses = () => {
             </TouchableOpacity>
 
             <View style={{ paddingHorizontal: 12 }}>
-                
                 {/* Explore */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 10 }}>
                     <Text style={{ color: '#ebedf0', }}>________________________ </Text>
                     <Text style={{ color: '#8593a2', fontWeight: '500', fontSize: responsiveFontSize(1.7), textTransform: 'uppercase', letterSpacing: 1.1 }}> Explore </Text>
                     <Text style={{ color: '#ebedf0', }}>________________________ </Text>
                 </View>
-                {/* All Courses */}
+
+                {/* Class 1 */}
                 <View style={{ marginBottom: 20 }}>
                     {/* Heading */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>All Courses</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('Courses')}>
-                            <Text style={{ color: '#0073c4', fontWeight: '600' }}>See all</Text>
-                        </TouchableOpacity>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 1</Text>
                     </View>
 
                     <FlatList
                         data={courses}
                         horizontal
                         keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <LinearGradient
-                                colors={['#98ccef', '#d9efff']}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 0 }}
-                                style={{
-                                    flex: 1,
-                                    padding: 14,
-                                    borderRadius: 12,
-                                    width: responsiveWidth(60),
-                                }}
-                            >
-                                <TouchableOpacity style={{ overflow: 'hidden' }} onPress={() => navigation.navigate('CourseDetails')}>
-                                    {/* Text Content */}
-                                    <Text
-                                        style={{
-                                            fontSize: responsiveFontSize(2.1),
-                                            fontWeight: '600',
-                                            color: '#000',
-                                            marginBottom: 3,
-                                        }}
-                                    >
-                                        {item.title}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: responsiveFontSize(1.6),
-                                            color: '#666',
-                                            marginBottom: 10,
-                                            fontWeight: '500',
-                                        }}
-                                    >
-                                        {item.author}
-                                    </Text>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                        {/* Files */}
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                                <MaterialCommunityIcons
-                                                    name="file-multiple"
-                                                    size={responsiveFontSize(1.8)}
-                                                    color={'#0073c4'}
-                                                />
-                                            </View>
-                                            <Text
-                                                style={{
-                                                    fontSize: responsiveFontSize(1.5),
-                                                    color: '#000',
-                                                    fontWeight: '500',
-                                                }}
-                                            >
-                                                {item.files}
-                                            </Text>
-                                        </View>
+                        renderItem={cardItem}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 8 }}
+                    />
+                </View>
 
-                                        {/* Time */}
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                                <FontAwesome
-                                                    name="clock-o"
-                                                    size={responsiveFontSize(2)}
-                                                    color={'#0073c4'}
-                                                />
-                                            </View>
-                                            <Text
-                                                style={{
-                                                    fontSize: responsiveFontSize(1.5),
-                                                    color: '#000',
-                                                    fontWeight: '500',
-                                                }}
-                                            >
-                                                {item.time}
-                                            </Text>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                            </LinearGradient>
-                        )}
+                {/* Class 2 */}
+                <View style={{ marginBottom: 20 }}>
+                    {/* Heading */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 2</Text>
+                    </View>
+
+                    <FlatList
+                        data={courses}
+                        horizontal
+                        keyExtractor={(item) => item.id}
+                        renderItem={cardItem}
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={{ gap: 8 }}
                     />
