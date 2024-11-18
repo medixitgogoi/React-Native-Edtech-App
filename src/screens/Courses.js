@@ -45,34 +45,41 @@ const Courses = () => {
                     style={{ overflow: 'hidden' }}
                     onPress={() => navigation.navigate('CourseDetails')}
                 >
-                    {/* Text Content */}
+                    {/* Title */}
                     <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3 }}>
                         {item.title}
                     </Text>
+
+                    {/* Author */}
                     <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500' }}>
                         {item.author}
                     </Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        {/* Files */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#0073c4'} />
-                            </View>
-                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.files}</Text>
+
+                    {/* Highlights Section */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                        {/* Subject Notes */}
+                        <View style={{ alignItems: 'center' }}>
+                            <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#3a8cc4'} />
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Notes</Text>
                         </View>
 
-                        {/* Time */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <FontAwesome name="clock-o" size={responsiveFontSize(1.8)} color={'#0073c4'} />
-                            </View>
-                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.time}</Text>
+                        {/* Topic Videos */}
+                        <View style={{ alignItems: 'center' }}>
+                            <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#3a8cc4'} />
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Videos</Text>
+                        </View>
+
+                        {/* Subject PDFs */}
+                        <View style={{ alignItems: 'center' }}>
+                            <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#3a8cc4'} />
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>PDFs</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
             </LinearGradient>
-        )
-    }
+        );
+    };
+
 
     return (
         <View style={{ flex: 1, backgroundColor: background, }}>
@@ -91,7 +98,7 @@ const Courses = () => {
                 </View>
             </TouchableOpacity>
 
-            <View style={{ paddingHorizontal: 12 }}>
+            <ScrollView style={{ paddingHorizontal: 12, flex: 1 }}>
                 {/* Explore */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 10 }}>
                     <Text style={{ color: '#ebedf0', }}>________________________ </Text>
@@ -132,7 +139,75 @@ const Courses = () => {
                         contentContainerStyle={{ gap: 8 }}
                     />
                 </View>
-            </View>
+
+                {/* Class 3 */}
+                <View style={{ marginBottom: 20 }}>
+                    {/* Heading */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 3</Text>
+                    </View>
+
+                    <FlatList
+                        data={courses}
+                        horizontal
+                        keyExtractor={(item) => item.id}
+                        renderItem={cardItem}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 8 }}
+                    />
+                </View>
+
+                {/* Class 4 */}
+                <View style={{ marginBottom: 20 }}>
+                    {/* Heading */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 4</Text>
+                    </View>
+
+                    <FlatList
+                        data={courses}
+                        horizontal
+                        keyExtractor={(item) => item.id}
+                        renderItem={cardItem}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 8 }}
+                    />
+                </View>
+
+                {/* Class 5 */}
+                <View style={{ marginBottom: 20 }}>
+                    {/* Heading */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 5</Text>
+                    </View>
+
+                    <FlatList
+                        data={courses}
+                        horizontal
+                        keyExtractor={(item) => item.id}
+                        renderItem={cardItem}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 8 }}
+                    />
+                </View>
+
+                {/* Class 6 */}
+                <View style={{ marginBottom: 15 }}>
+                    {/* Heading */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 6</Text>
+                    </View>
+
+                    <FlatList
+                        data={courses}
+                        horizontal
+                        keyExtractor={(item) => item.id}
+                        renderItem={cardItem}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{ gap: 8 }}
+                    />
+                </View>
+            </ScrollView>
         </View>
     )
 }
