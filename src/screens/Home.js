@@ -248,73 +248,70 @@ const HomeScreen = () => {
       </View>
 
       {/* Trending Courses */}
-      <View style={{ marginBottom: 20 }}>
-        {/* Heading */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-          <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
-        </View>
+      {/* Heading */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+        <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
+      </View>
 
-        <FlatList
-          data={trending}
-          horizontal
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.22, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
-              {/* Image */}
-              <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
-                <Image
-                  source={require('../assets/trending.jpeg')}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    opacity: 0.9
-                  }}
-                  resizeMode="cover"
-                />
+      <FlatList
+        data={trending}
+        horizontal
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.22, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
+            {/* Image */}
+            <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
+              <Image
+                source={require('../assets/trending.jpeg')}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  opacity: 0.9
+                }}
+                resizeMode="cover"
+              />
 
-                <View style={{ position: 'absolute', bottom: '38%', left: '39%' }}>
-                  <AntDesign name="play" size={30} color={'#0073c4'} />
-                </View>
+              <View style={{ position: 'absolute', bottom: '38%', left: '39%' }}>
+                <AntDesign name="play" size={30} color={'#0073c4'} />
+              </View>
+            </View>
+
+            {/* Details */}
+            <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
+              {/* Title */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
+                <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
+              </View>
+
+              {/* Author */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4, paddingHorizontal: 4 }}>
+                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#888', fontWeight: '500' }}>By {item.teacher}</Text>
               </View>
 
               {/* Details */}
-              <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
-                {/* Title */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
-                  <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
+                {/* Files */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+                  <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#0073c4'} style={{}} />
+                  </View>
+                  <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.lessons} lessons</Text>
                 </View>
 
-                {/* Author */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4, paddingHorizontal: 4 }}>
-                  <Text style={{ fontSize: responsiveFontSize(1.7), color: '#888', fontWeight: '500' }}>By {item.teacher}</Text>
-                </View>
-
-                {/* Details */}
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
-                  {/* Files */}
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-                    <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                      <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#0073c4'} style={{}} />
-                    </View>
-                    <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.lessons} lessons</Text>
+                {/* Time */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+                  <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} style={{}} />
                   </View>
-
-                  {/* Time */}
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
-                    <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                      <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} style={{}} />
-                    </View>
-                    <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.duration} Mins</Text>
-                  </View>
+                  <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.duration} Mins</Text>
                 </View>
               </View>
-            </TouchableOpacity>
-          )}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
-        />
-      </View>
-
+            </View>
+          </TouchableOpacity>
+        )}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
+      />
     </SafeAreaView>
   );
 };
