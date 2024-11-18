@@ -74,12 +74,12 @@ const HomeScreen = () => {
       {/* Header */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-          <View style={{ width: responsiveWidth(8), aspectRatio: 1 / 1, borderColor: '#000', borderWidth: 1, borderRadius: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 2, backgroundColor: '#d0fce0' }}>
+          <View style={{ width: responsiveWidth(8), aspectRatio: 1 / 1, borderColor: '#fff', borderWidth: 1, borderRadius: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 2 }}>
             <Image source={require('../assets/person.png')} style={{ width: '100%', height: '100%' }} />
           </View>
 
           <View style={{ flexDirection: 'column' }}>
-            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkGreen }}>Hello, Marshmallow</Text>
+            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>Hello, Marshmallow</Text>
             <Text style={{ fontSize: responsiveFontSize(1.7), fontWeight: '500', color: '#a2a2a2' }}>What are you learning today?</Text>
           </View>
         </View>
@@ -181,7 +181,7 @@ const HomeScreen = () => {
         horizontal
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(42), aspectRatio: 1 / 1.25, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
+          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.22, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
             {/* Image */}
             <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
               <Image
@@ -202,35 +202,29 @@ const HomeScreen = () => {
             {/* Details */}
             <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
               {/* Title */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4 }}>
-                <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                  <FontAwesome name="book" size={responsiveFontSize(2)} color={darkGreen} style={{}} />
-                </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
                 <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
               </View>
 
               {/* Author */}
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4 }}>
-                <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                  <FontAwesome name="user" size={responsiveFontSize(2)} color={darkGreen} style={{}} />
-                </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 4, paddingHorizontal: 4 }}>
                 <Text style={{ fontSize: responsiveFontSize(1.7), color: '#888', fontWeight: '500' }}>By {item.teacher}</Text>
               </View>
 
               {/* Details */}
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 5 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 3 }}>
                 {/* Files */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
                   <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={darkGreen} style={{}} />
+                    <MaterialCommunityIcons name="file-multiple" size={responsiveFontSize(1.8)} color={'#4b66ca'} style={{}} />
                   </View>
                   <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.lessons} lessons</Text>
                 </View>
 
                 {/* Time */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 1 }}>
                   <View style={{ width: responsiveWidth(5), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={darkGreen} style={{}} />
+                    <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#4b66ca'} style={{}} />
                   </View>
                   <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.duration} Mins</Text>
                 </View>
