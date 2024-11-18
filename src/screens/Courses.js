@@ -53,10 +53,18 @@ const Courses = () => {
 
                     {/* Key Highlights Heading with Star Icon */}
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, justifyContent: 'center' }}>
-                        <MaterialCommunityIcons name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginRight: 2 }} />
-                        <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#999' }}>
-                            What you'll get
-                        </Text>
+                        {/* Left line */}
+                        <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginRight: 8 }} />
+
+                        {/* Text and icon */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <AntDesign name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginRight: 2 }} />
+                            <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#999' }}>What you'll get</Text>
+                            <AntDesign name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginLeft: 2 }} />
+                        </View>
+
+                        {/* Right line */}
+                        <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginLeft: 8 }} />
                     </View>
 
                     {/* Highlights Section */}
