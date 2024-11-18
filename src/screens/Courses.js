@@ -18,8 +18,8 @@ const Courses = () => {
 
     // Sample data
     const courses = [
-        { id: '1', title: 'Biology for class XIII', author: 'By Smith J.', files: '17 videos', time: '40 Mins', color: '#FFDAB9' },
-        { id: '2', title: 'Math for class XIII', author: 'By Smith J.', files: '20 videos', time: '50 Mins', color: '#ADD8E6' },
+        { id: '1', title: 'Biology for class X', author: 'By Smith J.', files: '17 videos', time: '40 Mins', color: '#FFDAB9' },
+        { id: '2', title: 'Math for class IX', author: 'By Smith J.', files: '20 videos', time: '50 Mins', color: '#ADD8E6' },
         { id: '3', title: 'Chemistry Basics', author: 'By John D.', files: '12 videos', time: '35 Mins', color: '#98FB98' },
         { id: '4', title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 videos', time: '45 Mins', color: '#FFB6C1' },
         { id: '5', title: 'History of Arts', author: 'By Alice K.', files: '10 videos', time: '30 Mins', color: '#E6E6FA' },
@@ -45,28 +45,19 @@ const Courses = () => {
                     style={{ overflow: 'hidden' }}
                     onPress={() => navigation.navigate('CourseDetails')}
                 >
-                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-start' }}>
-                        <View style={{}}>
-                            {/* Title */}
-                            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3, }}>{item.title}</Text>
+                    {/* Title */}
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.title}</Text>
 
-                            {/* Author */}
-                            <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500', }}>{item.author}</Text>
-                        </View>
-
-                        <View style={{ alignItems: 'center', flexDirection: 'row', gap: 3, backgroundColor: '#b2d9f3', padding: 6, borderColor: darkBlue, borderWidth: 1 }}>
-                            <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} />
-                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.time}</Text>
-                        </View>
-                    </View>
+                    {/* Author */}
+                    <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500', }}>{item.author}</Text>
 
                     {/* Key Highlights Heading with Star Icon */}
-                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, justifyContent: 'center' }}>
                         <MaterialCommunityIcons name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginRight: 2 }} />
                         <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#999' }}>
                             What you'll get
                         </Text>
-                    </View> */}
+                    </View>
 
                     {/* Highlights Section */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5 }}>
@@ -87,14 +78,14 @@ const Courses = () => {
                             <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#0073c4'} />
                             <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>PDFs</Text>
                         </View>
-
-                        {/* Time */}
-                        {/* <View style={{ alignItems: 'center' }}>
-                            <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} />
-                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.time}</Text>
-                        </View> */}
                     </View>
                 </TouchableOpacity>
+
+                {/* Time */}
+                <View style={{ position: 'absolute', top: 12, right: 5, alignItems: 'center', flexDirection: 'row', gap: 3, backgroundColor: darkBlue, paddingHorizontal: 6, paddingVertical: 4, borderColor: '#b2d9f3', borderWidth: 1, borderRadius: 7, justifyContent: 'center' }}>
+                    <FontAwesome name="clock-o" size={responsiveFontSize(1.7)} color={'#b2d9f3'} />
+                    <Text style={{ fontSize: responsiveFontSize(1.3), color: '#fff', fontWeight: '500' }}>{item.time}</Text>
+                </View>
             </LinearGradient>
         );
     };
