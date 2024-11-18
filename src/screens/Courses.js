@@ -46,38 +46,44 @@ const Courses = () => {
                     onPress={() => navigation.navigate('CourseDetails')}
                 >
                     {/* Title */}
-                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3 }}>{item.title}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 3, }}>{item.title}</Text>
 
                     {/* Author */}
-                    <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500' }}>{item.author}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(1.6), color: '#666', marginBottom: 10, fontWeight: '500',  }}>{item.author}</Text>
 
                     {/* Key Highlights Heading with Star Icon */}
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, justifyContent: 'center' }}>
-                        <MaterialCommunityIcons name="star" size={responsiveFontSize(2)} color={'#f5b342'} style={{ marginRight: 3 }} />
-                        <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#333' }}>
-                            Key Highlights
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+                        <MaterialCommunityIcons name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginRight: 2 }} />
+                        <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#999' }}>
+                            What you'll get
                         </Text>
-                    </View>
+                    </View> */}
 
                     {/* Highlights Section */}
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5 }}>
                         {/* Subject Notes */}
                         <View style={{ alignItems: 'center' }}>
-                            <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#3a8cc4'} />
+                            <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#0073c4'} />
                             <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Notes</Text>
                         </View>
 
                         {/* Topic Videos */}
                         <View style={{ alignItems: 'center' }}>
-                            <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#3a8cc4'} />
+                            <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#0073c4'} />
                             <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.files}</Text>
                         </View>
 
                         {/* Subject PDFs */}
                         <View style={{ alignItems: 'center' }}>
-                            <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#3a8cc4'} />
+                            <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#0073c4'} />
                             <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>PDFs</Text>
                         </View>
+
+                        {/* Time */}
+                        {/* <View style={{ alignItems: 'center' }}>
+                            <FontAwesome name="clock-o" size={responsiveFontSize(2)} color={'#0073c4'} />
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.time}</Text>
+                        </View> */}
                     </View>
                 </TouchableOpacity>
             </LinearGradient>
