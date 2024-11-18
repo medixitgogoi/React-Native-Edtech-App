@@ -238,9 +238,9 @@ const HomeScreen = () => {
         horizontal
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.22, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
+          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.3, borderRadius: 10, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
             {/* Image */}
-            <View style={{ backgroundColor: '#fff', height: '53%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
+            <View style={{ backgroundColor: '#fff', height: '50%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
               <Image
                 source={require('../assets/trending.jpeg')}
                 style={{
@@ -257,7 +257,7 @@ const HomeScreen = () => {
             </View>
 
             {/* Details */}
-            <View style={{ paddingVertical: 12, paddingHorizontal: 6 }}>
+            <View style={{ paddingVertical: 12, paddingHorizontal: 6 , flexDirection: 'column', justifyContent: 'center', height: '50%'}}>
               {/* Title */}
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
                 <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>
