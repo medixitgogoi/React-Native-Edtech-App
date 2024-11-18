@@ -18,14 +18,14 @@ const Courses = () => {
 
     // Sample data
     const courses = [
-        { id: '1', title: 'Biology for class X', author: 'By Smith J.', files: '17 videos', time: '40 Mins', color: '#FFDAB9' },
-        { id: '2', title: 'Math for class IX', author: 'By Smith J.', files: '20 videos', time: '50 Mins', color: '#ADD8E6' },
-        { id: '3', title: 'Chemistry Basics', author: 'By John D.', files: '12 videos', time: '35 Mins', color: '#98FB98' },
-        { id: '4', title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 videos', time: '45 Mins', color: '#FFB6C1' },
-        { id: '5', title: 'History of Arts', author: 'By Alice K.', files: '10 videos', time: '30 Mins', color: '#E6E6FA' },
-        { id: '6', title: 'Geography: World Maps', author: 'By David P.', files: '15 videos', time: '40 Mins', color: '#FFE4B5' },
-        { id: '7', title: 'Introduction to Coding', author: 'By Emily W.', files: '25 videos', time: '60 Mins', color: '#AFEEEE' },
-        { id: '8', title: 'Environmental Studies', author: 'By Thomas B.', files: '14 videos', time: '38 Mins', color: '#F0E68C' },
+        { id: '1', title: 'Biology for class X', author: 'By Smith J.', files: '17 lectures', time: '40 Mins', color: '#FFDAB9' },
+        { id: '2', title: 'Math for class IX', author: 'By Smith J.', files: '20 lectures', time: '50 Mins', color: '#ADD8E6' },
+        { id: '3', title: 'Chemistry Basics', author: 'By John D.', files: '12 lectures', time: '35 Mins', color: '#98FB98' },
+        { id: '4', title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lectures', time: '45 Mins', color: '#FFB6C1' },
+        { id: '5', title: 'History of Arts', author: 'By Alice K.', files: '10 lectures', time: '30 Mins', color: '#E6E6FA' },
+        { id: '6', title: 'Geography: World Maps', author: 'By David P.', files: '15 lectures', time: '40 Mins', color: '#FFE4B5' },
+        { id: '7', title: 'Introduction to Coding', author: 'By Emily W.', files: '25 lectures', time: '60 Mins', color: '#AFEEEE' },
+        { id: '8', title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lectures', time: '38 Mins', color: '#F0E68C' },
     ];
 
     const cardItem = ({ item }) => {
@@ -57,11 +57,17 @@ const Courses = () => {
                         <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginRight: 8 }} />
 
                         {/* Text and icon */}
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ backgroundColor: '#f4c430', paddingVertical: 6, paddingHorizontal: 15, borderRadius: 16, alignItems: 'center', justifyContent: 'center', elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 }}>
+                            <Text style={{ fontSize: responsiveFontSize(1.5), fontWeight: '700', color: '#000', textAlign: 'center', letterSpacing: 1 }}>
+                                Exclusive Benefits
+                            </Text>
+                        </View>
+
+                        {/* <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <AntDesign name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginRight: 2 }} />
                             <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#999' }}>What you'll get</Text>
                             <AntDesign name="star" size={responsiveFontSize(2.1)} color={'#e5950c'} style={{ marginLeft: 2 }} />
-                        </View>
+                        </View> */}
 
                         {/* Right line */}
                         <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginLeft: 8 }} />
@@ -72,11 +78,11 @@ const Courses = () => {
                         {/* Subject Notes */}
                         <View style={{ alignItems: 'center' }}>
                             <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#0073c4'} />
-                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Notes</Text>
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Subject Notes</Text>
                         </View>
 
-                        {/* Topic Videos */}
-                        <View style={{ alignItems: 'center' }}>
+                        {/* Topic lectures with separators */}
+                        <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
                             <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#0073c4'} />
                             <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.files}</Text>
                         </View>
@@ -84,9 +90,10 @@ const Courses = () => {
                         {/* Subject PDFs */}
                         <View style={{ alignItems: 'center' }}>
                             <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#0073c4'} />
-                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>PDFs</Text>
+                            <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Subject PDFs</Text>
                         </View>
                     </View>
+
                 </TouchableOpacity>
 
                 {/* Time */}
