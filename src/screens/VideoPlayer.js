@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet, useWindowDimensions, ScrollView, Text } from "react-native";
+import { View, TouchableOpacity, StyleSheet, useWindowDimensions, ScrollView, Text, StatusBar } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Slider from "@react-native-community/slider";
@@ -68,6 +68,8 @@ export default function UtubeVideo() {
 
     return (
         <View style={{ flex: 1, backgroundColor: background, }}>
+            <StatusBar animated={true} backgroundColor={background} barStyle="dark-content" />
+
             {/* Header */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
