@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import VideoPlayer from '../screens/VideoPlayer';
 import Profile from '../screens/Profile';
 import EditProfile from '../screens/EditProfile';
-import Transactions from '../screens/Transactions';
+import Transactions from '../screens/Purchases';
 import EnrolledCourses from '../screens/EnrolledCourses';
 import CourseDetails from '../screens/CourseDetails';
 import DownloadPDF from '../screens/DownloadPDF';
@@ -17,6 +17,7 @@ import Courses from '../screens/Courses';
 import { darkBlue } from '../utils/colors';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { Text } from 'react-native';
+import Purchases from '../screens/Purchases';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,8 +35,8 @@ function BottomTabs() {
                         iconName = focused ? 'person' : 'person-outline';
                     } else if (route.name === 'Courses') {
                         iconName = focused ? 'book' : 'book-outline';
-                    } else if (route.name === 'Notifications') {
-                        iconName = focused ? 'notifications' : 'notifications-outline';
+                    } else if (route.name === 'Purchases') {
+                        iconName = focused ? 'cash' : 'cash-outline';
                     }
 
                     return <Icon name={iconName} size={20} color={color} />;
@@ -65,7 +66,7 @@ function BottomTabs() {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Courses" component={Courses} />
-            <Tab.Screen name="Notifications" component={Notifications} />
+            <Tab.Screen name="Purchases" component={Purchases} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );
@@ -78,7 +79,7 @@ function GuestNavigator() {
             <Stack.Screen name="Main" component={BottomTabs} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="VideoPlayer" component={VideoPlayer} />
-            <Stack.Screen name="Transactions" component={Transactions} />
+            <Stack.Screen name="Notifications" component={Notifications} />
             <Stack.Screen name="EnrolledCourses" component={EnrolledCourses} />
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="DownloadPDF" component={DownloadPDF} />
