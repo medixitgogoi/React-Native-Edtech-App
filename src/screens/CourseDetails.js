@@ -1,371 +1,52 @@
-import { StyleSheet, ScrollView, View, StatusBar, Image, Dimensions, Text, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';
-import Foundation from 'react-native-vector-icons/dist/Foundation';
+import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground, StyleSheet } from 'react-native';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { background, darkBlue, darkGreen, lightGreen } from '../utils/colors';
+import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
-import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
-import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
-import { responsiveFontSize } from "react-native-responsive-dimensions";
+import { useEffect, useRef, useState } from 'react';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { trending } from '../utils/trending';
+import LinearGradient from 'react-native-linear-gradient';
+
 const { width } = Dimensions.get('window');
 
-const CourseDetails = () => {
+const CourseDetails = ({ route }) => {
 
-    const [statusBarStyle, setStatusBarStyle] = useState('light-content');
+    const { data } = route.params;
+    console.log('title', data);
 
-    const backgroundColor = "#000";
     const navigation = useNavigation();
 
     return (
-        <View style={{ flex: 1, backgroundColor }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#000"
-                barStyle={statusBarStyle}
+                backgroundColor={background}
+                barStyle="dark-content"
             />
 
-            <View style={{
-                backgroundColor: backgroundColor,
-                paddingVertical: 4,
-                elevation: 1,
-                position: 'relative',
-                zIndex: 20,
-                height: 45,
-                paddingHorizontal: 10,
-                flexDirection: 'row',
-                alignItems: "center"
-            }}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Entypo
-                        style={{
-                            backgroundColor: 'rgba(160, 160, 160, 0.5)',
-                            padding: 2,
-                            fontSize: responsiveFontSize(3),
-                            color: "#fff",
-                            borderRadius: 50
-                        }}
-                        name="chevron-left" />
+            {/* Header */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 2, justifyContent: 'space-between' }}>
+                <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                    <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
 
-                <View style={{ marginLeft: 5 }}>
-                    <Text style={{
-                        fontSize: responsiveFontSize(2.7),
-                        color: "#fff",
-                    }}>
-                        Science
-                    </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{data}</Text>
+                </View>
+
+                <View style={{ width: 35, height: 35 }}>
+
                 </View>
             </View>
 
-            <ScrollView>
-                <View style={{ marginHorizontal: 13, marginTop: 10 }}>
-                    <View style={{ width: "100%", flexDirection: "row", gap: 5, alignItems: "center" }}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("DownloadPDF")}
-                            style={{ width: "50%" }}
-                        >
-                            <LinearGradient
-                                colors={['#4c669f', '#3b5998', '#192f6a']}
-                                style={{ width: "100%", borderRadius: 5, padding: 10, alignItems: "center" }}
-                            >
-                                <FontAwesome6 name="file-pdf"
-                                    style={{ fontSize: responsiveFontSize(3), }}
-                                />
-                                <Text
-                                    style={{
-                                        color: '#fff',
-                                        fontSize: responsiveFontSize(2),
-                                        fontWeight: "500",
-                                        paddingTop: 5
-                                    }}>Download </Text>
-                            </LinearGradient>
-
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ width: "50%" }}
-                            SubjuctsNote
-                        // onPress={()=>navigation.navigate("SubjuctsNote")}
-                        >
-                            <LinearGradient
-                                colors={['#4c669f', '#3b5998', '#192f6a']}
-                                style={{ width: "100%", borderRadius: 5, padding: 10, alignItems: "center" }}
-                            >
-                                <Foundation name="clipboard-notes"
-                                    style={{ fontSize: responsiveFontSize(3.5), }}
-                                />
-                                <Text
-                                    style={{
-                                        color: '#fff',
-                                        fontSize: responsiveFontSize(2),
-                                        fontWeight: "500",
-                                        paddingTop: 2
-                                    }}>Notes</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View style={{ marginTop: 15, marginLeft: 10, marginBottom: 15, flexDirection: 'row', alignItems: "center" }}>
-                    <View style={{
-                        backgroundColor: '#7e94f5',
-                        padding: 5,
-                        borderRadius: 10
-                    }}>
-                        <MaterialIcons
-                            style={{ fontSize: responsiveFontSize(2), color: "#fff" }}
-                            name="video-library"
-
-                        />
-                    </View>
-
-                    <Text style={{
-                        color: "#fff",
-                        fontSize: responsiveFontSize(2.5),
-                        fontWeight: "700",
-                        paddingLeft: 8
-                    }}>
-                        Science Tutorials List
-                    </Text>
-                </View>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("VideoPlayer")}
-                    style={{ marginHorizontal: 10 }}>
-                    <View style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                        padding: 10,
-                        borderRadius: 5
-                    }}>
-                        <View style={{ width: "25%", alignItems: "center" }}>
-
-                            <Image
-                                source={require('../assets/Chemicalreactions.png')}
-                                style={{ height: 70, width: 70 }}
-                            />
-                        </View>
-
-                        <View style={{ width: "70%" }}>
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(2),
-                                    fontWeight: "700",
-                                    paddingLeft: 8,
-                                    paddingTop: 5
-                                }}>
-                                    Introduction
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Chemical Reactions
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Science (English)
-                                </Text>
-                            </View>
-
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("VideoPlayer")}
-                    style={{ marginHorizontal: 10, marginTop: 2 }}>
-                    <View style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                        padding: 10,
-                        borderRadius: 5
-                    }}>
-                        <View style={{ width: "25%", alignItems: "center" }}>
-
-                            <Image
-                                source={require('../assets/Chemicalreactions.png')}
-                                style={{ height: 70, width: 70 }}
-                            />
-                        </View>
-
-                        <View style={{ width: "70%" }}>
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(2),
-                                    fontWeight: "700",
-                                    paddingLeft: 8,
-                                    paddingTop: 5
-                                }}>
-                                    Introduction
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Chemical Reactions
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Science (English)
-                                </Text>
-                            </View>
-
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("VideoPlayer")}
-                    style={{ marginHorizontal: 10, marginTop: 2 }}>
-                    <View style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                        padding: 10,
-                        borderRadius: 5
-                    }}>
-                        <View style={{ width: "25%", alignItems: "center" }}>
-
-                            <Image
-                                source={require('../assets/Chemicalreactions.png')}
-                                style={{ height: 70, width: 70 }}
-                            />
-                        </View>
-
-                        <View style={{ width: "70%" }}>
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(2),
-                                    fontWeight: "700",
-                                    paddingLeft: 8,
-                                    paddingTop: 5
-                                }}>
-                                    Introduction
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Chemical Reactions
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Science (English)
-                                </Text>
-                            </View>
-
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("VideoPlayer")}
-                    style={{ marginHorizontal: 10, marginTop: 2 }}>
-                    <View style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                        padding: 10,
-                        borderRadius: 5
-                    }}>
-                        <View style={{ width: "25%", alignItems: "center" }}>
-
-                            <Image
-                                source={require('../assets/Chemicalreactions.png')}
-                                style={{ height: 70, width: 70 }}
-                            />
-                        </View>
-
-                        <View style={{ width: "70%" }}>
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(2),
-                                    fontWeight: "700",
-                                    paddingLeft: 8,
-                                    paddingTop: 5
-                                }}>
-                                    Introduction
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Chemical Reactions
-                                </Text>
-                            </View>
-
-                            <View style={{}}>
-                                <Text style={{
-                                    color: "#fff",
-                                    fontSize: responsiveFontSize(1.8),
-                                    fontWeight: "300",
-                                    paddingLeft: 8,
-                                    paddingTop: 2
-                                }}>
-                                    Science (English)
-                                </Text>
-                            </View>
-
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </ScrollView>
-        </View>
+         
+        </SafeAreaView>
     );
 }
 

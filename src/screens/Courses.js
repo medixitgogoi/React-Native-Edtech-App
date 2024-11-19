@@ -43,7 +43,7 @@ const Courses = () => {
             >
                 <TouchableOpacity
                     style={{ overflow: 'hidden' }}
-                    onPress={() => navigation.navigate('CourseDetails')}
+                    onPress={() => navigation.navigate('CourseDetails', { data: item.title })}
                 >
                     {/* Title */}
                     <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.title}</Text>
