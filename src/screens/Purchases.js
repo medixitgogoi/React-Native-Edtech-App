@@ -3,19 +3,18 @@ import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import Entypo from 'react-native-vector-icons/dist/Entypo';
+import { background } from '../utils/colors';
 
 const Purchases = () => {
 
     const navigation = useNavigation();
-    const backgroundColor = "#000";
 
     return (
-        <View style={{ flex: 1, backgroundColor: backgroundColor }}>
+        <View style={{ flex: 1, backgroundColor: background }}>
             <StatusBar
                 animated={true}
-                backgroundColor={backgroundColor}
-                translucent={false}
-                barStyle={"light-content"}
+                backgroundColor={background}
+                barStyle="dark-content"
             />
 
             <View style={styles.header}>
