@@ -41,25 +41,25 @@ const CourseDetails = ({ route }) => {
                 padding: 12,
                 elevation: 1
             }}
-            onPress={() => navigation.navigate('VideoPlayer')}
+            onPress={() => navigation.navigate('VideoPlayer', { data: item.title })}
         >
             <View
                 style={{
-                    width: 50,
-                    height: 50,
+                    width: 45,
+                    height: 45,
                     borderRadius: 25,
                     backgroundColor: darkBlue,
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
             >
-                <AntDesign name="playcircleo" size={24} color="#fff" />
+                <AntDesign name="playcircleo" size={22} color="#fff" />
             </View>
             <View style={{ marginLeft: 10, flex: 1 }}>
                 <Text style={{ fontSize: responsiveFontSize(2), fontWeight: 'bold', color: darkBlue }}>
                     {item.title}
                 </Text>
-                <Text style={{ fontSize: responsiveFontSize(1.8), color: '#8b8b8b', fontWeight: '500' }}>{item.description}</Text>
+                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.description}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -85,11 +85,11 @@ const CourseDetails = ({ route }) => {
             <View style={{ marginTop: 5, marginBottom: 20 }}>
                 <Text
                     style={{
-                        fontSize: responsiveFontSize(2),
+                        fontSize: responsiveFontSize(1.9),
                         textAlign: 'center',
-                        color: '#555',
-                        fontWeight: '500'
-                        // fontStyle: 'italic',
+                        color: '#888',
+                        fontWeight: '500',
+                        width: '95%'
                     }}
                 >
                     Welcome to the detailed course breakdown. Access notes, videos, and resources below.
@@ -112,7 +112,7 @@ const CourseDetails = ({ route }) => {
                 </TouchableOpacity>
 
                 {/* Notes */}
-                <TouchableOpacity style={{ width: "48%", height: 65 }}>
+                <TouchableOpacity style={{ width: "48%", height: 65 }} onPress={() => navigation.navigate("Notes")}>
                     <LinearGradient
                         colors={['#4c669f', '#3b5998', '#192f6a']}
                         style={{ width: "100%", borderRadius: 12, padding: 10, alignItems: "center", flexDirection: 'column', justifyContent: 'center', height: '100%' }}

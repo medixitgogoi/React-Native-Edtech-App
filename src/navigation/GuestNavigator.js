@@ -18,6 +18,7 @@ import { darkBlue } from '../utils/colors';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { Text } from 'react-native';
 import Purchases from '../screens/Purchases';
+import Notes from '../screens/Notes';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -83,6 +84,7 @@ function GuestNavigator() {
             <Stack.Screen name="EnrolledCourses" component={EnrolledCourses} />
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="DownloadPDF" component={DownloadPDF} />
+            <Stack.Screen name="Notes" component={Notes} />
         </Stack.Navigator>
     );
 }
