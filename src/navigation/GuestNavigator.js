@@ -1,4 +1,3 @@
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,6 +14,9 @@ import DownloadPDF from '../screens/DownloadPDF';
 import Home from '../screens/Home';
 import Notifications from '../screens/Notifications';
 import Courses from '../screens/Courses';
+import { darkBlue } from '../utils/colors';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -23,7 +25,7 @@ function BottomTabs() {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
+                tabBarIcon: ({ focused, color }) => {
                     let iconName;
 
                     if (route.name === 'Home') {
@@ -36,11 +38,29 @@ function BottomTabs() {
                         iconName = focused ? 'notifications' : 'notifications-outline';
                     }
 
-                    return <Icon name={iconName} size={size} color={color} />;
+                    return <Icon name={iconName} size={20} color={color} />;
                 },
-                tabBarActiveTintColor: '#6200EE',
-                tabBarInactiveTintColor: 'gray',
+                tabBarActiveTintColor: darkBlue,
+                tabBarInactiveTintColor: '#000',
                 headerShown: false,
+                tabBarStyle: {
+                    height: 45, // Set the height of the tab bar
+                    paddingBottom: 10, // Adjust padding for label/icon alignment
+                    borderTopLeftRadius: 16,
+                    borderTopRightRadius: 16
+                },
+                tabBarLabel: ({ focused }) => (
+                    <Text
+                        style={{
+                            marginTop: -2, // Adjust gap between icon and label
+                            fontSize: responsiveFontSize(1.4), // Label font size
+                            fontWeight: focused ? '600' : '400', // Font weight on focus
+                            color: focused ? darkBlue : '#000',
+                        }}
+                    >
+                        {route.name}
+                    </Text>
+                ),
             })}
         >
             <Tab.Screen name="Home" component={Home} />
@@ -51,11 +71,10 @@ function BottomTabs() {
     );
 }
 
-
 // Bottom Tab Navigator
 function GuestNavigator() {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}>
             <Stack.Screen name="Main" component={BottomTabs} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="VideoPlayer" component={VideoPlayer} />
@@ -66,6 +85,5 @@ function GuestNavigator() {
         </Stack.Navigator>
     );
 }
-
 
 export default GuestNavigator;
