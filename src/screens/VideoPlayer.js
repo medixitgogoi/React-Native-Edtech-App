@@ -8,7 +8,9 @@ import LinearGradient from "react-native-linear-gradient";
 import { background, darkBlue } from "../utils/colors";
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 
-export default function UtubeVideo() {
+export default function VideoPlayer({ route }) {
+
+    const { data } = route.params;
 
     const navigation = useNavigation();
 
@@ -77,7 +79,7 @@ export default function UtubeVideo() {
                 </TouchableOpacity>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>Mathematics</Text>
+                    <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{data}</Text>
                 </View>
 
                 <View style={{ width: 35, height: 35 }}>
