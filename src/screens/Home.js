@@ -85,7 +85,7 @@ const HomeScreen = () => {
       >
         <TouchableOpacity
           style={{ overflow: 'hidden' }}
-          onPress={() => navigation.navigate('CourseDetails')}
+          onPress={() => navigation.navigate('CourseDetails', { data: item.title })}
         >
           {/* Title */}
           <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.title}</Text>
@@ -257,7 +257,7 @@ const HomeScreen = () => {
             </View>
 
             {/* Details */}
-            <View style={{ paddingVertical: 12, paddingHorizontal: 6 , flexDirection: 'column', justifyContent: 'center', height: '50%'}}>
+            <View style={{ paddingVertical: 12, paddingHorizontal: 6, flexDirection: 'column', justifyContent: 'center', height: '50%' }}>
               {/* Title */}
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 3, gap: 4, paddingHorizontal: 4 }}>
                 <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: 'bold', color: '#333' }}>{item.name}</Text>

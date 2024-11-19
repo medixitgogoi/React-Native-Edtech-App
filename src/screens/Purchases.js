@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, StatusBar, Dimensions, TouchableOpacity, FlatList, RefreshControl, Image, ActivityIndicator } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, View, StatusBar, Dimensions, TouchableOpacity, FlatList, RefreshControl, Image, ActivityIndicator } from 'react-native';
+import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import Entypo from 'react-native-vector-icons/dist/Entypo';
