@@ -124,7 +124,7 @@ const CourseDetails = ({ route }) => {
             </View>
 
             {/* Sections */}
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 20, flex: 1, paddingBottom: 20 }}>
                 {/* Topic Videos */}
                 <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: 'bold', color: '#000', marginBottom: 10 }}>
                     Topic Videos
