@@ -108,10 +108,10 @@ const Courses = () => {
     return (
         <View style={{ flex: 1, backgroundColor: background, }}>
             {/* Header */}
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
-                <View style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
+                <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
-                </View>
+                </TouchableOpacity>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>All Courses</Text>
@@ -120,7 +120,7 @@ const Courses = () => {
                 <View style={{ width: 35, height: 35 }}>
 
                 </View>
-            </TouchableOpacity>
+            </View>
 
             <ScrollView style={{ paddingHorizontal: 12, flex: 1 }}>
                 {/* Explore */}
