@@ -18,7 +18,6 @@ const { width } = Dimensions.get('window');
 const CourseDetails = ({ route }) => {
 
     const { data } = route.params;
-    console.log('title', data);
 
     const navigation = useNavigation();
 
@@ -31,7 +30,7 @@ const CourseDetails = ({ route }) => {
             />
 
             {/* Header */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 2, justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 3, justifyContent: 'space-between' }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
@@ -45,7 +44,9 @@ const CourseDetails = ({ route }) => {
                 </View>
             </View>
 
-         
+            <View>
+
+            </View>
         </SafeAreaView>
     );
 }
@@ -53,40 +54,4 @@ const CourseDetails = ({ route }) => {
 export default CourseDetails;
 
 const styles = StyleSheet.create({
-    scrollView: {
-        width: '100%',
-    },
-    image: {
-        width: width - 20,
-        height: 180,
-        borderRadius: 5,
-        marginHorizontal: 10,
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    imageContainer: {
-        width: width * 0.7,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    imagess: {
-        width: width * 0.7,
-        height: width * 0.7,
-        resizeMode: 'contain',
-        borderRadius: 5,
-    },
-    dotContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 10,
-    },
-    dot: {
-        height: 8,
-        width: 8,
-        borderRadius: 4,
-        marginHorizontal: 4,
-    },
 });

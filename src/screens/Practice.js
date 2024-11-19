@@ -306,3 +306,40 @@
         </View>
     </TouchableOpacity>
 </ScrollView>
+
+// scrollView: {
+//     width: '100%',
+//     },
+// image: {
+//     width: width - 20,
+//         height: 180,
+//             borderRadius: 5,
+//                 marginHorizontal: 10,
+//     },
+// container: {
+//     flex: 1,
+//         justifyContent: 'center',
+//             alignItems: 'center',
+//     },
+// imageContainer: {
+//     width: width * 0.7,
+//         justifyContent: 'center',
+//             alignItems: 'center',
+//     },
+// imagess: {
+//     width: width * 0.7,
+//         height: width * 0.7,
+//             resizeMode: 'contain',
+//                 borderRadius: 5,
+//     },
+// dotContainer: {
+//     flexDirection: 'row',
+//         justifyContent: 'center',
+//             marginTop: 10,
+//     },
+// dot: {
+//     height: 8,
+//         width: 8,
+//             borderRadius: 4,
+//                 marginHorizontal: 4,
+//     },
