@@ -10,10 +10,10 @@ import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { responsiveFontSize } from "react-native-responsive-dimensions";
+import { background } from '../utils/colors';
 
 const Profile = () => {
 
-    const backgroundColor = "#000";
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const slideAnim = useRef(new Animated.Value(-300)).current;
     const navigation = useNavigation();
@@ -33,14 +33,14 @@ const Profile = () => {
     }, [fadeAnim, slideAnim]);
 
     return (
-        <View style={{ flex: 1, backgroundColor: backgroundColor }}>
+        <View style={{ flex: 1, backgroundColor: background }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#0d1116"
+                backgroundColor={background}
             />
 
             <View style={{
-                backgroundColor: backgroundColor,
+                backgroundColor: background,
                 paddingVertical: 4,
                 elevation: 1,
                 position: 'relative',
