@@ -31,7 +31,7 @@ const lectures = [
     { id: '20', title: 'Lecture 20: Integrating Third-party Libraries', subtitle: 'Adding libraries and understanding linking' },
 ];
 
-const ViewPdf = () => {
+const ViewPdf = ({ navigation }) => {
 
     const renderLecture = ({ item }) => (
         <TouchableOpacity

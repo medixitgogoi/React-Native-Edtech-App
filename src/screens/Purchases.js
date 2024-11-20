@@ -5,8 +5,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
 import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
-import { darkBlue, lightBlue } from '../utils/colors';
+import { background, darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const purchases = [
     { id: '1', name: 'React Basics', lectures: 20, notes: 'Yes', expiry: '2024-12-31', progress: 75 },
@@ -31,49 +32,72 @@ const Purchases = () => {
             style={{
                 padding: 15,
                 marginVertical: 10,
-                marginHorizontal: 10,
-                backgroundColor: lightBlue,
-                borderRadius: 10,
-                elevation: 2
+                backgroundColor: '#f0f8ff',
+                borderRadius: 14,
+                elevation: 3,
             }}
         >
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: darkBlue }}>{item.name}</Text>
-            <Text style={{ fontSize: 14, color: '#555' }}>Lectures: {item.lectures}</Text>
-            <Text style={{ fontSize: 14, color: '#555' }}>Notes: {item.notes}</Text>
-            <Text style={{ fontSize: 14, color: '#555' }}>Expiry: {item.expiry}</Text>
-
-            {/* Progress Bar */}
-            <View
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                    height: 8,
-                    backgroundColor: '#e0e0e0',
-                    borderRadius: 4
-                }}
-            >
-                <View
-                    style={{
-                        width: `${item.progress}%`,
-                        backgroundColor: 'green',
-                        height: '100%',
-                        borderRadius: 4
-                    }}
-                />
+            {/* Course Header */}
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#0047ab' }}>{item.name}</Text>
+                <Icon name="book" size={24} color="#0047ab" />
             </View>
 
-            <Text style={{ fontSize: 12, color: '#555', marginTop: 5 }}>
-                Time Left: {100 - item.progress}%
-            </Text>
+            {/* Details Section */}
+            <View style={{ marginTop: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                    <Icon name="collections-bookmark" size={18} color="#555" />
+                    <Text style={{ fontSize: 14, color: '#555', marginLeft: 5 }}>Lectures: {item.lectures}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                    <Icon name="note" size={18} color="#555" />
+                    <Text style={{ fontSize: 14, color: '#555', marginLeft: 5 }}>Notes: {item.notes}</Text>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
+                    <Icon name="date-range" size={18} color="#555" />
+                    <Text style={{ fontSize: 14, color: '#555', marginLeft: 5 }}>Expiry: {item.expiry}</Text>
+                </View>
+            </View>
+
+            {/* Progress Bar */}
+            <View style={{ marginTop: 10 }}>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginBottom: 5,
+                        height: 8,
+                        backgroundColor: '#e0e0e0',
+                        borderRadius: 4,
+                    }}
+                >
+                    <View
+                        style={{
+                            width: `${item.progress}%`,
+                            backgroundColor: '#32cd32',
+                            height: '100%',
+                            borderRadius: 4,
+                        }}
+                    />
+                </View>
+                <Text style={{ fontSize: 12, color: '#555' }}>Progress: {item.progress}%</Text>
+            </View>
+
+            {/* Time Left */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                <Icon name="access-time" size={18} color="#555" />
+                <Text style={{ fontSize: 12, color: '#555', marginLeft: 5 }}>
+                    Time Left: {100 - item.progress}%
+                </Text>
+            </View>
         </View>
     );
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#fff"
+                backgroundColor={background}
                 barStyle="dark-content"
             />
 
@@ -86,23 +110,11 @@ const Purchases = () => {
                 <View style={{ width: 35, height: 35 }} />
             </View>
 
-            <Text
-                style={{
-                    fontSize: 22,
-                    fontWeight: '600',
-                    color: darkBlue,
-                    textAlign: 'center',
-                    marginBottom: 20
-                }}
-            >
-                Purchases
-            </Text>
-
             <FlatList
                 data={purchases}
                 renderItem={renderCourse}
                 keyExtractor={(item) => item.id}
-                contentContainerStyle={{ paddingBottom: 20 }}
+                contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 1 }}
             />
         </SafeAreaView>
     );
