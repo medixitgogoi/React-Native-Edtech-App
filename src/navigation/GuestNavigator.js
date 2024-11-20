@@ -16,7 +16,7 @@ import Notifications from '../screens/Notifications';
 import Courses from '../screens/Courses';
 import Purchases from '../screens/Purchases';
 import Notes from '../screens/Notes';
-import ViewPdf from '../screens/ViewPDF';
+import ViewPdf from '../screens/ViewPdf';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

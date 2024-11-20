@@ -35,7 +35,7 @@ const CourseDetails = ({ route }) => {
                 alignItems: 'center',
                 backgroundColor: lightBlue,
                 borderRadius: 12,
-                padding: 12,
+                padding: 14,
                 elevation: 1
             }}
             onPress={() => navigation.navigate('VideoPlayer', { data: item.title })}
@@ -52,6 +52,7 @@ const CourseDetails = ({ route }) => {
             >
                 <AntDesign name="playcircleo" size={22} color="#fff" />
             </View>
+
             <View style={{ marginLeft: 10, flex: 1 }}>
                 <Text style={{ fontSize: responsiveFontSize(2), fontWeight: 'bold', color: darkBlue }}>
                     {item.title}
@@ -70,7 +71,7 @@ const CourseDetails = ({ route }) => {
             />
 
             {/* Header */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, justifyContent: 'space-between' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between' }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
