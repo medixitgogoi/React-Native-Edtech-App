@@ -1,21 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { darkBlue } from '../utils/colors';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import { Text } from 'react-native';
 
 // Import your screen components
 import VideoPlayer from '../screens/VideoPlayer';
 import Profile from '../screens/Profile';
 import EditProfile from '../screens/EditProfile';
-import Transactions from '../screens/Purchases';
 import EnrolledCourses from '../screens/EnrolledCourses';
 import CourseDetails from '../screens/CourseDetails';
 import Home from '../screens/Home';
 import Notifications from '../screens/Notifications';
 import Courses from '../screens/Courses';
-import { darkBlue } from '../utils/colors';
-import { responsiveFontSize } from 'react-native-responsive-dimensions';
-import { Text } from 'react-native';
 import Purchases from '../screens/Purchases';
 import Notes from '../screens/Notes';
 import ViewPdf from '../screens/ViewPDF';

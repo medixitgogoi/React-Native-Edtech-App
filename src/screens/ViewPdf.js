@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 const ViewPDF = () => {
     return (
         <View>
-            <Text style={{ color: '#000' }}>ViewPDF</Text>
+            <Text style={{ color: '#000' }}>ViewPDuyyyF</Text>
         </View>
     )
 }
