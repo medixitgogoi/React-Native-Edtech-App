@@ -11,21 +11,21 @@ import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const purchases = [
-    { id: '1', name: 'React Basics', lectures: 20, notes: 'Yes', expiry: '2024-12-31', progress: 75, price: 2499 },
-    { id: '2', name: 'Advanced React', lectures: 30, notes: 'No', expiry: '2025-01-15', progress: 50, price: 3999 },
-    { id: '3', name: 'React Native', lectures: 25, notes: 'Yes', expiry: '2025-02-10', progress: 30, price: 2999 },
-    { id: '4', name: 'Node.js Essentials', lectures: 18, notes: 'Yes', expiry: '2024-11-30', progress: 80, price: 2999 },
-    { id: '5', name: 'Express.js Advanced', lectures: 22, notes: 'No', expiry: '2024-12-15', progress: 65, price: 3499 },
-    { id: '6', name: 'JavaScript Mastery', lectures: 40, notes: 'Yes', expiry: '2025-01-05', progress: 55, price: 4999 },
-    { id: '7', name: 'HTML & CSS Fundamentals', lectures: 15, notes: 'Yes', expiry: '2024-12-01', progress: 95, price: 1999 },
-    { id: '8', name: 'TypeScript Deep Dive', lectures: 35, notes: 'No', expiry: '2025-02-20', progress: 40, price: 3999 },
-    { id: '9', name: 'Next.js Full Stack', lectures: 28, notes: 'Yes', expiry: '2025-01-25', progress: 20, price: 4499 },
-    { id: '10', name: 'Redux State Management', lectures: 16, notes: 'No', expiry: '2025-01-10', progress: 70, price: 3499 },
-    { id: '11', name: 'REST APIs with Express', lectures: 21, notes: 'Yes', expiry: '2025-02-05', progress: 35, price: 3799 },
-    { id: '12', name: 'React Testing Library', lectures: 12, notes: 'No', expiry: '2024-12-20', progress: 90, price: 2199 },
+    { id: '1', name: 'React Basics', lectures: 20, notes: '17 files', expiry: '2024-12-31', progress: 75, price: 2499 },
+    { id: '2', name: 'Advanced React', lectures: 30, notes: '14 files', expiry: '2025-01-15', progress: 50, price: 3999 },
+    { id: '3', name: 'React Native', lectures: 25, notes: '17 files', expiry: '2025-02-10', progress: 30, price: 2999 },
+    { id: '4', name: 'Node.js Essentials', lectures: 18, notes: '11 files', expiry: '2024-11-30', progress: 80, price: 2999 },
+    { id: '5', name: 'Express.js Advanced', lectures: 22, notes: '7 files', expiry: '2024-12-15', progress: 65, price: 3499 },
+    { id: '6', name: 'JavaScript Mastery', lectures: 40, notes: '8 files', expiry: '2025-01-05', progress: 55, price: 4999 },
+    { id: '7', name: 'HTML & CSS Fundamentals', lectures: 15, notes: '14 files', expiry: '2024-12-01', progress: 95, price: 1999 },
+    { id: '8', name: 'TypeScript Deep Dive', lectures: 35, notes: '18 iles', expiry: '2025-02-20', progress: 40, price: 3999 },
+    { id: '9', name: 'Next.js Full Stack', lectures: 28, notes: '10 files', expiry: '2025-01-25', progress: 20, price: 4499 },
+    { id: '10', name: 'Redux State Management', lectures: 16, notes: '12 files', expiry: '2025-01-10', progress: 70, price: 3499 },
+    { id: '11', name: 'REST APIs with Express', lectures: 21, notes: '13 files filess', expiry: '2025-02-05', progress: 35, price: 3799 },
+    { id: '12', name: 'React Testing Library', lectures: 12, notes: '17 files', expiry: '2024-12-20', progress: 90, price: 2199 },
 ];
 
-const Purchases = () => {
+const Purchases = ({ navigation }) => {
 
     const renderCourse = ({ item }) => (
         <View style={{ padding: 20, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 29, borderLeftColor: '#0066cc' }}>

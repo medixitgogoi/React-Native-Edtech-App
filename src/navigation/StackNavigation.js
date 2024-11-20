@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import GuestNavigator from "./GuestNavigator";
@@ -8,7 +7,8 @@ import { background } from '../utils/colors';
 // axios.defaults.baseURL = 'https://admin.skercart.com/api/';
 
 const StackNavigation = () => {
-    const isUserLoggedIn = true;
+
+    // const isUserLoggedIn = true;
 
     return (
         <>
@@ -19,11 +19,11 @@ const StackNavigation = () => {
             />
 
             <NavigationContainer>
-                {isUserLoggedIn ? (
-                    <GuestNavigator />
+                <GuestNavigator />
+                {/* {isUserLoggedIn ? (
                 ) : (
-                    <AuthNavigator initialRoute="Login" />
-                )}
+                    <AuthNavigator />
+                )} */}
             </NavigationContainer>
         </>
     );

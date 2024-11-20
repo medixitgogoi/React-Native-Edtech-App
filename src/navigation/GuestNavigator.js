@@ -17,6 +17,10 @@ import Courses from '../screens/Courses';
 import Purchases from '../screens/Purchases';
 import Notes from '../screens/Notes';
 import ViewPdf from '../screens/ViewPdf';
+import Login from '../auth/Login';
+import Signup from '../auth/Signup';
+import OtpVerification from '../auth/OtpVerification';
+import ForgotPassword from '../auth/ForgotPassword';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -83,6 +87,10 @@ function GuestNavigator() {
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="ViewPdf" component={ViewPdf} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="SignUp" component={Signup} />
+            <Stack.Screen name="OtpVerification" component={OtpVerification} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         </Stack.Navigator>
     );
 }

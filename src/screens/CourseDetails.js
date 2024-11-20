@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const CourseDetails = ({ route }) => {
 
-    const { data } = route.params; // Course data
+    const { data } = route.params;
 
     const navigation = useNavigation();
 
@@ -84,6 +84,12 @@ const CourseDetails = ({ route }) => {
                 <Text style={{ fontSize: responsiveFontSize(1.9), textAlign: 'center', color: '#888', fontWeight: '500', width: '95%', }}>Welcome to the detailed course breakdown. Access notes, videos, and resources below</Text>
             </View>
 
+            <View>
+                <TouchableOpacity style={{ backgroundColor: '#000', padding: 5, borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row' }} onPress={() => navigation.navigate('Login')}>
+                    <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(2.1) }}>Log in</Text>
+                </TouchableOpacity>
+            </View>
+
             {/* Resources */}
             <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: 'bold', color: '#000', marginBottom: 8 }}>Resources</Text>
 
@@ -126,6 +132,8 @@ const CourseDetails = ({ route }) => {
                     contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
                 />
             </View>
+
+
         </SafeAreaView>
     );
 };
