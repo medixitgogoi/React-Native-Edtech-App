@@ -88,7 +88,7 @@ const CourseDetails = ({ route }) => {
 
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
                 {/* View */}
-                <TouchableOpacity onPress={() => navigation.navigate("DownloadPDF")} style={{ width: "48%", height: 65 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("ViewPdf")} style={{ width: "48%", height: 65 }}>
                     <LinearGradient
                         colors={['#4c669f', '#3b5998', '#192f6a']}
                         style={{ width: "100%", borderRadius: 12, padding: 10, alignItems: "center", flexDirection: 'column', justifyContent: 'center', height: '100%' }}

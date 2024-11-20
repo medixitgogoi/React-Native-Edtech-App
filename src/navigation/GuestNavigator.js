@@ -10,7 +10,6 @@ import EditProfile from '../screens/EditProfile';
 import Transactions from '../screens/Purchases';
 import EnrolledCourses from '../screens/EnrolledCourses';
 import CourseDetails from '../screens/CourseDetails';
-import DownloadPDF from '../screens/DownloadPDF';
 import Home from '../screens/Home';
 import Notifications from '../screens/Notifications';
 import Courses from '../screens/Courses';
@@ -19,6 +18,7 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { Text } from 'react-native';
 import Purchases from '../screens/Purchases';
 import Notes from '../screens/Notes';
+import ViewPdf from '../screens/ViewPDF';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -83,7 +83,7 @@ function GuestNavigator() {
             <Stack.Screen name="Notifications" component={Notifications} />
             <Stack.Screen name="EnrolledCourses" component={EnrolledCourses} />
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
-            <Stack.Screen name="DownloadPDF" component={DownloadPDF} />
+            <Stack.Screen name="ViewPdf" component={ViewPdf} />
             <Stack.Screen name="Notes" component={Notes} />
         </Stack.Navigator>
     );
