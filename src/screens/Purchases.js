@@ -28,7 +28,7 @@ const purchases = [
 const Purchases = () => {
 
     const renderCourse = ({ item }) => (
-        <View style={{ padding: 20, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 4, borderLeftColor: '#0066cc' }}>
+        <View style={{ padding: 20, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 29, borderLeftColor: '#0066cc' }}>
             {/* Header */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 }}>
                 <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#0066cc' }}>{item.name}</Text>
