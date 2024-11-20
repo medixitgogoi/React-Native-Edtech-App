@@ -63,7 +63,7 @@ const CourseDetails = ({ route }) => {
     );
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
+        <ScrollView style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
                 backgroundColor="#fff"
@@ -82,12 +82,6 @@ const CourseDetails = ({ route }) => {
             {/* Headline */}
             <View style={{ marginTop: 5, marginBottom: 20 }}>
                 <Text style={{ fontSize: responsiveFontSize(1.9), textAlign: 'center', color: '#888', fontWeight: '500', width: '95%', }}>Welcome to the detailed course breakdown. Access notes, videos, and resources below</Text>
-            </View>
-
-            <View>
-                <TouchableOpacity style={{ backgroundColor: '#000', padding: 5, borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row' }} onPress={() => navigation.navigate('Login')}>
-                    <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(2.1) }}>Log in</Text>
-                </TouchableOpacity>
             </View>
 
             {/* Resources */}
@@ -133,8 +127,12 @@ const CourseDetails = ({ route }) => {
                 />
             </View>
 
-
-        </SafeAreaView>
+            <View style={{ marginVertical: 20 }}>
+                <TouchableOpacity style={{ backgroundColor: '#000', padding: 5, borderRadius: 8, alignSelf: 'center', width: '50%' }} onPress={() => navigation.navigate('Login')}>
+                    <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(1.9) }}>Log in</Text>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
     );
 };
 
