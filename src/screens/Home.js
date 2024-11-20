@@ -70,6 +70,7 @@ const HomeScreen = () => {
     scrollViewRef.current.scrollTo({ x: index * width, animated: true });
   };
 
+  // Card
   const cardItem = ({ item }) => {
     return (
       <LinearGradient
@@ -151,8 +152,8 @@ const HomeScreen = () => {
       {/* Header */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-          <View style={{ width: responsiveWidth(8), aspectRatio: 1 / 1, borderColor: '#fff', borderWidth: 1, borderRadius: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 2 }}>
-            <Image source={require('../assets/person.png')} style={{ width: '100%', height: '100%' }} />
+          <View style={{ width: responsiveWidth(8), height: responsiveHeight(4), borderColor: darkBlue, borderWidth: 1, padding: 2, borderRadius: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            <Image source={require('../assets/user2.png')} style={{ width: '100%', height: '100%', borderRadius: 40 }} />
           </View>
 
           <View style={{ flexDirection: 'column' }}>
