@@ -5,14 +5,10 @@ import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dim
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { backIconColor, darkGreen, offWhite } from '../utils/colors';
+import { backIconColor, darkBlue, darkGreen, lightBlue, offWhite } from '../utils/colors';
 import { useState, useRef, useEffect } from 'react';
 import Toast from 'react-native-toast-message';
-import { blue1 } from '../utils/colors';
-import { blue2 } from '../utils/colors';
-import { blue3 } from '../utils/colors';
-// import axios from 'axios';
-// import Toast from 'react-native-toast-message';
+
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -256,19 +252,19 @@ const OtpVerification = ({ route }) => {
                                     <Text style={{ color: '#000', fontSize: responsiveFontSize(2.5), fontWeight: '700', textAlign: 'center' }}>Enter Your Mobile Number</Text>
                                     <Text style={{ color: '#bdbdbd', fontSize: responsiveFontSize(1.9), fontWeight: '500', textAlign: 'center' }}>We'll send a confirmation code to verify it's really you</Text>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 30 }}>
-                                        <View style={{ height: 45, flex: 0.14, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: blue2 }}>
+                                        <View style={{ height: 45, flex: 0.14, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: darkBlue }}>
                                             <Text style={{ color: '#fff', fontWeight: '700', fontSize: responsiveFontSize(2) }}>+91</Text>
                                         </View>
                                         <View style={{ flex: 0.82 }}>
                                             <TextInput
-                                                style={{ height: 45, borderColor: isMobileFocused ? blue1 : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.9), color: '#fff', backgroundColor: '#1c1c1c', }}
+                                                style={{ height: 45, borderColor: isMobileFocused ? darkBlue : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.9), color: '#fff', backgroundColor: '#1c1c1c', }}
                                                 placeholder="Enter Phone Number"
                                                 keyboardType="numeric"
                                                 maxLength={10}
                                                 value={mobileNumber}
                                                 onChangeText={setMobileNumber}
                                                 placeholderTextColor="#666"
-                                                selectionColor={blue1}  // Sets the cursor color to black
+                                                selectionColor={lightBlue}  // Sets the cursor color to black
                                                 onFocus={() => setIsMobileFocused(true)}
                                                 onBlur={() => setIsMobileFocused(false)}
                                             />
@@ -278,7 +274,7 @@ const OtpVerification = ({ route }) => {
 
                                 {/* Send OTP button */}
                                 <LinearGradient
-                                    colors={[blue1, blue3]}
+                                    colors={[lightBlue, '#000']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, marginTop: 35, width: '95%', }}
@@ -320,7 +316,7 @@ const OtpVerification = ({ route }) => {
                                                 height: 45,
                                                 borderWidth: 1.8,
                                                 borderRadius: 10,
-                                                borderColor: blue2,
+                                                borderColor: darkBlue,
                                                 textAlign: 'center',
                                                 fontSize: 18,
                                                 marginHorizontal: 10,
@@ -338,7 +334,7 @@ const OtpVerification = ({ route }) => {
 
                                 {/* Verify button */}
                                 <LinearGradient
-                                    colors={[blue1, blue3]}
+                                    colors={[lightBlue, '#000']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, marginTop: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
@@ -367,7 +363,7 @@ const OtpVerification = ({ route }) => {
                                         disabled={isResendDisabled}
                                     >
                                         <Text style={{
-                                            color: isResendDisabled ? '#fff' : blue1,
+                                            color: isResendDisabled ? '#fff' : lightBlue,
                                             fontSize: responsiveFontSize(1.7),
                                             fontWeight: isResendDisabled ? '400' : '600',
                                             textTransform: isResendDisabled ? '' : 'uppercase',

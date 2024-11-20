@@ -6,16 +6,12 @@ import Icon from 'react-native-vector-icons/dist/Feather';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { backIconColor, blue1, blue2, blue3, darkGreen, offWhite } from '../utils/colors';
+import { lightBlue } from '../utils/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useState } from 'react';
 import Toast from 'react-native-toast-message';
-// import axios from 'axios';
 
 const ForgotPassword = ({ route }) => {
-
-    // const mobileNumber = route.params.mobile;
-    // const otp = route?.params?.otp;
 
     const navigation = useNavigation();
 
@@ -145,7 +141,7 @@ const ForgotPassword = ({ route }) => {
                                 borderRadius: 8,
                                 fontSize: responsiveFontSize(1.8),
                                 marginBottom: 25,
-                                borderColor: isPasswordFocused ? blue1 : '',
+                                borderColor: isPasswordFocused ? lightBlue : '',
                                 borderWidth: isPasswordFocused ? 1 : 0,
                             }}
                             onFocus={() => setIsPasswordFocused(true)}
@@ -168,7 +164,7 @@ const ForgotPassword = ({ route }) => {
                                 borderRadius: 8,
                                 fontSize: responsiveFontSize(1.8),
                                 marginBottom: 10,
-                                borderColor: isConfirmPasswordFocused ? blue1 : '',
+                                borderColor: isConfirmPasswordFocused ? lightBlue : '',
                                 borderWidth: isConfirmPasswordFocused ? 1 : 0,
                             }}
                             onFocus={() => setIsConfirmPasswordFocused(true)}
@@ -177,7 +173,7 @@ const ForgotPassword = ({ route }) => {
 
                         {/* Update Password button */}
                         <LinearGradient
-                            colors={[blue1, blue3]}
+                            colors={[lightBlue, '#fff']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -204,7 +200,7 @@ const ForgotPassword = ({ route }) => {
                         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 8, alignItems: 'flex-end' }}>
                             <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.7), fontWeight: '500' }}>Already have an account? </Text>
                             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                                <Text style={{ color: blue1, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
+                                <Text style={{ color: lightBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
