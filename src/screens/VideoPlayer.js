@@ -11,6 +11,7 @@ import { responsiveFontSize } from "react-native-responsive-dimensions";
 export default function VideoPlayer({ route }) {
 
     const { data } = route.params;
+    console.log('data', data);
 
     const navigation = useNavigation();
 

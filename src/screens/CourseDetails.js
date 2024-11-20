@@ -5,11 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
 import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
 import { darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
-
-const { width } = Dimensions.get('window');
 
 const CourseDetails = ({ route }) => {
 
@@ -83,17 +80,7 @@ const CourseDetails = ({ route }) => {
 
             {/* Headline */}
             <View style={{ marginTop: 5, marginBottom: 20 }}>
-                <Text
-                    style={{
-                        fontSize: responsiveFontSize(1.9),
-                        textAlign: 'center',
-                        color: '#888',
-                        fontWeight: '500',
-                        width: '95%'
-                    }}
-                >
-                    Welcome to the detailed course breakdown. Access notes, videos, and resources below.
-                </Text>
+                <Text style={{ fontSize: responsiveFontSize(1.9), textAlign: 'center', color: '#888', fontWeight: '500', width: '95%', }}>Welcome to the detailed course breakdown. Access notes, videos, and resources below</Text>
             </View>
 
             {/* Resources */}

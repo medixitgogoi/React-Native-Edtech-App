@@ -238,7 +238,7 @@ const HomeScreen = () => {
         horizontal
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("VideoPlayer")} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.3, borderRadius: 12, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
+          <TouchableOpacity onPress={() => navigation.navigate('VideoPlayer', { data: item.name })} style={{ width: responsiveWidth(41), aspectRatio: 1 / 1.3, borderRadius: 12, overflow: 'hidden', backgroundColor: '#f9f9f9', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, elevation: 2 }}>
             {/* Image */}
             <View style={{ backgroundColor: '#fff', height: '50%', borderBottomRightRadius: 10, overflow: 'hidden', borderBottomLeftRadius: 10 }}>
               <Image
