@@ -1,109 +1,111 @@
-import { StyleSheet, Text, View, StatusBar, Dimensions, TouchableOpacity, FlatList, RefreshControl, Image, ActivityIndicator } from 'react-native';
-import { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, FlatList, StatusBar, Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
+import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
-import { responsiveFontSize } from "react-native-responsive-dimensions";
-import Entypo from 'react-native-vector-icons/dist/Entypo';
-import { background } from '../utils/colors';
+import { darkBlue, lightBlue } from '../utils/colors';
+import LinearGradient from 'react-native-linear-gradient';
+
+const purchases = [
+    { id: '1', name: 'React Basics', lectures: 20, notes: 'Yes', expiry: '2024-12-31', progress: 75 },
+    { id: '2', name: 'Advanced React', lectures: 30, notes: 'No', expiry: '2025-01-15', progress: 50 },
+    { id: '3', name: 'React Native', lectures: 25, notes: 'Yes', expiry: '2025-02-10', progress: 30 },
+    { id: '4', name: 'Node.js Essentials', lectures: 18, notes: 'Yes', expiry: '2024-11-30', progress: 80 },
+    { id: '5', name: 'Express.js Advanced', lectures: 22, notes: 'No', expiry: '2024-12-15', progress: 65 },
+    { id: '6', name: 'JavaScript Mastery', lectures: 40, notes: 'Yes', expiry: '2025-01-05', progress: 55 },
+    { id: '7', name: 'HTML & CSS Fundamentals', lectures: 15, notes: 'Yes', expiry: '2024-12-01', progress: 95 },
+    { id: '8', name: 'TypeScript Deep Dive', lectures: 35, notes: 'No', expiry: '2025-02-20', progress: 40 },
+    { id: '9', name: 'Next.js Full Stack', lectures: 28, notes: 'Yes', expiry: '2025-01-25', progress: 20 },
+    { id: '10', name: 'Redux State Management', lectures: 16, notes: 'No', expiry: '2025-01-10', progress: 70 },
+    { id: '11', name: 'REST APIs with Express', lectures: 21, notes: 'Yes', expiry: '2025-02-05', progress: 35 },
+    { id: '12', name: 'React Testing Library', lectures: 12, notes: 'No', expiry: '2024-12-20', progress: 90 },
+];
+
 
 const Purchases = () => {
 
-    const navigation = useNavigation();
+    const renderCourse = ({ item }) => (
+        <View
+            style={{
+                padding: 15,
+                marginVertical: 10,
+                marginHorizontal: 10,
+                backgroundColor: lightBlue,
+                borderRadius: 10,
+                elevation: 2
+            }}
+        >
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: darkBlue }}>{item.name}</Text>
+            <Text style={{ fontSize: 14, color: '#555' }}>Lectures: {item.lectures}</Text>
+            <Text style={{ fontSize: 14, color: '#555' }}>Notes: {item.notes}</Text>
+            <Text style={{ fontSize: 14, color: '#555' }}>Expiry: {item.expiry}</Text>
+
+            {/* Progress Bar */}
+            <View
+                style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                    height: 8,
+                    backgroundColor: '#e0e0e0',
+                    borderRadius: 4
+                }}
+            >
+                <View
+                    style={{
+                        width: `${item.progress}%`,
+                        backgroundColor: 'green',
+                        height: '100%',
+                        borderRadius: 4
+                    }}
+                />
+            </View>
+
+            <Text style={{ fontSize: 12, color: '#555', marginTop: 5 }}>
+                Time Left: {100 - item.progress}%
+            </Text>
+        </View>
+    );
 
     return (
-        <View style={{ flex: 1, backgroundColor: background }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
-                backgroundColor={background}
+                backgroundColor="#fff"
                 barStyle="dark-content"
             />
 
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Entypo
-                        style={styles.backButton}
-                        name="chevron-left" />
+            {/* Header */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between' }}>
+                <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                    <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
-                <Text style={styles.headerText}>Transactions</Text>
+                <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>Your purchases</Text>
+                <View style={{ width: 35, height: 35 }} />
             </View>
 
-            <View style={{ backgroundColor: 'rgba(166, 166, 166, 0.6)', padding: 10, marginTop: 5, marginHorizontal: 10, borderRadius: 9 }}>
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "500" }}>
-                        Transaction Amount :
-                    </Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "600", paddingRight: 10 }}>
-                        250.00
-                    </Text>
-                </View>
+            <Text
+                style={{
+                    fontSize: 22,
+                    fontWeight: '600',
+                    color: darkBlue,
+                    textAlign: 'center',
+                    marginBottom: 20
+                }}
+            >
+                Purchases
+            </Text>
 
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingTop: 5 }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff" }}>
-                        Date : 12-05-2024
-                    </Text>
-
-                    <View style={{ backgroundColor: "#003243", paddingHorizontal: 8, paddingVertical: 5, borderRadius: 50 }}>
-                        <Text style={{ fontSize: responsiveFontSize(1.5) }}>
-                            Successful
-                        </Text>
-                    </View>
-                </View>
-            </View>
-
-            <View style={{ backgroundColor: 'rgba(166, 166, 166, 0.6)', padding: 10, marginTop: 5, marginHorizontal: 10, borderRadius: 9 }}>
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "500" }}>
-                        Transaction Amount :
-                    </Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "600", paddingRight: 10 }}>
-                        250.00
-                    </Text>
-                </View>
-
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingTop: 5 }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff" }}>
-                        Date : 12-05-2024
-                    </Text>
-
-                    <View style={{ backgroundColor: "#003243", paddingHorizontal: 8, paddingVertical: 5, borderRadius: 50 }}>
-                        <Text style={{ fontSize: responsiveFontSize(1.5) }}>
-                            Successful
-                        </Text>
-                    </View>
-                </View>
-            </View>
-
-            <View style={{ marginBottom: 45 }}></View>
-        </View>
-    )
+            <FlatList
+                data={purchases}
+                renderItem={renderCourse}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={{ paddingBottom: 20 }}
+            />
+        </SafeAreaView>
+    );
 };
 
 export default Purchases;
-
-const styles = StyleSheet.create({
-    header: {
-        backgroundColor: "#0d1116",
-        paddingVertical: 4,
-        elevation: 1,
-        position: 'relative',
-        zIndex: 20,
-        height: 45,
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-        alignItems: "center",
-    },
-
-    headerText: {
-        fontSize: responsiveFontSize(2),
-        color: "#fff",
-        paddingLeft: 10
-    },
-
-    backButton: {
-        backgroundColor: 'rgba(160, 160, 160, 0.5)',
-        padding: 2,
-        fontSize: responsiveFontSize(3),
-        color: "#fff",
-        borderRadius: 50
-    },
-
-});
