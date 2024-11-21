@@ -1,109 +1,27 @@
-import { StyleSheet, Text, View, StatusBar, Dimensions, TouchableOpacity, FlatList, RefreshControl, Image, ActivityIndicator } from 'react-native';
-import { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { responsiveFontSize } from "react-native-responsive-dimensions";
-import Entypo from 'react-native-vector-icons/dist/Entypo';
-import { background } from '../utils/colors';
+{/* Buttons */ }
+<View style={{ marginTop: 20, }}>
+    {/* Sign up button */}
+    <LinearGradient
+        colors={[darkBlue, '#5badff']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+    >
+        <TouchableOpacity onPress={registerUser} disabled={loading} style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+            {loading ? (
+                <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Signing you up ...</Text>
+            ) : (
+                <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Sign up</Text>
+            )}
+            {!loading && <Icon4 name="arrowright" size={23} color='#fff' />}
+        </TouchableOpacity>
+    </LinearGradient>
 
-const Purchases = () => {
-
-    const navigation = useNavigation();
-
-    return (
-        <View style={{ flex: 1, backgroundColor: background }}>
-            <StatusBar
-                animated={true}
-                backgroundColor={background}
-                barStyle="dark-content"
-            />
-
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Entypo
-                        style={styles.backButton}
-                        name="chevron-left" />
-                </TouchableOpacity>
-                <Text style={styles.headerText}>Transactions</Text>
-            </View>
-
-            <View style={{ backgroundColor: 'rgba(166, 166, 166, 0.6)', padding: 10, marginTop: 5, marginHorizontal: 10, borderRadius: 9 }}>
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "500" }}>
-                        Transaction Amount :
-                    </Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "600", paddingRight: 10 }}>
-                        250.00
-                    </Text>
-                </View>
-
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingTop: 5 }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff" }}>
-                        Date : 12-05-2024
-                    </Text>
-
-                    <View style={{ backgroundColor: "#003243", paddingHorizontal: 8, paddingVertical: 5, borderRadius: 50 }}>
-                        <Text style={{ fontSize: responsiveFontSize(1.5) }}>
-                            Successful
-                        </Text>
-                    </View>
-                </View>
-            </View>
-
-            <View style={{ backgroundColor: 'rgba(166, 166, 166, 0.6)', padding: 10, marginTop: 5, marginHorizontal: 10, borderRadius: 9 }}>
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "500" }}>
-                        Transaction Amount :
-                    </Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff", fontWeight: "600", paddingRight: 10 }}>
-                        250.00
-                    </Text>
-                </View>
-
-                <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingTop: 5 }}>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: "#fff" }}>
-                        Date : 12-05-2024
-                    </Text>
-
-                    <View style={{ backgroundColor: "#003243", paddingHorizontal: 8, paddingVertical: 5, borderRadius: 50 }}>
-                        <Text style={{ fontSize: responsiveFontSize(1.5) }}>
-                            Successful
-                        </Text>
-                    </View>
-                </View>
-            </View>
-
-            <View style={{ marginBottom: 45 }}></View>
-        </View>
-    )
-};
-
-export default Purchases;
-
-const styles = StyleSheet.create({
-    header: {
-        backgroundColor: "#0d1116",
-        paddingVertical: 4,
-        elevation: 1,
-        position: 'relative',
-        zIndex: 20,
-        height: 45,
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-        alignItems: "center",
-    },
-
-    headerText: {
-        fontSize: responsiveFontSize(2),
-        color: "#fff",
-        paddingLeft: 10
-    },
-
-    backButton: {
-        backgroundColor: 'rgba(160, 160, 160, 0.5)',
-        padding: 2,
-        fontSize: responsiveFontSize(3),
-        color: "#fff",
-        borderRadius: 50
-    },
-
-});
+    {/* Already have an account */}
+    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 8 }}>
+        <Text style={{ color: '#333', fontSize: responsiveFontSize(1.8), fontWeight: '500' }}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
+        </TouchableOpacity>
+    </View>
+</View>

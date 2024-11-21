@@ -210,7 +210,7 @@ const OtpVerification = ({ route }) => {
         } else if (to === 'forgotPassword') {
             navigation.navigate('ForgotPassword', { mobile: mobileNumber, otp: otpCode });
         }
-    }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingTop: 5 }}>
