@@ -11,8 +11,15 @@ import { useEffect, useRef, useState } from 'react';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from '../redux/LoginSlice';
 
 const Courses = () => {
+
+    const isUserLoggedIn = useSelector(state => state.login.isUserLoggedIn);
+    console.log('isUserLoggedIn', isUserLoggedIn);
+
+    const dispatch = useDispatch();
 
     const navigation = useNavigation();
 
@@ -121,6 +128,12 @@ const Courses = () => {
 
                 </View>
             </View>
+
+            {/* <TouchableOpacity style={{ backgroundColor: '#000' }} onPress={() => dispatch(logout())}>
+                <Text style={{ color: '#fff' }}>Logout</Text>
+            </TouchableOpacity> */}
+
+            {/* <Text style={{ color: '#000' }}>{isUserLoggedIn ? 'true' : 'false'}</Text> */}
 
             <ScrollView style={{ paddingHorizontal: 12, flex: 1 }}>
                 {/* Explore */}

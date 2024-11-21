@@ -3,12 +3,13 @@ import AuthNavigator from "./AuthNavigator";
 import GuestNavigator from "./GuestNavigator";
 import { StatusBar } from 'react-native';
 import { background } from '../utils/colors';
+import { useSelector } from "react-redux";
 
 // axios.defaults.baseURL = 'https://admin.skercart.com/api/';
 
 const StackNavigation = () => {
 
-    // const isUserLoggedIn = true;
+    const isUserLoggedIn = useSelector(state => state.login.isUserLoggedIn);
 
     return (
         <>
@@ -19,11 +20,11 @@ const StackNavigation = () => {
             />
 
             <NavigationContainer>
-                <GuestNavigator />
-                {/* {isUserLoggedIn ? (
+                {isUserLoggedIn ? (
+                    <GuestNavigator />
                 ) : (
                     <AuthNavigator />
-                )} */}
+                )}
             </NavigationContainer>
         </>
     );

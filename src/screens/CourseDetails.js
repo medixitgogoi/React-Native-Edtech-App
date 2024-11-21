@@ -126,12 +126,6 @@ const CourseDetails = ({ route }) => {
                     contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
                 />
             </View>
-
-            <View style={{ marginVertical: 20 }}>
-                <TouchableOpacity style={{ backgroundColor: '#000', padding: 5, borderRadius: 8, alignSelf: 'center', width: '50%' }} onPress={() => navigation.navigate('Login')}>
-                    <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(1.9) }}>Log in</Text>
-                </TouchableOpacity>
-            </View>
         </ScrollView>
     );
 };
