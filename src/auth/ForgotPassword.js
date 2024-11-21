@@ -6,9 +6,10 @@ import Icon from 'react-native-vector-icons/dist/Feather';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { lightBlue } from '../utils/colors';
+import { background, darkBlue, lightBlue } from '../utils/colors';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useState } from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Toast from 'react-native-toast-message';
 
 const ForgotPassword = ({ route }) => {
@@ -102,20 +103,20 @@ const ForgotPassword = ({ route }) => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#000' }}>
+        <View style={{ flex: 1, backgroundColor: background, paddingTop: 5 }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#000"
-                barStyle="light-content"
+                backgroundColor={background}
+                barStyle="dark-content"
             />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={'padding'}
             >
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                    {/* Header */}
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginVertical: 15, paddingHorizontal: 13 }}>
-                        <Icon4 name="arrowleft" size={23} color={'#fff'} />
+                    {/* Back Button */}
+                    <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10 }} onPress={() => navigation.goBack()}>
+                        <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                     </TouchableOpacity>
 
                     {/* Content */}
@@ -126,46 +127,50 @@ const ForgotPassword = ({ route }) => {
                         </View>
 
                         {/* Password */}
-                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.8), marginBottom: 5 }}>Password</Text>
+                        <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Password</Text>
                         <TextInput
                             placeholder="Your password"
                             placeholderTextColor="#666"
                             value={password}
                             onChangeText={setPassword}
-                            secureTextEntry={show}
+                            selectionColor={darkBlue}
                             style={{
-                                backgroundColor: '#1c1c1c',
+                                backgroundColor: lightBlue,
                                 paddingVertical: 6,
                                 paddingHorizontal: 15,
-                                color: '#fff',
+                                color: darkBlue,
                                 borderRadius: 8,
                                 fontSize: responsiveFontSize(1.8),
                                 marginBottom: 25,
-                                borderColor: isPasswordFocused ? lightBlue : '',
+                                borderColor: isPasswordFocused ? darkBlue : '',
                                 borderWidth: isPasswordFocused ? 1 : 0,
+                                elevation: 1,
+                                fontWeight: '500'
                             }}
                             onFocus={() => setIsPasswordFocused(true)}
                             onBlur={() => setIsPasswordFocused(false)}
                         />
 
                         {/* Confirm Password */}
-                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.8), marginBottom: 5 }}>Confirm Password</Text>
+                        <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Confirm Password</Text>
                         <TextInput
                             placeholder="Confirm password"
                             placeholderTextColor="#666"
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
-                            secureTextEntry={show}
+                            // secureTextEntry={show}
                             style={{
-                                backgroundColor: '#1c1c1c',
+                                backgroundColor: lightBlue,
                                 paddingVertical: 6,
                                 paddingHorizontal: 15,
-                                color: '#fff',
+                                color: darkBlue,
                                 borderRadius: 8,
                                 fontSize: responsiveFontSize(1.8),
                                 marginBottom: 10,
-                                borderColor: isConfirmPasswordFocused ? lightBlue : '',
+                                borderColor: isConfirmPasswordFocused ? darkBlue : '',
                                 borderWidth: isConfirmPasswordFocused ? 1 : 0,
+                                fontWeight: '500',
+                                elevation: 1
                             }}
                             onFocus={() => setIsConfirmPasswordFocused(true)}
                             onBlur={() => setIsConfirmPasswordFocused(false)}
@@ -173,7 +178,7 @@ const ForgotPassword = ({ route }) => {
 
                         {/* Update Password button */}
                         <LinearGradient
-                            colors={[lightBlue, '#fff']}
+                            colors={[darkBlue, '#5badff']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={{
@@ -198,9 +203,9 @@ const ForgotPassword = ({ route }) => {
 
                         {/* Already have an account */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 8, alignItems: 'flex-end' }}>
-                            <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.7), fontWeight: '500' }}>Already have an account? </Text>
+                            <Text style={{ color: '#333', fontSize: responsiveFontSize(1.7), fontWeight: '500' }}>Already have an account? </Text>
                             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                                <Text style={{ color: lightBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
+                                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
