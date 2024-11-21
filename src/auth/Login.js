@@ -38,11 +38,6 @@ const Login = () => {
                 style={{ flex: 1 }}
                 behavior={'padding'}
             >
-                {/* Back Button */}
-                {/* <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
-                    <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
-                </TouchableOpacity> */}
-
                 <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 40, paddingHorizontal: 5 }}>
                     <Image source={require('../assets/login3.png')} style={{ width: 250, height: 220, marginBottom: 15, alignSelf: 'center' }} />
 
