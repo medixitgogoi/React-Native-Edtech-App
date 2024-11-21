@@ -147,7 +147,7 @@ const Login = () => {
 
                     {/* Already Have an Account Statement */}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, alignItems: 'flex-end' }}>
-                        <Text style={{ color: '#333', fontSize: responsiveFontSize(1.6) }}>Don't have an account? </Text>
+                        <Text style={{ color: '#333', fontSize: responsiveFontSize(1.6) }}>Don't have an account?</Text>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('OtpVerification', { to: 'signup' })}
                             // onPress={() => navigation.navigate('SignUp')}
