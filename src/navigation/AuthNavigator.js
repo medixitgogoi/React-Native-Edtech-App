@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../auth/Login';
-import Signup from '../auth/Signup';
 import OtpVerification from '../auth/OtpVerification';
 import ForgotPassword from '../auth/ForgotPassword';
+import Signup from '../auth/Signup';
 
 const AuthNavigator = () => {
 
