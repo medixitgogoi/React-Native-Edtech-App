@@ -257,7 +257,7 @@ const OtpVerification = ({ route }) => {
                                         </View>
                                         <View style={{ flex: 0.82 }}>
                                             <TextInput
-                                                style={{ height: 45, borderColor: isMobileFocused ? darkBlue : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.9), color: '#000', backgroundColor: lightBlue, elevation: 1 }}
+                                                style={{ height: 45, borderColor: isMobileFocused ? '#000' : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.9), color: '#000', backgroundColor: lightBlue, elevation: 1 }}
                                                 placeholder="Enter Phone Number"
                                                 keyboardType="numeric"
                                                 maxLength={10}

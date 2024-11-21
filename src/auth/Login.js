@@ -44,11 +44,16 @@ const Login = () => {
                 </TouchableOpacity>
 
                 <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 40, paddingHorizontal: 5 }}>
-                    <Image source={require('../assets/login2.png')} style={{ width: 250, height: 220, marginBottom: 15, alignSelf: 'center' }} />
+                    <Image source={require('../assets/login3.png')} style={{ width: 250, height: 220, marginBottom: 15, alignSelf: 'center' }} />
 
                     {/* Title */}
-                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(3), fontWeight: '600', marginBottom: 40, textAlign: 'center' }}>
+                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.8), fontWeight: '600', marginBottom: 8, textAlign: 'center' }}>
                         Log in to Gyano
+                    </Text>
+
+                    {/* Subheadline */}
+                    <Text style={{ color: '#858585', fontSize: responsiveFontSize(1.8), fontWeight: '500', marginBottom: 40, textAlign: 'center', width: '85%', alignSelf: 'center' }}>
+                        Empowering your learning journey with seamless access to resources and knowledge.
                     </Text>
 
                     {/* Mobile Input */}
@@ -68,7 +73,7 @@ const Login = () => {
                             borderRadius: 8,
                             fontSize: responsiveFontSize(1.8),
                             marginBottom: 20,
-                            borderColor: isMobileFocused ? darkBlue : '',
+                            borderColor: isMobileFocused ? '#000' : '',
                             borderWidth: isMobileFocused ? 1 : 0,
                             elevation: 1,
                             fontWeight: '500'
@@ -79,7 +84,7 @@ const Login = () => {
 
                     {/* Password Input */}
                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Password</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 8, borderColor: isPasswordFocused ? darkBlue : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 8, borderColor: isPasswordFocused ? '#000' : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
                         <TextInput
                             placeholder="Your password"
                             placeholderTextColor="#666"
