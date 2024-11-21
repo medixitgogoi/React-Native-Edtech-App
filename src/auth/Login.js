@@ -146,11 +146,11 @@ const Login = () => {
                     </LinearGradient>
 
                     {/* Already Have an Account Statement */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, alignItems: 'flex-end' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, alignItems: 'flex-end', gap: 3 }}>
                         <Text style={{ color: '#333', fontSize: responsiveFontSize(1.6) }}>Don't have an account?</Text>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('OtpVerification', { to: 'signup' })}
-                            // onPress={() => navigation.navigate('SignUp')}
+                        // onPress={() => navigation.navigate('SignUp')}
                         >
                             <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.7), fontWeight: '600' }}>Sign Up</Text>
                         </TouchableOpacity>
