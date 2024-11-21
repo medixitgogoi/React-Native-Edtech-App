@@ -87,10 +87,10 @@ function GuestNavigator() {
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="ViewPdf" component={ViewPdf} />
-            <Stack.Screen name="Login" component={Login} />
+            {/* <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={Signup} />
             <Stack.Screen name="OtpVerification" component={OtpVerification} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> */}
         </Stack.Navigator>
     );
 }

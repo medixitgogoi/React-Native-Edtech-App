@@ -5,10 +5,10 @@ import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dim
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { backIconColor, darkBlue, darkGreen, lightBlue, offWhite } from '../utils/colors';
+import { background, backIconColor, darkBlue, darkGreen, lightBlue, offWhite } from '../utils/colors';
 import { useState, useRef, useEffect } from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Toast from 'react-native-toast-message';
-
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -138,7 +138,7 @@ const OtpVerification = ({ route }) => {
                 text1: 'Invalid number',
                 text2: 'Please enter a valid 10-digit mobile number.',
                 position: 'top',
-                topOffset: 15,
+                topOffset: 0,
             });
             return;
         }
@@ -147,7 +147,7 @@ const OtpVerification = ({ route }) => {
             type: 'success',
             text1: 'OTP has been sent successfully',
             position: 'top',
-            topOffset: 15,
+            topOffset: 0,
         });
         setShowOtpSection(true);
         Animated.timing(slideAnim, {
@@ -213,11 +213,11 @@ const OtpVerification = ({ route }) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingTop: 5 }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#000"
-                barStyle="light-content"
+                backgroundColor={background}
+                barStyle="dark-content"
             />
 
             {/* Linear Gradient Background */}
@@ -227,8 +227,8 @@ const OtpVerification = ({ route }) => {
             >
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                     {/* Back Button */}
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginHorizontal: 10, flexDirection: 'row', alignItems: 'flex-start', marginTop: 8, width: responsiveWidth(9.5), aspectRatio: 1 / 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <Icon4 name="arrowleft" style={{ color: '#fff' }} size={22} />
+                    <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10 }} onPress={() => navigation.goBack()}>
+                        <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                     </TouchableOpacity>
 
                     {/* Content */}
@@ -249,22 +249,22 @@ const OtpVerification = ({ route }) => {
                             {/* Enter mobile number */}
                             <View style={{ width: screenWidth, paddingHorizontal: 20, flexDirection: 'column', alignItems: 'center' }}>
                                 <View style={{ flexDirection: 'column', gap: 1 }}>
-                                    <Text style={{ color: '#000', fontSize: responsiveFontSize(2.5), fontWeight: '700', textAlign: 'center' }}>Enter Your Mobile Number</Text>
-                                    <Text style={{ color: '#bdbdbd', fontSize: responsiveFontSize(1.9), fontWeight: '500', textAlign: 'center' }}>We'll send a confirmation code to verify it's really you</Text>
+                                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.5), fontWeight: '700', textAlign: 'center' }}>Enter Your Mobile Number</Text>
+                                    <Text style={{ color: '#a3a3a3', fontSize: responsiveFontSize(1.9), fontWeight: '500', textAlign: 'center' }}>We'll send a confirmation code to verify it's really you</Text>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 30 }}>
                                         <View style={{ height: 45, flex: 0.14, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: darkBlue }}>
                                             <Text style={{ color: '#fff', fontWeight: '700', fontSize: responsiveFontSize(2) }}>+91</Text>
                                         </View>
                                         <View style={{ flex: 0.82 }}>
                                             <TextInput
-                                                style={{ height: 45, borderColor: isMobileFocused ? darkBlue : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.9), color: '#fff', backgroundColor: '#1c1c1c', }}
+                                                style={{ height: 45, borderColor: isMobileFocused ? darkBlue : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.9), color: '#000', backgroundColor: lightBlue, elevation: 1 }}
                                                 placeholder="Enter Phone Number"
                                                 keyboardType="numeric"
                                                 maxLength={10}
                                                 value={mobileNumber}
                                                 onChangeText={setMobileNumber}
                                                 placeholderTextColor="#666"
-                                                selectionColor={lightBlue}  // Sets the cursor color to black
+                                                selectionColor={darkBlue}  // Sets the cursor color to black
                                                 onFocus={() => setIsMobileFocused(true)}
                                                 onBlur={() => setIsMobileFocused(false)}
                                             />
@@ -274,7 +274,7 @@ const OtpVerification = ({ route }) => {
 
                                 {/* Send OTP button */}
                                 <LinearGradient
-                                    colors={[lightBlue, '#000']}
+                                    colors={[darkBlue, '#5badff']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, marginTop: 35, width: '95%', }}
@@ -297,13 +297,13 @@ const OtpVerification = ({ route }) => {
                             <View style={{ flexDirection: 'column', alignItems: 'center', width: screenWidth }}>
                                 {/* Heading */}
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                    <Text style={{ color: '#bdbdbd', fontWeight: '500', fontSize: responsiveFontSize(2) }}>We have sent a verification code to</Text>
-                                    <Text style={{ color: '#bdbdbd', fontWeight: '800', fontSize: responsiveFontSize(2) }}>+91 {`*******${mobileNumber.slice(-3)}`}</Text>
+                                    <Text style={{ color: '#333', fontWeight: '500', fontSize: responsiveFontSize(2) }}>We have sent a verification code to</Text>
+                                    <Text style={{ color: '#333', fontWeight: '800', fontSize: responsiveFontSize(2) }}>+91 {`*******${mobileNumber.slice(-3)}`}</Text>
                                 </View>
 
                                 {/* Sub Heading */}
                                 <View style={{ flexDirection: 'column', alignItems: 'center', marginTop: 12 }}>
-                                    <Text style={{ color: '#767c87', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your OTP Code Below</Text>
+                                    <Text style={{ color: darkBlue, fontWeight: '600', fontSize: responsiveFontSize(2) }}>Enter Your OTP Code Below</Text>
                                 </View>
 
                                 {/* OTP Input Boxes */}
@@ -320,7 +320,7 @@ const OtpVerification = ({ route }) => {
                                                 textAlign: 'center',
                                                 fontSize: 18,
                                                 marginHorizontal: 10,
-                                                color: '#fff',
+                                                color: '#000',
                                                 fontWeight: '600'
                                             }}
                                             value={otp[index]}
@@ -334,7 +334,7 @@ const OtpVerification = ({ route }) => {
 
                                 {/* Verify button */}
                                 <LinearGradient
-                                    colors={[lightBlue, '#000']}
+                                    colors={[darkBlue, '#5badff']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 1, y: 0 }}
                                     style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, marginTop: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
@@ -357,13 +357,13 @@ const OtpVerification = ({ route }) => {
 
                                 {/* Resend */}
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center', marginTop: 15, gap: 3 }}>
-                                    <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.5), fontWeight: '500' }}>Didn't receive any code?</Text>
+                                    <Text style={{ color: '#333', fontSize: responsiveFontSize(1.5), fontWeight: '500' }}>Didn't receive any code?</Text>
                                     <TouchableOpacity
                                         // onPress={handleResendOTP}
                                         disabled={isResendDisabled}
                                     >
                                         <Text style={{
-                                            color: isResendDisabled ? '#fff' : lightBlue,
+                                            color: isResendDisabled ? '#a2a2a2' : darkBlue,
                                             fontSize: responsiveFontSize(1.7),
                                             fontWeight: isResendDisabled ? '400' : '600',
                                             textTransform: isResendDisabled ? '' : 'uppercase',
