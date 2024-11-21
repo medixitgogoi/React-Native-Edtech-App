@@ -206,7 +206,7 @@ const OtpVerification = ({ route }) => {
         const otpCode = otp.join('');
 
         if (to === 'signup') {
-            navigation.navigate('Signup', { mobile: mobileNumber, otp: otpCode });
+            navigation.navigate('SignUp', { mobile: mobileNumber, otp: otpCode });
         } else if (to === 'forgotPassword') {
             navigation.navigate('ForgotPassword', { mobile: mobileNumber, otp: otpCode });
         }
