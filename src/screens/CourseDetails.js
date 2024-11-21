@@ -63,7 +63,7 @@ const CourseDetails = ({ route }) => {
     );
 
     return (
-        <ScrollView style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
+        <View style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
                 backgroundColor="#fff"
@@ -112,7 +112,7 @@ const CourseDetails = ({ route }) => {
             </View>
 
             {/* Sections */}
-            <View style={{ marginTop: 20, flex: 1, paddingBottom: 20 }}>
+            <View style={{ marginTop: 20, flex: 1 }}>
                 {/* Topic Videos */}
                 <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: 'bold', color: '#000', marginBottom: 10 }}>
                     Topic Videos
@@ -123,10 +123,10 @@ const CourseDetails = ({ route }) => {
                     renderItem={renderVideoCard}
                     keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ gap: 12, paddingHorizontal: 1 }}
+                    contentContainerStyle={{ gap: 12, paddingHorizontal: 1, paddingBottom: 20 }}
                 />
             </View>
-        </ScrollView>
+        </View>
     );
 };
 

@@ -11,8 +11,12 @@ import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { responsiveFontSize } from "react-native-responsive-dimensions";
 import { background } from '../utils/colors';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/LoginSlice';
 
 const Profile = () => {
+
+    const dispatch = useDispatch();
 
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const slideAnim = useRef(new Animated.Value(-300)).current;
@@ -154,6 +158,10 @@ const Profile = () => {
                         </TouchableOpacity>
                     </View>
                 </Animated.View>
+
+                <TouchableOpacity style={{ backgroundColor: '#000', padding: 6, borderRadius: 12 }} onPress={() => dispatch(logout())}>
+                    <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Log out</Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     )
