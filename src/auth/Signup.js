@@ -10,6 +10,7 @@ import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { login } from '../redux/LoginSlice';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -39,14 +40,15 @@ const Signup = ({ route }) => {
   const [confirmShow, setConfirmShow] = useState(true);
 
   const [selectedBoard, setSelectedBoard] = useState();
+  const [selectedClass, setSelectedClass] = useState();
 
   const temporaryContinueHandler = () => {
     Animated.timing(slideAnim, {
-      toValue: -screenWidth,
+      toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }
+  };
 
   const boards = [
     { id: 1, name: 'CBSE' },
@@ -61,6 +63,22 @@ const Signup = ({ route }) => {
     { id: 10, name: 'GUJF' }
   ];
 
+  const classes = [
+    { id: 1, name: 'Class I' },
+    { id: 2, name: 'Class II' },
+    { id: 3, name: 'Class III' },
+    { id: 4, name: 'Class IV' },
+    { id: 5, name: 'Class V' },
+    { id: 6, name: 'Class VI' },
+    { id: 7, name: 'Class VII' },
+    { id: 8, name: 'Class VIII' },
+    { id: 9, name: 'Class IX' },
+    { id: 10, name: 'Class X' }
+  ];
+
+  const registerUser = () => {
+    dispatch(login());
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -97,7 +115,7 @@ const Signup = ({ route }) => {
               <Animated.View
                 style={{
                   flexDirection: 'row',
-                  width: screenWidth * 3, // The total width (2 sections)
+                  width: screenWidth * 3, // The total width (3 sections)
                   transform: [{ translateX: slideAnim }], // Apply the sliding animation
                 }}
               >
@@ -230,7 +248,7 @@ const Signup = ({ route }) => {
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     {boards?.map(item => (
                       <TouchableOpacity onPress={() => setSelectedBoard(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedBoard === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
-                        {selectedBoard === item.id && <AntDesign name="checkcircle" style={{ color: '#fff' }} size={15} />}
+                        {selectedBoard === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
                         <Text style={{ color: selectedBoard === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
                       </TouchableOpacity>
                     ))}
@@ -255,9 +273,55 @@ const Signup = ({ route }) => {
 
                 {/* Class selection */}
                 <View style={{ flexDirection: 'column', width: screenWidth, paddingHorizontal: 15 }}>
+                  {/* Heading */}
+                  <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
+                    <View style={{ borderRadius: 8, justifyContent: 'center', flexDirection: 'row', gap: 8, alignItems: 'center', width: 25, height: 25, backgroundColor: darkBlue, }}>
+                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.6), fontWeight: '600' }}>3</Text>
+                    </View>
 
+                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '500', color: '#000', }}>Select the class you are stuying in</Text>
+                  </View>
+
+                  {/* Classes */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                    {classes?.map(item => (
+                      <TouchableOpacity onPress={() => setSelectedClass(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedClass === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
+                        {selectedClass === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
+                        <Text style={{ color: selectedClass === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+
+                  {/* Buttons */}
+                  <View style={{ marginTop: 40, }}>
+                    {/* Sign up button */}
+                    <LinearGradient
+                      colors={[darkBlue, '#5badff']}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                      style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      <TouchableOpacity onPress={registerUser} disabled={loading} style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                        {loading ? (
+                          <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Signing you up ...</Text>
+                        ) : (
+                          <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Sign up</Text>
+                        )}
+                        {!loading && <Icon4 name="arrowright" size={23} color='#fff' />}
+                      </TouchableOpacity>
+                    </LinearGradient>
+
+                    {/* Already have an account */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 8 }}>
+                      <Text style={{ color: '#333', fontSize: responsiveFontSize(1.8), fontWeight: '500' }}>Already have an account? </Text>
+                      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                        <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
               </Animated.View>
+
             </View>
           </ScrollView>
 

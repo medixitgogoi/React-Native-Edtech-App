@@ -39,9 +39,9 @@ const Login = () => {
                 behavior={'padding'}
             >
                 {/* Back Button */}
-                <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                {/* <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 40, paddingHorizontal: 5 }}>
                     <Image source={require('../assets/login3.png')} style={{ width: 250, height: 220, marginBottom: 15, alignSelf: 'center' }} />
@@ -149,8 +149,8 @@ const Login = () => {
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, alignItems: 'flex-end' }}>
                         <Text style={{ color: '#333', fontSize: responsiveFontSize(1.6) }}>Don't have an account? </Text>
                         <TouchableOpacity
-                            // onPress={() => navigation.navigate('OtpVerification', { to: 'signup' })}
-                            onPress={() => navigation.navigate('SignUp')}
+                            onPress={() => navigation.navigate('OtpVerification', { to: 'signup' })}
+                            // onPress={() => navigation.navigate('SignUp')}
                         >
                             <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.7), fontWeight: '600' }}>Sign Up</Text>
                         </TouchableOpacity>
