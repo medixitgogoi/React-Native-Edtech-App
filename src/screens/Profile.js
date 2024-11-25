@@ -1,170 +1,233 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, Image, Animated, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import Entypo from 'react-native-vector-icons/dist/Entypo';
-import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-import Fontisto from 'react-native-vector-icons/dist/Fontisto';
-import Feather from 'react-native-vector-icons/dist/Feather';
+import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground } from 'react-native';
+import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { background, darkBlue, lightBlue } from '../utils/colors';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/dist/Ionicons';
-import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
-import { responsiveFontSize } from "react-native-responsive-dimensions";
-import { background } from '../utils/colors';
-import { useDispatch } from 'react-redux';
-import { logout } from '../redux/LoginSlice';
+import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
+import { useEffect, useRef, useState } from 'react';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { trending } from '../utils/trending';
+import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, logout } from '../redux/LoginSlice';
 
-const Profile = () => {
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+import Icon2 from 'react-native-vector-icons/dist/Ionicons';
+import Icon3 from 'react-native-vector-icons/dist/FontAwesome';
+import Icon4 from 'react-native-vector-icons/dist/AntDesign';
+import Icon5 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
-    const dispatch = useDispatch();
-
-    const fadeAnim = useRef(new Animated.Value(0)).current;
-    const slideAnim = useRef(new Animated.Value(-300)).current;
-    const navigation = useNavigation();
-
-    useEffect(() => {
-        Animated.parallel([
-            Animated.timing(fadeAnim, {
-                toValue: 1,
-                duration: 1000,
-                useNativeDriver: true,
-            }),
-            Animated.spring(slideAnim, {
-                toValue: 0,
-                useNativeDriver: true,
-            }),
-        ]).start();
-    }, [fadeAnim, slideAnim]);
-
+const Profile = ({ navigation }) => {
     return (
-        <View style={{ flex: 1, backgroundColor: background }}>
+        <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <StatusBar
                 animated={true}
                 backgroundColor={background}
+                barStyle="dark-content"
             />
 
-            <View style={{
-                backgroundColor: background,
-                paddingVertical: 4,
-                elevation: 1,
-                position: 'relative',
-                zIndex: 20,
-                height: 45,
-                paddingHorizontal: 10,
-                flexDirection: 'row',
-                alignItems: "center"
-            }}>
-
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                >
-                    <Entypo
-                        style={{
-                            backgroundColor: 'rgba(160, 160, 160, 0.5)',
-                            padding: 2,
-                            fontSize: responsiveFontSize(3),
-                            color: "#fff",
-                            borderRadius: 50
-                        }}
-                        name="chevron-left" />
+            {/* Linear Gradient Background */}
+            <LinearGradient
+                colors={[background, lightBlue]}
+                style={{ flex: 1 }}
+            >
+                {/* Header */}
+                <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 10, paddingHorizontal: 13, alignSelf: 'flex-start' }}>
+                    <Icon4 name="arrowleft" size={23} color={'#000'} />
                 </TouchableOpacity>
 
-                <View style={{ paddingLeft: 4 }}>
-                    <Text style={{
-                        fontSize: responsiveFontSize(2.2),
-                        fontWeight: "500"
-                    }}>
-                        Profile
-                    </Text>
-                </View>
+                <ScrollView style={{ flex: 1 }}>
+                    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', paddingVertical: 5, paddingHorizontal: 12 }}>
+                        {/* Details */}
+                        <View style={{ backgroundColor: darkBlue, width: '100%', borderRadius: 20, elevation: 1, paddingVertical: 25, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                            {/* Initial */}
+                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                                <View style={{ height: 100, width: 100, backgroundColor: lightBlue, borderRadius: 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>D</Text>
+                                </View>
+                            </View>
 
-            </View>
+                            {/* Name and Email */}
+                            <View style={{ flexDirection: 'column', gap: 3, width: '65%' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                                    <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>Dixit Gogoi</Text>
+                                    <View style={{ width: 20, height: 20, backgroundColor: lightBlue, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                        <Icon2 name="male" size={15} color={'#000'} />
+                                    </View>
+                                    {/* {userDetails?.[0]?.gender === 'M' && (
+                                    )}
 
-            <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', paddingHorizontal: 20, backgroundColor: "#0d1116", marginTop: 5 }}>
-                <Animated.View style={[{
-                    width: '100%',
-                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                    borderRadius: 10,
-                    padding: 20,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.8,
-                    shadowRadius: 2,
-                }, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate("EditProfile")}
-                        style={{ alignItems: "flex-end" }}>
-                        <Feather
-                            name="edit"
-                            style={{ fontSize: responsiveFontSize(2.2), }}
-                        />
-                    </TouchableOpacity>
+                                    {userDetails?.[0]?.gender === 'F' && (
+                                        <View style={{ width: 20, height: 20, backgroundColor: lightBlue, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                            <Icon2 name="female" size={15} color={'#000'} />
+                                        </View>
+                                    )} */}
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>123@gmail.com</Text>
+                            </View>
+                        </View>
 
-                    <Image
-                        source={require("../assets/user.jpg")}
-                        style={{ width: 150, height: 150, borderRadius: 75, alignSelf: 'center', marginBottom: 20 }}
-                    />
-
-                    <Text style={{ fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 10, color: "#000" }}>Pollab Kumar</Text>
-
-                    <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Fontisto name="email" style={{ fontSize: responsiveFontSize(2), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", padding: 5, borderRadius: 50 }} />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>Pollabkumar123@gmail.com</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <Feather name="phone-call" style={{ fontSize: responsiveFontSize(1.8), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", padding: 5, borderRadius: 50 }} />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>6000598659</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <Ionicons name="location" style={{ fontSize: responsiveFontSize(1.7), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", borderRadius: 50, padding: 5 }} />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>Rajabari path, Guwahati, Assam</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <Feather name="phone-call" style={{ fontSize: responsiveFontSize(1.8), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", padding: 5, borderRadius: 50 }} />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>24-08-1998</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <FontAwesome5 name="transgender-alt" style={{ fontSize: responsiveFontSize(1.8), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", padding: 5, borderRadius: 50 }} />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>Male</Text>
-                    </View>
-
-                    <Text style={{ fontWeight: 'bold', marginTop: 20, marginBottom: 10, color: "#000", fontSize: responsiveFontSize(2.5) }}>Academic Details:</Text>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <FontAwesome6 name="school-flag" style={{ fontSize: responsiveFontSize(1.8), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", padding: 5, borderRadius: 50 }} />
-                        <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>xyz college</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <FontAwesome name="university" style={{ fontSize: responsiveFontSize(1.8), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", padding: 5, borderRadius: 50 }} />
-                        <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>SEBA</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-                        <Ionicons name="school" style={{ fontSize: responsiveFontSize(1.9), color: 'rgba(160, 160, 160, 0.5)', backgroundColor: "#0d1116", borderRadius: 50, padding: 5 }} />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", paddingLeft: 5, color: "#0d1116" }}>9</Text>
-                    </View>
-
-                    <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: 'bold', marginTop: 20, marginBottom: 10, color: "#000" }}>Other Details:</Text>
-
-                    <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: "500", color: "#0d1116" }}>Enrolled Course</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("EnrolledCourse")}>
-                            <AntDesign name="rightcircleo" style={{ fontSize: responsiveFontSize(2.5), fontWeight: "700", color: "#0d1116" }} />
+                        {/* Profile */}
+                        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16, backgroundColor: '#FFFFFF', paddingVertical: 9, paddingHorizontal: 10, borderRadius: 12, elevation: 1 }}>
+                            <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                <Icon name="person-outline" size={15} color={'#000'} style={{}} />
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Your profile</Text>
+                            <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
                         </TouchableOpacity>
-                    </View>
-                </Animated.View>
 
-                <TouchableOpacity style={{ backgroundColor: '#000', padding: 6, borderRadius: 12 }} onPress={() => dispatch(logout())}>
-                    <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Log out</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                        {/* Transactions */}
+                        <View style={{ elevation: 1, width: '100%', gap: 8, marginTop: 10, backgroundColor: '#FFFFFF', paddingVertical: 12, borderRadius: 12 }}>
+                            {/* Headline */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 9 }}>
+                                <View style={{ backgroundColor: darkBlue, height: 24, width: 3, borderTopRightRadius: 20, borderBottomRightRadius: 20 }}></View>
+                                <Text style={{ color: darkBlue, fontWeight: '700', fontSize: responsiveFontSize(2.1) }}>Transactions</Text>
+                            </View>
+
+                            {/* Orders */}
+                            <TouchableOpacity onPress={() => navigation.navigate('Purchases')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon2 name="receipt-outline" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Your Purchases</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            {/* <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View> */}
+
+                            {/* Address Book */}
+                            {/* <TouchableOpacity onPress={() => navigation.navigate('Addresses')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon3 name="address-book-o" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Address Book</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity> */}
+                        </View>
+
+                        {/* More */}
+                        <View style={{ elevation: 1, width: '100%', gap: 8, marginTop: 10, backgroundColor: '#FFFFFF', paddingVertical: 12, borderRadius: 12 }}>
+                            {/* Headline */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 9 }}>
+                                <View style={{ backgroundColor: darkBlue, height: 24, width: 3, borderTopRightRadius: 20, borderBottomRightRadius: 20 }}></View>
+                                <Text style={{ color: darkBlue, fontWeight: '700', fontSize: responsiveFontSize(2.1) }}>More</Text>
+                            </View>
+
+                            {/* About */}
+                            <TouchableOpacity onPress={() => navigation.navigate('About')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon2 name="information-circle-outline" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>About</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* FAQ */}
+                            <TouchableOpacity onPress={() => navigation.navigate('Faq')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon name="help-outline" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Frequently Asked Questions</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* Disclaimer */}
+                            <TouchableOpacity onPress={() => navigation.navigate('Disclaimer', { data: writeUp?.disclaimer })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon2 name="alert-circle-outline" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Disclaimer</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* Privacy Policy */}
+                            <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy', { data: writeUp?.privacy_policy })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon2 name="shield-outline" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Privacy Policy</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* T&C */}
+                            <TouchableOpacity onPress={() => navigation.navigate('TermsAndConditions', { data: writeUp?.terms_condition })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon4 name="filetext1" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Terms and Conditions</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* Cancellation */}
+                            <TouchableOpacity onPress={() => navigation.navigate('Cancellation', { data: writeUp?.cancellation })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon5 name="cancel" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Cancellation</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* Refund and Return Policy */}
+                            <TouchableOpacity onPress={() => navigation.navigate('RefundAndReturn', { data: writeUp?.return_refund })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon5 name="cash-refund" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Refund and Return Policy</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* Contact */}
+                            <TouchableOpacity onPress={() => navigation.navigate('Contact', { data: writeUp?.contact_no })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon5 name="phone-outline" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Contact</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+
+                            {/* Divider */}
+                            <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
+
+                            {/* Log out */}
+                            <TouchableOpacity onPress={() => setIsLoggingOut(true)} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
+                                    <Icon2 name="power" size={15} color={'#000'} />
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Log out</Text>
+                                <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </ScrollView>
+            </LinearGradient>
+
         </View>
     )
 }
 
-export default Profile;
+export default Profile

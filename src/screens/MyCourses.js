@@ -196,7 +196,7 @@ const MyCourses = ({ navigation }) => {
     );
 
     return (
-        <View style={{ flex: 1, backgroundColor: background, }}>
+        <View style={{ flex: 1, backgroundColor: background }}>
             {/* Header */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
