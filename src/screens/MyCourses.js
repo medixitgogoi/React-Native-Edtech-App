@@ -214,18 +214,23 @@ const MyCourses = ({ navigation }) => {
 
             {/* Top Tab Bar */}
             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                {/* All */}
                 <TouchableOpacity
                     style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 0 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 0 ? lightBlue : background }}
                     onPress={() => handleTabClick(0)} // Navigate to "All"
                 >
                     <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 0 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>All</Text>
                 </TouchableOpacity>
+
+                {/* Individual */}
                 <TouchableOpacity
                     style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 1 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 1 ? lightBlue : background }}
                     onPress={() => handleTabClick(1)} // Navigate to "Individual"
                 >
                     <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 1 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Individual</Text>
                 </TouchableOpacity>
+
+                {/* Combo */}
                 <TouchableOpacity
                     style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 2 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 2 ? lightBlue : background }}
                     onPress={() => handleTabClick(2)} // Navigate to "Combo"
