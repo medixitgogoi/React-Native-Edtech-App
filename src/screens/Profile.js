@@ -12,15 +12,18 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from '../redux/LoginSlice';
 
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/dist/Ionicons';
 import Icon3 from 'react-native-vector-icons/dist/FontAwesome';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon5 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { logout } from '../redux/LoginSlice';
 
 const Profile = ({ navigation }) => {
+
+    const dispatch = useDispatch()
+        ;
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <StatusBar
@@ -87,7 +90,7 @@ const Profile = ({ navigation }) => {
                                 <Text style={{ color: darkBlue, fontWeight: '700', fontSize: responsiveFontSize(2.1) }}>Transactions</Text>
                             </View>
 
-                            {/* Orders */}
+                            {/* Purchases */}
                             <TouchableOpacity onPress={() => navigation.navigate('Purchases')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
                                 <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                     <Icon2 name="receipt-outline" size={15} color={'#000'} />
@@ -214,7 +217,7 @@ const Profile = ({ navigation }) => {
                             <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                             {/* Log out */}
-                            <TouchableOpacity onPress={() => setIsLoggingOut(true)} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                            <TouchableOpacity onPress={() => dispatch(logout())} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                 <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                     <Icon2 name="power" size={15} color={'#000'} />
                                 </View>

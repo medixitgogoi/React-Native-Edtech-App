@@ -151,7 +151,7 @@ const MyCourses = ({ navigation }) => {
                 {/* Key Highlights Heading with Star Icon */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, justifyContent: 'center' }}>
                     {/* Left line */}
-                    <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginRight: 8 }} />
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#fff', marginRight: 8 }} />
 
                     {/* Text and icon */}
                     <View style={{ backgroundColor: '#f4c430', paddingVertical: 6, paddingHorizontal: 15, borderRadius: 16, alignItems: 'center', justifyContent: 'center', elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 }}>
@@ -161,7 +161,7 @@ const MyCourses = ({ navigation }) => {
                     </View>
 
                     {/* Right line */}
-                    <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginLeft: 8 }} />
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#fff', marginLeft: 8 }} />
                 </View>
 
                 {/* Highlights Section */}
