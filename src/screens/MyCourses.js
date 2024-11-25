@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../redux/LoginSlice';
 import PagerView from 'react-native-pager-view';
 
-const MyCourses = () => {
+const MyCourses = ({ navigation }) => {
 
     const [activeTab, setActiveTab] = useState(0);
 
@@ -42,28 +42,28 @@ const MyCourses = () => {
             </View>
 
             {/* Top Tab Bar */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', borderBottomWidth: 2, borderBottomColor: '#ccc' }}>
-                <TouchableOpacity style={{ paddingVertical: 10, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 0 ? 4 : 0, borderBottomColor: '#1a3b72' }} onPress={() => setActiveTab(0)}>
-                    <Text style={{ fontSize: 16, color: activeTab === 0 ? '#1a3b72' : '#000' }}>All</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <TouchableOpacity style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 0 ? 2 : 0, borderBottomColor: darkBlue }} onPress={() => setActiveTab(0)}>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 0 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>All</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ paddingVertical: 10, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 1 ? 4 : 0, borderBottomColor: '#1a3b72' }} onPress={() => setActiveTab(1)}>
-                    <Text style={{ fontSize: 16, color: activeTab === 1 ? '#1a3b72' : '#000' }}>Individual</Text>
+                <TouchableOpacity style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 1 ? 2 : 0, borderBottomColor: darkBlue }} onPress={() => setActiveTab(1)}>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 1 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Individual</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ paddingVertical: 10, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 2 ? 4 : 0, borderBottomColor: '#1a3b72' }} onPress={() => setActiveTab(2)}>
-                    <Text style={{ fontSize: 16, color: activeTab === 2 ? '#1a3b72' : '#000' }}>Combo</Text>
+                <TouchableOpacity style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 2 ? 2 : 0, borderBottomColor: darkBlue }} onPress={() => setActiveTab(2)}>
+                    <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 2 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Combo</Text>
                 </TouchableOpacity>
             </View>
 
             {/* PagerView */}
             <PagerView style={{ flex: 1 }} initialPage={0} onPageSelected={handlePageChange}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key="1">
-                    <Text style={{ color: '#fff' }}>All Courses Content</Text>
+                    <Text style={{ color: '#000' }}>All Courses Content</Text>
                 </View>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key="2">
-                    <Text>Individual Courses Content</Text>
+                    <Text style={{ color: '#000' }}>Individual Courses Content</Text>
                 </View>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} key="3">
-                    <Text>Combo Courses Content</Text>
+                    <Text style={{ color: '#000' }}>Combo Courses Content</Text>
                 </View>
             </PagerView>
         </View>
