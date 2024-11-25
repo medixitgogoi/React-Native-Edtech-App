@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { background, darkBlue, darkGreen, lightGreen } from '../utils/colors';
+import { background, darkBlue, darkGreen, lightBlue, lightGreen } from '../utils/colors';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -189,19 +189,19 @@ const Courses = () => {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5, marginBottom: 15 }}>
                     {/* Subject Notes */}
                     <View style={{ alignItems: 'center' }}>
-                        <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#fff'} />
+                        <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#EDF7EC'} />
                         <Text style={{ fontSize: responsiveFontSize(1.5), color: '#fff', fontWeight: '500' }}>Subject Notes</Text>
                     </View>
 
                     {/* Topic lectures with separators */}
                     <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
-                        <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#fff'} />
+                        <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#EDF7EC'} />
                         <Text style={{ fontSize: responsiveFontSize(1.5), color: '#fff', fontWeight: '500' }}>{item.files}</Text>
                     </View>
 
                     {/* Subject PDFs */}
                     <View style={{ alignItems: 'center' }}>
-                        <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#0073c4'} />
+                        <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#EDF7EC'} />
                         <Text style={{ fontSize: responsiveFontSize(1.5), color: '#fff', fontWeight: '500' }}>Subject PDFs</Text>
                     </View>
                 </View>
@@ -242,122 +242,383 @@ const Courses = () => {
                 </View>
 
                 {/* Class 1 */}
-                <View style={{ marginBottom: 20 }}>
-                    {/* Heading */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 1</Text>
-                    </View>
+                <View style={{ marginBottom: 30 }}>
+                    {/* Class */}
+                    <LinearGradient
+                        colors={[darkBlue, '#76bbff']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            flex: 1,
+                            borderRadius: 12,
+                            marginBottom: 8
+                        }}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            paddingHorizontal: 13,
+                        }}>
+                            <Text style={{
+                                fontSize: responsiveFontSize(2), // Slightly larger font
+                                fontWeight: '700', // Bold font
+                                color: '#fff', // White text for contrast
+                            }}>
+                                Class 1
+                            </Text>
 
-                    {/* Individual courses */}
-                    <FlatList
-                        data={courses}
-                        horizontal
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ gap: 8 }}
-                    />
+                            {/* Optional Decorative Element */}
+                            <View style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: darkBlue, // Dark Green for contrast
+                                borderRadius: 10, // Circle
+                            }} />
+                        </View>
+                    </LinearGradient>
 
-                    {/* Combo Courses Section */}
-                    <View style={{ marginTop: 20 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333', marginBottom: 10 }}>
-                            Combo Courses
-                        </Text>
+                    <View style={{ borderLeftColor: '#c9c9c9', borderLeftWidth: 1 }}>
+                        {/* Heading 1 */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                            <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Individual Courses</Text>
+                        </View>
 
+                        {/* Individual courses */}
                         <FlatList
-                            data={comboCourses} // Combo courses data array
+                            data={courses}
                             horizontal
                             keyExtractor={(item) => item.id}
-                            renderItem={comboCardItem} // Separate card component or function for combo courses
+                            renderItem={cardItem}
                             showsHorizontalScrollIndicator={false}
-                            contentContainerStyle={{ gap: 8 }}
+                            contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
                         />
+
+                        {/* Combo Courses Section */}
+                        <View style={{ marginTop: 12 }}>
+                            {/* Heading 1 */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                                <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
+                            </View>
+                            <FlatList
+                                data={comboCourses} // Combo courses data array
+                                horizontal
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem} // Separate card component or function for combo courses
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                            />
+                        </View>
                     </View>
                 </View>
 
                 {/* Class 2 */}
-                <View style={{ marginBottom: 20 }}>
-                    {/* Heading */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 2</Text>
-                    </View>
+                <View style={{ marginBottom: 30 }}>
+                    {/* Class */}
+                    <LinearGradient
+                        colors={[darkBlue, '#76bbff']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            flex: 1,
+                            borderRadius: 12,
+                            marginBottom: 8
+                        }}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            paddingHorizontal: 13,
+                        }}>
+                            <Text style={{
+                                fontSize: responsiveFontSize(2), // Slightly larger font
+                                fontWeight: '700', // Bold font
+                                color: '#fff', // White text for contrast
+                            }}>
+                                Class 2
+                            </Text>
 
-                    <FlatList
-                        data={courses}
-                        horizontal
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ gap: 8 }}
-                    />
+                            {/* Optional Decorative Element */}
+                            <View style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: darkBlue, // Dark Green for contrast
+                                borderRadius: 10, // Circle
+                            }} />
+                        </View>
+                    </LinearGradient>
+
+                    <View style={{ borderLeftColor: '#c9c9c9', borderLeftWidth: 1 }}>
+                        {/* Heading 1 */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                            <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Individual Courses</Text>
+                        </View>
+
+                        {/* Individual courses */}
+                        <FlatList
+                            data={courses}
+                            horizontal
+                            keyExtractor={(item) => item.id}
+                            renderItem={cardItem}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                        />
+
+                        {/* Combo Courses Section */}
+                        <View style={{ marginTop: 12 }}>
+                            {/* Heading 1 */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                                <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
+                            </View>
+                            <FlatList
+                                data={comboCourses} // Combo courses data array
+                                horizontal
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem} // Separate card component or function for combo courses
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                            />
+                        </View>
+                    </View>
                 </View>
 
                 {/* Class 3 */}
-                <View style={{ marginBottom: 20 }}>
-                    {/* Heading */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 3</Text>
-                    </View>
+                <View style={{ marginBottom: 30 }}>
+                    {/* Class */}
+                    <LinearGradient
+                        colors={[darkBlue, '#76bbff']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            flex: 1,
+                            borderRadius: 12,
+                            marginBottom: 8
+                        }}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            paddingHorizontal: 13,
+                        }}>
+                            <Text style={{
+                                fontSize: responsiveFontSize(2), // Slightly larger font
+                                fontWeight: '700', // Bold font
+                                color: '#fff', // White text for contrast
+                            }}>
+                                Class 3
+                            </Text>
 
-                    <FlatList
-                        data={courses}
-                        horizontal
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ gap: 8 }}
-                    />
+                            {/* Optional Decorative Element */}
+                            <View style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: darkBlue, // Dark Green for contrast
+                                borderRadius: 10, // Circle
+                            }} />
+                        </View>
+                    </LinearGradient>
+
+                    <View style={{ borderLeftColor: '#c9c9c9', borderLeftWidth: 1 }}>
+                        {/* Heading 1 */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                            <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Individual Courses</Text>
+                        </View>
+
+                        {/* Individual courses */}
+                        <FlatList
+                            data={courses}
+                            horizontal
+                            keyExtractor={(item) => item.id}
+                            renderItem={cardItem}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                        />
+
+                        {/* Combo Courses Section */}
+                        <View style={{ marginTop: 12 }}>
+                            {/* Heading 1 */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                                <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
+                            </View>
+                            <FlatList
+                                data={comboCourses} // Combo courses data array
+                                horizontal
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem} // Separate card component or function for combo courses
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                            />
+                        </View>
+                    </View>
                 </View>
 
                 {/* Class 4 */}
-                <View style={{ marginBottom: 20 }}>
-                    {/* Heading */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 4</Text>
-                    </View>
+                <View style={{ marginBottom: 30 }}>
+                    {/* Class */}
+                    <LinearGradient
+                        colors={[darkBlue, '#76bbff']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            flex: 1,
+                            borderRadius: 12,
+                            marginBottom: 8
+                        }}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            paddingHorizontal: 13,
+                        }}>
+                            <Text style={{
+                                fontSize: responsiveFontSize(2), // Slightly larger font
+                                fontWeight: '700', // Bold font
+                                color: '#fff', // White text for contrast
+                            }}>
+                                Class 4
+                            </Text>
 
-                    <FlatList
-                        data={courses}
-                        horizontal
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ gap: 8 }}
-                    />
+                            {/* Optional Decorative Element */}
+                            <View style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: darkBlue, // Dark Green for contrast
+                                borderRadius: 10, // Circle
+                            }} />
+                        </View>
+                    </LinearGradient>
+
+                    <View style={{ borderLeftColor: '#c9c9c9', borderLeftWidth: 1 }}>
+                        {/* Heading 1 */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                            <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Individual Courses</Text>
+                        </View>
+
+                        {/* Individual courses */}
+                        <FlatList
+                            data={courses}
+                            horizontal
+                            keyExtractor={(item) => item.id}
+                            renderItem={cardItem}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                        />
+
+                        {/* Combo Courses Section */}
+                        <View style={{ marginTop: 12 }}>
+                            {/* Heading 1 */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                                <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
+                            </View>
+                            <FlatList
+                                data={comboCourses} // Combo courses data array
+                                horizontal
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem} // Separate card component or function for combo courses
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                            />
+                        </View>
+                    </View>
                 </View>
 
                 {/* Class 5 */}
-                <View style={{ marginBottom: 20 }}>
-                    {/* Heading */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 5</Text>
+                <View style={{ marginBottom: 30 }}>
+                    {/* Class */}
+                    <LinearGradient
+                        colors={[darkBlue, '#76bbff']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{
+                            flex: 1,
+                            borderRadius: 12,
+                            marginBottom: 8
+                        }}
+                    >
+                        <View style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            paddingVertical: 10,
+                            paddingHorizontal: 13,
+                        }}>
+                            <Text style={{
+                                fontSize: responsiveFontSize(2), // Slightly larger font
+                                fontWeight: '700', // Bold font
+                                color: '#fff', // White text for contrast
+                            }}>
+                                Class 5
+                            </Text>
+
+                            {/* Optional Decorative Element */}
+                            <View style={{
+                                width: 20,
+                                height: 20,
+                                backgroundColor: darkBlue, // Dark Green for contrast
+                                borderRadius: 10, // Circle
+                            }} />
+                        </View>
+                    </LinearGradient>
+
+                    <View style={{ borderLeftColor: '#c9c9c9', borderLeftWidth: 1 }}>
+                        {/* Heading 1 */}
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                            <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                            </View>
+                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Individual Courses</Text>
+                        </View>
+
+                        {/* Individual courses */}
+                        <FlatList
+                            data={courses}
+                            horizontal
+                            keyExtractor={(item) => item.id}
+                            renderItem={cardItem}
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                        />
+
+                        {/* Combo Courses Section */}
+                        <View style={{ marginTop: 12 }}>
+                            {/* Heading 1 */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
+                                <View style={{ height: 1, backgroundColor: '#b9b9b9', width: 20 }}>
+                                </View>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
+                            </View>
+                            <FlatList
+                                data={comboCourses} // Combo courses data array
+                                horizontal
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem} // Separate card component or function for combo courses
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{ gap: 8, paddingLeft: 20 }}
+                            />
+                        </View>
                     </View>
-
-                    <FlatList
-                        data={courses}
-                        horizontal
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ gap: 8 }}
-                    />
-                </View>
-
-                {/* Class 6 */}
-                <View style={{ marginBottom: 15 }}>
-                    {/* Heading */}
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 6</Text>
-                    </View>
-
-                    <FlatList
-                        data={courses}
-                        horizontal
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        showsHorizontalScrollIndicator={false}
-                        contentContainerStyle={{ gap: 8 }}
-                    />
                 </View>
             </ScrollView>
         </View>
