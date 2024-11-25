@@ -17,10 +17,8 @@ import Courses from '../screens/Courses';
 import Purchases from '../screens/Purchases';
 import Notes from '../screens/Notes';
 import ViewPdf from '../screens/ViewPdf';
-import Login from '../auth/Login';
-import Signup from '../auth/Signup';
-import OtpVerification from '../auth/OtpVerification';
-import ForgotPassword from '../auth/ForgotPassword';
+import MyCourses from '../screens/MyCourses';
+import Store from '../screens/Store';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -36,10 +34,10 @@ function BottomTabs() {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline';
-                    } else if (route.name === 'Courses') {
+                    } else if (route.name === 'MyCourses') {
                         iconName = focused ? 'book' : 'book-outline';
-                    } else if (route.name === 'Purchases') {
-                        iconName = focused ? 'cash' : 'cash-outline';
+                    } else if (route.name === 'Store') {
+                        iconName = focused ? 'storefront' : 'storefront-outline';
                     }
 
                     return <Icon name={iconName} size={20} color={color} />;
@@ -68,8 +66,8 @@ function BottomTabs() {
             })}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Courses" component={Courses} />
-            <Tab.Screen name="Purchases" component={Purchases} />
+            <Tab.Screen name="MyCourses" component={MyCourses} />
+            <Tab.Screen name="Store" component={Store} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );
@@ -86,11 +84,9 @@ function GuestNavigator() {
             <Stack.Screen name="EnrolledCourses" component={EnrolledCourses} />
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="Notes" component={Notes} />
+            <Stack.Screen name="Courses" component={Courses} />
+            <Stack.Screen name="Purchases" component={Purchases} />
             <Stack.Screen name="ViewPdf" component={ViewPdf} />
-            {/* <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="SignUp" component={Signup} />
-            <Stack.Screen name="OtpVerification" component={OtpVerification} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> */}
         </Stack.Navigator>
     );
 }
