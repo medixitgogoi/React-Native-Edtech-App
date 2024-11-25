@@ -112,6 +112,126 @@ const Courses = () => {
         );
     };
 
+    const comboCourses = [
+        {
+            id: '1',
+            title: 'Biology + Chemistry Basics',
+            subjects: [
+                { title: 'Biology for class X', author: 'By Smith J.', files: '17 lectures', time: '40 Mins', color: '#FFDAB9' },
+                { title: 'Chemistry Basics', author: 'By John D.', files: '12 lectures', time: '35 Mins', color: '#98FB98' }
+            ],
+            price: 100,
+            totalTime: '75 Mins' // 40 + 35
+        },
+        {
+            id: '2',
+            title: 'Physics + Math for class IX',
+            subjects: [
+                { title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lectures', time: '45 Mins', color: '#FFB6C1' },
+                { title: 'Math for class IX', author: 'By Smith J.', files: '20 lectures', time: '50 Mins', color: '#ADD8E6' }
+            ],
+            price: 120,
+            totalTime: '95 Mins' // 45 + 50
+        },
+        {
+            id: '3',
+            title: 'History of Arts + Geography',
+            subjects: [
+                { title: 'History of Arts', author: 'By Alice K.', files: '10 lectures', time: '30 Mins', color: '#E6E6FA' },
+                { title: 'Geography: World Maps', author: 'By David P.', files: '15 lectures', time: '40 Mins', color: '#FFE4B5' }
+            ],
+            price: 90,
+            totalTime: '70 Mins' // 30 + 40
+        },
+        {
+            id: '4',
+            title: 'Coding + Environmental Studies',
+            subjects: [
+                { title: 'Introduction to Coding', author: 'By Emily W.', files: '25 lectures', time: '60 Mins', color: '#AFEEEE' },
+                { title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lectures', time: '38 Mins', color: '#F0E68C' }
+            ],
+            price: 110,
+            totalTime: '98 Mins' // 60 + 38
+        },
+        {
+            id: '5',
+            title: 'Biology + Physics + Math',
+            subjects: [
+                { title: 'Biology for class X', author: 'By Smith J.', files: '17 lectures', time: '40 Mins', color: '#FFDAB9' },
+                { title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lectures', time: '45 Mins', color: '#FFB6C1' },
+                { title: 'Math for class IX', author: 'By Smith J.', files: '20 lectures', time: '50 Mins', color: '#ADD8E6' }
+            ],
+            price: 150,
+            totalTime: '135 Mins' // 40 + 45 + 50
+        }
+    ];
+
+    const comboCardItem = ({ item }) => (
+        <LinearGradient
+            colors={['#98ccef', '#d9efff']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={{
+                flex: 1,
+                padding: 14,
+                borderRadius: 12,
+                width: responsiveWidth(65),
+            }}
+        >
+            <TouchableOpacity
+                style={{ overflow: 'hidden' }}
+                onPress={() => navigation.navigate('CourseDetails', { data: item.title })}
+            >
+                {/* Title */}
+                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 10, width: '73%' }}>{item.title}</Text>
+
+                {/* Key Highlights Heading with Star Icon */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, justifyContent: 'center' }}>
+                    {/* Left line */}
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginRight: 8 }} />
+
+                    {/* Text and icon */}
+                    <View style={{ backgroundColor: '#f4c430', paddingVertical: 6, paddingHorizontal: 15, borderRadius: 16, alignItems: 'center', justifyContent: 'center', elevation: 5, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4 }}>
+                        <Text style={{ fontSize: responsiveFontSize(1.5), fontWeight: '700', color: '#000', textAlign: 'center', letterSpacing: 1 }}>
+                            Exclusive Benefits
+                        </Text>
+                    </View>
+
+                    {/* Right line */}
+                    <View style={{ flex: 1, height: 1, backgroundColor: '#999', marginLeft: 8 }} />
+                </View>
+
+                {/* Highlights Section */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5 }}>
+                    {/* Subject Notes */}
+                    <View style={{ alignItems: 'center' }}>
+                        <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#0073c4'} />
+                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Subject Notes</Text>
+                    </View>
+
+                    {/* Topic lectures with separators */}
+                    <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
+                        <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#0073c4'} />
+                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.files}</Text>
+                    </View>
+
+                    {/* Subject PDFs */}
+                    <View style={{ alignItems: 'center' }}>
+                        <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#0073c4'} />
+                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Subject PDFs</Text>
+                    </View>
+                </View>
+
+            </TouchableOpacity>
+
+            {/* Time */}
+            <View style={{ position: 'absolute', top: 12, right: 5, alignItems: 'center', flexDirection: 'row', gap: 3, backgroundColor: darkBlue, paddingHorizontal: 6, paddingVertical: 4, borderColor: '#b2d9f3', borderWidth: 1, borderRadius: 7, justifyContent: 'center' }}>
+                <FontAwesome name="clock-o" size={responsiveFontSize(1.7)} color={'#b2d9f3'} />
+                <Text style={{ fontSize: responsiveFontSize(1.3), color: '#fff', fontWeight: '500' }}>{item.totalTime}</Text>
+            </View>
+        </LinearGradient>
+    );
+
     return (
         <View style={{ flex: 1, backgroundColor: background, }}>
             {/* Header */}
@@ -129,12 +249,6 @@ const Courses = () => {
                 </View>
             </View>
 
-            {/* <TouchableOpacity style={{ backgroundColor: '#000' }} onPress={() => dispatch(logout())}>
-                <Text style={{ color: '#fff' }}>Logout</Text>
-            </TouchableOpacity> */}
-
-            {/* <Text style={{ color: '#000' }}>{isUserLoggedIn ? 'true' : 'false'}</Text> */}
-
             <ScrollView style={{ paddingHorizontal: 12, flex: 1 }}>
                 {/* Explore */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 10 }}>
@@ -150,6 +264,7 @@ const Courses = () => {
                         <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Courses for Class 1</Text>
                     </View>
 
+                    {/* Individual courses */}
                     <FlatList
                         data={courses}
                         horizontal
@@ -158,6 +273,22 @@ const Courses = () => {
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={{ gap: 8 }}
                     />
+
+                    {/* Combo Courses Section */}
+                    <View style={{ marginTop: 20 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333', marginBottom: 10 }}>
+                            Combo Courses
+                        </Text>
+
+                        <FlatList
+                            data={comboCourses} // Combo courses data array
+                            horizontal
+                            keyExtractor={(item) => item.id}
+                            renderItem={comboCardItem} // Separate card component or function for combo courses
+                            showsHorizontalScrollIndicator={false}
+                            contentContainerStyle={{ gap: 8 }}
+                        />
+                    </View>
                 </View>
 
                 {/* Class 2 */}
