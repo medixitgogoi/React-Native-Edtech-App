@@ -116,51 +116,35 @@ const Courses = () => {
         {
             id: '1',
             title: 'Biology + Chemistry Basics',
-            subjects: [
-                { title: 'Biology for class X', author: 'By Smith J.', files: '17 lectures', time: '40 Mins', color: '#FFDAB9' },
-                { title: 'Chemistry Basics', author: 'By John D.', files: '12 lectures', time: '35 Mins', color: '#98FB98' }
-            ],
+            files: '29 lectures', // 17 + 12
             price: 100,
             totalTime: '75 Mins' // 40 + 35
         },
         {
             id: '2',
             title: 'Physics + Math for class IX',
-            subjects: [
-                { title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lectures', time: '45 Mins', color: '#FFB6C1' },
-                { title: 'Math for class IX', author: 'By Smith J.', files: '20 lectures', time: '50 Mins', color: '#ADD8E6' }
-            ],
+            files: '38 lectures', // 18 + 20
             price: 120,
             totalTime: '95 Mins' // 45 + 50
         },
         {
             id: '3',
             title: 'History of Arts + Geography',
-            subjects: [
-                { title: 'History of Arts', author: 'By Alice K.', files: '10 lectures', time: '30 Mins', color: '#E6E6FA' },
-                { title: 'Geography: World Maps', author: 'By David P.', files: '15 lectures', time: '40 Mins', color: '#FFE4B5' }
-            ],
+            files: '25 lectures', // 10 + 15
             price: 90,
             totalTime: '70 Mins' // 30 + 40
         },
         {
             id: '4',
             title: 'Coding + Environmental Studies',
-            subjects: [
-                { title: 'Introduction to Coding', author: 'By Emily W.', files: '25 lectures', time: '60 Mins', color: '#AFEEEE' },
-                { title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lectures', time: '38 Mins', color: '#F0E68C' }
-            ],
+            files: '39 lectures', // 25 + 14
             price: 110,
             totalTime: '98 Mins' // 60 + 38
         },
         {
             id: '5',
             title: 'Biology + Physics + Math',
-            subjects: [
-                { title: 'Biology for class X', author: 'By Smith J.', files: '17 lectures', time: '40 Mins', color: '#FFDAB9' },
-                { title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lectures', time: '45 Mins', color: '#FFB6C1' },
-                { title: 'Math for class IX', author: 'By Smith J.', files: '20 lectures', time: '50 Mins', color: '#ADD8E6' }
-            ],
+            files: '55 lectures', // 17 + 18 + 20
             price: 150,
             totalTime: '135 Mins' // 40 + 45 + 50
         }
@@ -168,7 +152,7 @@ const Courses = () => {
 
     const comboCardItem = ({ item }) => (
         <LinearGradient
-            colors={['#98ccef', '#d9efff']}
+            colors={['#006400', '#32CD32']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={{
@@ -183,7 +167,7 @@ const Courses = () => {
                 onPress={() => navigation.navigate('CourseDetails', { data: item.title })}
             >
                 {/* Title */}
-                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 10, width: '73%' }}>{item.title}</Text>
+                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#fff', marginBottom: 10, width: '73%' }}>{item.title}</Text>
 
                 {/* Key Highlights Heading with Star Icon */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, justifyContent: 'center' }}>
@@ -202,23 +186,23 @@ const Courses = () => {
                 </View>
 
                 {/* Highlights Section */}
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 5, marginBottom: 15 }}>
                     {/* Subject Notes */}
                     <View style={{ alignItems: 'center' }}>
-                        <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#0073c4'} />
-                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Subject Notes</Text>
+                        <MaterialCommunityIcons name="note-text" size={responsiveFontSize(2)} color={'#fff'} />
+                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#fff', fontWeight: '500' }}>Subject Notes</Text>
                     </View>
 
                     {/* Topic lectures with separators */}
                     <View style={{ alignItems: 'center', paddingHorizontal: 10 }}>
-                        <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#0073c4'} />
-                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>{item.files}</Text>
+                        <FontAwesome name="video-camera" size={responsiveFontSize(2)} color={'#fff'} />
+                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#fff', fontWeight: '500' }}>{item.files}</Text>
                     </View>
 
                     {/* Subject PDFs */}
                     <View style={{ alignItems: 'center' }}>
                         <MaterialCommunityIcons name="file-pdf-box" size={responsiveFontSize(2)} color={'#0073c4'} />
-                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#000', fontWeight: '500' }}>Subject PDFs</Text>
+                        <Text style={{ fontSize: responsiveFontSize(1.5), color: '#fff', fontWeight: '500' }}>Subject PDFs</Text>
                     </View>
                 </View>
 
