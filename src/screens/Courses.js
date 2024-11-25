@@ -17,7 +17,6 @@ import { login, logout } from '../redux/LoginSlice';
 const Courses = () => {
 
     const isUserLoggedIn = useSelector(state => state.login.isUserLoggedIn);
-    console.log('isUserLoggedIn', isUserLoggedIn);
 
     const dispatch = useDispatch();
 
