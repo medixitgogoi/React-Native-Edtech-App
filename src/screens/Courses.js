@@ -34,6 +34,44 @@ const Courses = () => {
         { id: '8', title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lectures', time: '38 Mins', color: '#F0E68C' },
     ];
 
+    const comboCourses = [
+        {
+            id: '1',
+            title: 'Biology + Chemistry Basics',
+            files: '29 lectures', // 17 + 12
+            price: 100,
+            totalTime: '75 Mins' // 40 + 35
+        },
+        {
+            id: '2',
+            title: 'Physics + Math for class IX',
+            files: '38 lectures', // 18 + 20
+            price: 120,
+            totalTime: '95 Mins' // 45 + 50
+        },
+        {
+            id: '3',
+            title: 'History of Arts + Geography',
+            files: '25 lectures', // 10 + 15
+            price: 90,
+            totalTime: '70 Mins' // 30 + 40
+        },
+        {
+            id: '4',
+            title: 'Coding + Environmental Studies',
+            files: '39 lectures', // 25 + 14
+            price: 110,
+            totalTime: '98 Mins' // 60 + 38
+        },
+        {
+            id: '5',
+            title: 'Biology + Physics + Math',
+            files: '55 lectures', // 17 + 18 + 20
+            price: 150,
+            totalTime: '135 Mins' // 40 + 45 + 50
+        }
+    ];
+
     const cardItem = ({ item }) => {
         return (
             <LinearGradient
@@ -110,44 +148,6 @@ const Courses = () => {
             </LinearGradient>
         );
     };
-
-    const comboCourses = [
-        {
-            id: '1',
-            title: 'Biology + Chemistry Basics',
-            files: '29 lectures', // 17 + 12
-            price: 100,
-            totalTime: '75 Mins' // 40 + 35
-        },
-        {
-            id: '2',
-            title: 'Physics + Math for class IX',
-            files: '38 lectures', // 18 + 20
-            price: 120,
-            totalTime: '95 Mins' // 45 + 50
-        },
-        {
-            id: '3',
-            title: 'History of Arts + Geography',
-            files: '25 lectures', // 10 + 15
-            price: 90,
-            totalTime: '70 Mins' // 30 + 40
-        },
-        {
-            id: '4',
-            title: 'Coding + Environmental Studies',
-            files: '39 lectures', // 25 + 14
-            price: 110,
-            totalTime: '98 Mins' // 60 + 38
-        },
-        {
-            id: '5',
-            title: 'Biology + Physics + Math',
-            files: '55 lectures', // 17 + 18 + 20
-            price: 150,
-            totalTime: '135 Mins' // 40 + 45 + 50
-        }
-    ];
 
     const comboCardItem = ({ item }) => (
         <LinearGradient
