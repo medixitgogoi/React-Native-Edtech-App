@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 
@@ -195,12 +196,19 @@ const EditProfile = () => {
                             <Image source={require('../assets/person.png')} style={{ height: '65%', width: '65%', resizeMode: 'contain' }} />
                         </View>
 
+                        {/* Basic Information */}
                         <View style={{ flexDirection: 'column', gap: 10, marginTop: 30, }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                            {/* Headline */}
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}>
+                                <View style={{ backgroundColor: darkBlue, width: 27, height: 27, borderRadius: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <MaterialIcons name="person" size={18} color="#fff" />
+                                </View>
+
                                 <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2) }}>Basic Information</Text>
                             </View>
 
-                            <View style={{ marginHorizontal: 0, backgroundColor: '#fff', borderRadius: 17, paddingVertical: 18, width: '95%', borderColor: darkBlue, borderWidth: 1.5, elevation: 1 }}>
+                            {/* Details */}
+                            <View style={{ marginHorizontal: 0, backgroundColor: '#fff', borderRadius: 17, paddingVertical: 20, width: '95%', borderColor: darkBlue, borderWidth: 1.5, elevation: 1 }}>
                                 {/* Mobile Input */}
                                 <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
                                     <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Mobile</Text>
@@ -224,7 +232,7 @@ const EditProfile = () => {
                                         />
                                     </View>
                                 </View>
-
+ 
                                 {/* Email Input */}
                                 <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
                                     <Text style={{ color: isEmailFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Email</Text>
@@ -263,9 +271,9 @@ const EditProfile = () => {
                     colors={[darkBlue, '#5badff']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
-                    style={{ borderRadius: 12, paddingVertical: 13, paddingHorizontal: 24, elevation: 5, marginTop: 30, width: '95%', alignSelf: 'center', position: 'absolute', bottom: 10 }}
+                    style={{ borderRadius: 12, height: 50, elevation: 5, marginTop: 30, width: '95%', alignSelf: 'center', position: 'absolute', bottom: 10, overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
                 >
-                    <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, width: '100%', height: '100%' }}>
                         {loading ? (
                             <ActivityIndicator size="small" color={'#000'} />
                         ) : (
