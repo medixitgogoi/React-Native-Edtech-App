@@ -1,226 +1,278 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
-import { responsiveFontSize } from "react-native-responsive-dimensions";
-import Entypo from 'react-native-vector-icons/dist/Entypo';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StatusBar, Image, ActivityIndicator, KeyboardAvoidingView, } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon4 from 'react-native-vector-icons/dist/AntDesign';
+import Icon2 from 'react-native-vector-icons/dist/FontAwesome';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
+import { background, backIconColor, darkGreen, lightGreen, offWhite } from '../utils/colors';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addUser } from '../redux/UserSlice';
+import Toast from 'react-native-toast-message';
 
 const EditProfile = () => {
 
-    const backgroundColor = "#000"
+    const userDetails = useSelector(state => state.user);
+    // console.log('userDetails', userDetails);
+
+    const dispatch = useDispatch();
+
     const navigation = useNavigation();
 
+    const [mobileNumber, setMobileNumber] = useState('');
+
+    const [name, setName] = useState();
+    const [isNameFocused, setIsNameFocused] = useState(false);
+
+    const [email, setEmail] = useState();
+    const [isEmailFocused, setIsEmailFocused] = useState(false);
+
+    const [gender, setGender] = useState();
+    const [isGenderFocused, setIsGenderFocused] = useState(false);
+
+    const [accessToken, setAccessToken] = useState('');
+
+    const [password, setPassword] = useState('');
+
+    const [loading, setLoading] = useState(false);
+
+    const [error, setError] = useState(false);
+
+    // useEffect for setting the user details
+    useEffect(() => {
+        setPassword(userDetails?.[0]?.password);
+        setAccessToken(userDetails?.[0]?.accessToken)
+        setMobileNumber(userDetails?.[0]?.mobileNumber);
+        setName(userDetails[0]?.name);
+        setEmail(userDetails?.[0]?.email);
+        if (userDetails?.[0]?.gender) {
+            setGender(userDetails?.[0]?.gender);
+        }
+    }, [updateHandler]);
+
+    // updateHandler
+    const updateHandler = async () => {
+        // Check if any of the fields are empty
+        if (!name || !email || !gender) {
+            // setError(true);
+
+            // Display error Toast
+            Toast.show({
+                type: 'error',
+                text1: 'Please fill all the details',
+                text2: 'All fields are required to proceed.',
+                position: 'top',
+                topOffset: 10,
+            });
+
+            return; // Exit the function if validation fails
+        }
+
+        try {
+            setLoading(true);
+
+            // Data object as per the API requirement
+            const data = {
+                name: name,
+                email: email,
+                gender: gender,
+            };
+
+            // API Call using axios
+            const response = await axios.post(`/user/profile/update`, data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            console.log('editProfile', response);
+
+            // Handle success response
+            if (response?.data?.status) {
+                Toast.show({
+                    type: 'success',
+                    text1: 'User Details updated successfully',
+                    text2: `Profile updated for ${response?.data?.data?.name}.`,
+                    position: 'top',
+                    topOffset: 10,
+                });
+
+                navigation.navigate('Profile');
+
+                setIsEmailFocused(false);
+                setIsNameFocused(false);
+                setIsGenderFocused(false);
+
+                const userInfo = {
+                    password: password,
+                    accessToken: accessToken,
+                    name: response?.data?.data?.name,
+                    email: response?.data?.data?.email,
+                    gender: response?.data?.data?.gender,
+                    mobileNumber: mobileNumber,
+                };
+
+                dispatch(addUser(userInfo));
+                await AsyncStorage.setItem('userDetails', JSON.stringify(userInfo));
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Update failed',
+                    text2: response?.data?.message || 'Something went wrong.',
+                    position: 'top',
+                    topOffset: 10,
+                });
+            }
+        } catch (error) {
+            // Handle error response
+            if (error.response) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Something went wrong.',
+                    text2: error.response.data?.message || 'Please try again.',
+                    position: 'top',
+                    topOffset: 10,
+                });
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Network error',
+                    text2: 'Please check your internet connection and try again.',
+                    position: 'top',
+                    topOffset: 10,
+                });
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Reset error when input fields are modified
+    useEffect(() => {
+        if (name && email && gender) {
+            setError(false); // Clear error when all fields are filled
+        }
+    }, [name, email, gender]);
+
     return (
-        <View style={{ flex: 1, backgroundColor: "#0d1116" }} >
+        <SafeAreaView style={{ flex: 1 }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#0d1116"
+                backgroundColor={'#fff'}
+                barStyle="dark-content"
             />
 
-            <View style={{
-                backgroundColor: backgroundColor,
-                paddingVertical: 4,
-                elevation: 1,
-                position: 'relative',
-                zIndex: 20,
-                height: 45,
-                paddingHorizontal: 10,
-                // justifyContent: "space-between",
-                flexDirection: 'row',
-                alignItems: "center"
-            }}>
+            {/* Linear Gradient Background */}
+            <LinearGradient
+                colors={['#fff', '#c8e6c4']}
+                style={{ flex: 1 }}
+            >
 
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                >
-                    <Entypo
-                        style={{
-                            backgroundColor: 'rgba(160, 160, 160, 0.5)',
-                            padding: 2,
-                            fontSize: responsiveFontSize(3),
-                            color: "#fff",
-                            borderRadius: 50
-                        }}
-                        name="chevron-left" />
-                </TouchableOpacity>
-
-                <Text style={{
-                    fontSize: responsiveFontSize(2),
-                    color: "#fff",
-                    paddingLeft: 10
-                }}>
-                    Update Profile
-                </Text>
-
-            </View>
-
-            <ScrollView>
-                <View style={{ marginHorizontal: 12, marginTop: 10 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Board </Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter Your Preferred Educational Board. '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Class</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter your Preferred Educational Class. '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
-                    <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(2.5) }}>
-                        Basic Information
-                    </Text>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 10 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Name </Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter Your Name '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Gender</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter Gender Name '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>DOB</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter Date Of Birth '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 12 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Phone</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="grey"
-                                placeholder='Enter Phone Number'
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Email</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter Email Name '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>State</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter State Name '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '13%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>City</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter City Name '
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ marginHorizontal: 12, marginTop: 17 }}>
-                    <View style={{ marginTop: 5, width: "100%" }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '25%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
-                            <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>School/College</Text>
-                        </View>
-                        <View style={{}}>
-                            <TextInput
-                                style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
-                                placeholderTextColor="#6d6d6d"
-                                placeholder='Enter School/College Name'
-                            />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={{ width: '100%', paddingHorizontal: 10, marginBottom: 10, marginTop: 10 }}>
-                    <TouchableOpacity style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', width: "100%", alignItems: "center", paddingVertical: 10, borderRadius: 10 }}>
-                        <Text style={{ color: "#fff", fontWeight: '600', fontSize: responsiveFontSize(1.9) }}>
-                            Update Profile
-                        </Text>
+                {/* Header */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+                        <Icon4 name="arrowleft" size={22} color={'#000'} />
                     </TouchableOpacity>
+                    <View style={{ position: 'absolute', left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text style={{ color: '#000', fontSize: responsiveFontSize(2.4), fontWeight: '500' }}>Edit Profile</Text>
+                    </View>
                 </View>
-            </ScrollView>
-        </View>
-    )
-}
+
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior="padding"
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 100}
+                >
+                    <ScrollView
+                        contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
+                        keyboardShouldPersistTaps="handled"
+                    >
+                        {/* Avatar */}
+                        <View style={{ width: 180, height: 180, alignSelf: 'center', borderRadius: 100, overflow: 'hidden', marginTop: 20, marginBottom: 15, backgroundColor: lightGreen, borderColor: darkGreen, borderWidth: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                            <Image source={require('../assets/ava2.png')} style={{ height: '65%', width: '65%', resizeMode: 'contain' }} />
+                        </View>
+
+                        <View style={{ marginHorizontal: 0, backgroundColor: '#fff', borderRadius: 20, paddingVertical: 20, width: '95%', marginTop: 30, borderColor: darkGreen, borderWidth: 1.5, elevation: 1 }}>
+                            {/* Mobile Input */}
+                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
+                                <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic' }}>Mobile</Text>
+                                <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 40, backgroundColor: '#efefef', borderRadius: 10, elevation: 1, justifyContent: 'space-between' }}>
+                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>{mobileNumber}</Text>
+                                    <Icon name="block" size={20} color={'red'} />
+                                </View>
+                            </View>
+
+                            {/* Name Input */}
+                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                <Text style={{ color: isNameFocused ? backIconColor : '#000', zIndex: 1, fontWeight: '500' }}>Enter Your Name</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <TextInput
+                                        style={{ height: 40, color: '#000', fontWeight: '500', borderColor: isNameFocused ? backIconColor : '#ccc', borderWidth: 1, width: '100%', borderRadius: 10, paddingLeft: 10, backgroundColor: 'white' }}
+                                        value={name}
+                                        onChangeText={setName}
+                                        onFocus={() => setIsNameFocused(true)}
+                                        onBlur={() => setIsNameFocused(false)}
+                                    />
+                                </View>
+                            </View>
+
+                            {/* Email Input */}
+                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                <Text style={{ color: isEmailFocused ? backIconColor : '#000', zIndex: 1, fontWeight: '500' }}>Enter Your Email</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <TextInput
+                                        style={{ height: 40, color: '#000', fontWeight: '500', borderColor: isEmailFocused ? backIconColor : '#ccc', borderWidth: 1, width: '100%', borderRadius: 10, paddingLeft: 10, backgroundColor: 'white' }}
+                                        value={email}
+                                        onChangeText={setEmail}
+                                        onFocus={() => setIsEmailFocused(true)}
+                                        onBlur={() => setIsEmailFocused(false)}
+                                    />
+                                </View>
+                            </View>
+
+                            {/* Gender Input */}
+                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                <Text style={{ color: isGenderFocused ? backIconColor : '#000', zIndex: 1, fontWeight: '500' }}>Gender</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <TextInput
+                                        style={{ height: 40, color: '#000', fontWeight: '500', borderColor: isGenderFocused ? backIconColor : '#ccc', borderWidth: 1, width: '100%', borderRadius: 10, paddingLeft: 10, backgroundColor: 'white' }}
+                                        value={gender}
+                                        onChangeText={setGender}
+                                        onFocus={() => setIsGenderFocused(true)}
+                                        onBlur={() => setIsGenderFocused(false)}
+                                        placeholder='M or F'
+                                    />
+                                </View>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+
+                {/* Update Profile */}
+                <LinearGradient
+                    colors={[darkGreen, '#3a9f43']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{ borderRadius: 12, paddingVertical: 13, paddingHorizontal: 24, elevation: 5, marginTop: 30, width: '95%', alignSelf: 'center', position: 'absolute', bottom: 10 }}
+                >
+                    <TouchableOpacity onPress={updateHandler} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                        {loading ? (
+                            <ActivityIndicator size="small" color={'#000'} />
+                        ) : (
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                                <Text style={{ color: '#fff', fontWeight: '500', fontSize: responsiveFontSize(2.4) }}>Update Profile</Text>
+                                <Icon2 name="pencil-square" size={22} color={'#fff'} />
+                            </View>
+                        )}
+                    </TouchableOpacity>
+                </LinearGradient>
+            </LinearGradient>
+        </SafeAreaView>
+    );
+};
 
 export default EditProfile;
-
-const styles = StyleSheet.create({});
