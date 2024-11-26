@@ -55,11 +55,12 @@ const Login = () => {
                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Mobile Number</Text>
                     <TextInput
                         placeholder="Your mobile number"
-                        placeholderTextColor="#666"
+                        placeholderTextColor="#8b8b8b"
                         value={mobile}
                         selectionColor={darkBlue}  // Sets the cursor color to black
                         onChangeText={setMobile}
                         keyboardType='number-pad'
+                        maxLength={10}
                         style={{
                             backgroundColor: lightBlue,
                             paddingVertical: 6,
@@ -82,7 +83,7 @@ const Login = () => {
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 8, borderColor: isPasswordFocused ? '#000' : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
                         <TextInput
                             placeholder="Your password"
-                            placeholderTextColor="#666"
+                            placeholderTextColor="#8b8b8b"
                             value={password}
                             onChangeText={setPassword}
                             selectionColor={darkBlue}  // Sets the cursor color to black

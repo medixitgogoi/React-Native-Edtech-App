@@ -130,7 +130,7 @@ const ForgotPassword = ({ route }) => {
                         <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Password</Text>
                         <TextInput
                             placeholder="Your password"
-                            placeholderTextColor="#666"
+                            placeholderTextColor="#8b8b8b"
                             value={password}
                             onChangeText={setPassword}
                             selectionColor={darkBlue}
@@ -138,7 +138,7 @@ const ForgotPassword = ({ route }) => {
                                 backgroundColor: lightBlue,
                                 paddingVertical: 6,
                                 paddingHorizontal: 15,
-                                color: darkBlue,
+                                color: '#000',
                                 borderRadius: 8,
                                 fontSize: responsiveFontSize(1.8),
                                 marginBottom: 25,
@@ -155,15 +155,14 @@ const ForgotPassword = ({ route }) => {
                         <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Confirm Password</Text>
                         <TextInput
                             placeholder="Confirm password"
-                            placeholderTextColor="#666"
+                            placeholderTextColor="#8b8b8b"
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
-                            // secureTextEntry={show}
                             style={{
                                 backgroundColor: lightBlue,
                                 paddingVertical: 6,
                                 paddingHorizontal: 15,
-                                color: darkBlue,
+                                color: '#000',
                                 borderRadius: 8,
                                 fontSize: responsiveFontSize(1.8),
                                 marginBottom: 10,
