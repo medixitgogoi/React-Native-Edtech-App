@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StatusBar, Image, ActivityIndicator, KeyboardAvoidingView, } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StatusBar, Image, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon2 from 'react-native-vector-icons/dist/FontAwesome';
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const EditProfile = () => {
 
@@ -40,6 +41,10 @@ const EditProfile = () => {
     const [loading, setLoading] = useState(false);
 
     const [error, setError] = useState(false);
+
+    const [dob, setDob] = useState('');
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [isDobFocused, setIsDobFocused] = useState(false);
 
     // useEffect for setting the user details
     // useEffect(() => {
@@ -232,7 +237,7 @@ const EditProfile = () => {
                                         />
                                     </View>
                                 </View>
- 
+
                                 {/* Email Input */}
                                 <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
                                     <Text style={{ color: isEmailFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Email</Text>
@@ -260,6 +265,47 @@ const EditProfile = () => {
                                             placeholder='M or F'
                                         />
                                     </View>
+                                </View>
+
+                                {/* DOB Input */}
+                                <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                    <Text style={{ color: isDobFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Select Your Date of Birth</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                        <TouchableOpacity
+                                            style={{
+                                                height: 38,
+                                                color: '#000',
+                                                fontWeight: '500',
+                                                borderColor: isDobFocused ? darkBlue : '#ccc',
+                                                borderWidth: 1,
+                                                width: '100%',
+                                                borderRadius: 9,
+                                                paddingLeft: 10,
+                                                justifyContent: 'center',
+                                                backgroundColor: 'white',
+                                            }}
+                                            onPress={() => setShowDatePicker(true)}
+                                        >
+                                            <Text style={{ color: dob ? '#000' : '#aaa', fontWeight: '500' }}>
+                                                {dob || 'Select Date'}
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                    {/* Date Picker */}
+                                    {showDatePicker && (
+                                        <DateTimePicker
+                                            value={dob ? new Date(dob) : new Date()}
+                                            mode="date"
+                                            display="calendar"
+                                            onChange={(event, selectedDate) => {
+                                                setShowDatePicker(false);
+                                                if (selectedDate) {
+                                                    setDob(selectedDate.toISOString().split('T')[0]); // Format date as YYYY-MM-DD
+                                                }
+                                            }}
+                                        />
+                                    )}
                                 </View>
                             </View>
                         </View>
