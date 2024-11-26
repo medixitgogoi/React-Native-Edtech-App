@@ -16,6 +16,7 @@ const EditProfile = () => {
                 backgroundColor={background}
             />
 
+            {/* Header */}
             <View style={{
                 backgroundColor: backgroundColor,
                 paddingVertical: 4,
@@ -49,10 +50,10 @@ const EditProfile = () => {
                 }}>
                     Update Profile
                 </Text>
-
             </View>
 
             <ScrollView>
+                
                 <View style={{ marginHorizontal: 12, marginTop: 10 }}>
                     <View style={{ marginTop: 5, width: "100%" }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>

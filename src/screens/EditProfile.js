@@ -14,22 +14,22 @@ import Toast from 'react-native-toast-message';
 
 const EditProfile = () => {
 
-    const userDetails = useSelector(state => state.user);
+    // const userDetails = useSelector(state => state.user);
     // console.log('userDetails', userDetails);
 
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
 
-    const [mobileNumber, setMobileNumber] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('1234567890');
 
-    const [name, setName] = useState();
+    const [name, setName] = useState('Dixit Gogoi');
     const [isNameFocused, setIsNameFocused] = useState(false);
 
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('dixit@gmail.com');
     const [isEmailFocused, setIsEmailFocused] = useState(false);
 
-    const [gender, setGender] = useState();
+    const [gender, setGender] = useState('M');
     const [isGenderFocused, setIsGenderFocused] = useState(false);
 
     const [accessToken, setAccessToken] = useState('');
@@ -175,6 +175,7 @@ const EditProfile = () => {
                     <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
                         <Icon4 name="arrowleft" size={22} color={'#000'} />
                     </TouchableOpacity>
+
                     <View style={{ position: 'absolute', left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' }}>
                         <Text style={{ color: '#000', fontSize: responsiveFontSize(2.4), fontWeight: '500' }}>Edit Profile</Text>
                     </View>
@@ -194,22 +195,23 @@ const EditProfile = () => {
                             <Image source={require('../assets/person.png')} style={{ height: '65%', width: '65%', resizeMode: 'contain' }} />
                         </View>
 
-                        <View style={{ marginHorizontal: 0, backgroundColor: '#fff', borderRadius: 20, paddingVertical: 20, width: '95%', marginTop: 30, borderColor: darkBlue, borderWidth: 1.5, elevation: 1 }}>
+                        <View style={{ borderRadius: 20, paddingVertical: 20, width: '100%', marginTop: 20 }}>
                             {/* Mobile Input */}
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
-                                <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic' }}>Mobile</Text>
-                                <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 40, backgroundColor: '#efefef', borderRadius: 10, elevation: 1, justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>{mobileNumber}</Text>
+                                <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Mobile</Text>
+                                <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 38, backgroundColor: '#efefef', borderRadius: 9, elevation: 1, justifyContent: 'space-between' }}>
+                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>+91 {mobileNumber}</Text>
                                     <Icon name="block" size={20} color={'red'} />
                                 </View>
                             </View>
 
                             {/* Name Input */}
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
-                                <Text style={{ color: isNameFocused ? background : '#000', zIndex: 1, fontWeight: '500' }}>Enter Your Name</Text>
+                                <Text style={{ color: isNameFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Name</Text>
+
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                     <TextInput
-                                        style={{ height: 40, color: '#000', fontWeight: '500', borderColor: isNameFocused ? background : '#ccc', borderWidth: 1, width: '100%', borderRadius: 10, paddingLeft: 10, backgroundColor: 'white' }}
+                                        style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isNameFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
                                         value={name}
                                         onChangeText={setName}
                                         onFocus={() => setIsNameFocused(true)}
@@ -220,10 +222,10 @@ const EditProfile = () => {
 
                             {/* Email Input */}
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
-                                <Text style={{ color: isEmailFocused ? background : '#000', zIndex: 1, fontWeight: '500' }}>Enter Your Email</Text>
+                                <Text style={{ color: isEmailFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Email</Text>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                     <TextInput
-                                        style={{ height: 40, color: '#000', fontWeight: '500', borderColor: isEmailFocused ? background : '#ccc', borderWidth: 1, width: '100%', borderRadius: 10, paddingLeft: 10, backgroundColor: 'white' }}
+                                        style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isEmailFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
                                         value={email}
                                         onChangeText={setEmail}
                                         onFocus={() => setIsEmailFocused(true)}
@@ -234,10 +236,10 @@ const EditProfile = () => {
 
                             {/* Gender Input */}
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
-                                <Text style={{ color: isGenderFocused ? background : '#000', zIndex: 1, fontWeight: '500' }}>Gender</Text>
+                                <Text style={{ color: isGenderFocused ? darkBlue : '#000', zIndex: 1, fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Gender</Text>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                                     <TextInput
-                                        style={{ height: 40, color: '#000', fontWeight: '500', borderColor: isGenderFocused ? background : '#ccc', borderWidth: 1, width: '100%', borderRadius: 10, paddingLeft: 10, backgroundColor: 'white' }}
+                                        style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isGenderFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
                                         value={gender}
                                         onChangeText={setGender}
                                         onFocus={() => setIsGenderFocused(true)}
@@ -252,7 +254,7 @@ const EditProfile = () => {
 
                 {/* Update Profile */}
                 <LinearGradient
-                    colors={[darkBlue, '#3a9f43']}
+                    colors={[darkBlue, '#5badff']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}
                     style={{ borderRadius: 12, paddingVertical: 13, paddingHorizontal: 24, elevation: 5, marginTop: 30, width: '95%', alignSelf: 'center', position: 'absolute', bottom: 10 }}
