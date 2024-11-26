@@ -14,7 +14,7 @@ const AuthNavigator = () => {
             initialRouteName={"Login"}
             screenOptions={{
                 headerShown: false,
-                animation: 'slide_from_right',
+                animation: 'fade_from_bottom'
             }}
         >
             <Stack.Screen name="Login" component={Login} />

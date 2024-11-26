@@ -263,7 +263,7 @@ const OtpVerification = ({ route }) => {
                                                 maxLength={10}
                                                 value={mobileNumber}
                                                 onChangeText={setMobileNumber}
-                                                placeholderTextColor="#666"
+                                                placeholderTextColor="#8b8b8b"
                                                 selectionColor={darkBlue}  // Sets the cursor color to black
                                                 onFocus={() => setIsMobileFocused(true)}
                                                 onBlur={() => setIsMobileFocused(false)}

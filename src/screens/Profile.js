@@ -45,22 +45,26 @@ const Profile = ({ navigation }) => {
                 <ScrollView style={{ flex: 1 }}>
                     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', paddingVertical: 5, paddingHorizontal: 12 }}>
                         {/* Details */}
-                        <View style={{ backgroundColor: darkBlue, width: '100%', borderRadius: 20, elevation: 1, paddingVertical: 25, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 15 }}>
-                            {/* Initial */}
-                            <View style={{ flexDirection: 'column', alignItems: 'center', }}>
-                                <View style={{ height: 100, width: 100, backgroundColor: lightBlue, borderRadius: 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>D</Text>
-                                </View>
-                            </View>
-
-                            {/* Name and Email */}
-                            <View style={{ flexDirection: 'column', gap: 3, width: '65%' }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                                    <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>Dixit Gogoi</Text>
-                                    <View style={{ width: 20, height: 20, backgroundColor: lightBlue, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
-                                        <Icon2 name="male" size={15} color={'#000'} />
+                        <LinearGradient
+                            colors={[darkBlue, '#6ac0ff']}
+                            style={{ flex: 1, borderRadius: 20, marginHorizontal: 10, elevation: 1 }}
+                        >
+                            <View style={{ paddingVertical: 25, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 15 }}>
+                                {/* Initial */}
+                                <View style={{ flexDirection: 'column', alignItems: 'center', }}>
+                                    <View style={{ height: 100, width: 100, backgroundColor: lightBlue, borderRadius: 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>D</Text>
                                     </View>
-                                    {/* {userDetails?.[0]?.gender === 'M' && (
+                                </View>
+
+                                {/* Name and Email */}
+                                <View style={{ flexDirection: 'column', gap: 3, width: '65%' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                                        <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>Dixit Gogoi</Text>
+                                        <View style={{ width: 20, height: 20, backgroundColor: lightBlue, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                            <Icon2 name="male" size={15} color={'#000'} />
+                                        </View>
+                                        {/* {userDetails?.[0]?.gender === 'M' && (
                                     )}
 
                                     {userDetails?.[0]?.gender === 'F' && (
@@ -68,10 +72,11 @@ const Profile = ({ navigation }) => {
                                             <Icon2 name="female" size={15} color={'#000'} />
                                         </View>
                                     )} */}
+                                    </View>
+                                    <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>123@gmail.com</Text>
                                 </View>
-                                <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>123@gmail.com</Text>
                             </View>
-                        </View>
+                        </LinearGradient>
 
                         {/* Profile */}
                         <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16, backgroundColor: '#FFFFFF', paddingVertical: 9, paddingHorizontal: 10, borderRadius: 12, elevation: 1 }}>
