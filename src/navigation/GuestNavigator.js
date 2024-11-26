@@ -84,6 +84,7 @@ function GuestNavigator() {
             <Stack.Screen name="EnrolledCourses" component={EnrolledCourses} />
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="Notes" component={Notes} />
+            <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Courses" component={Courses} />
             <Stack.Screen name="Purchases" component={Purchases} />
             <Stack.Screen name="ViewPdf" component={ViewPdf} />

@@ -195,57 +195,63 @@ const EditProfile = () => {
                             <Image source={require('../assets/person.png')} style={{ height: '65%', width: '65%', resizeMode: 'contain' }} />
                         </View>
 
-                        <View style={{ borderRadius: 20, paddingVertical: 20, width: '100%', marginTop: 20 }}>
-                            {/* Mobile Input */}
-                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
-                                <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Mobile</Text>
-                                <View style={{ flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 38, backgroundColor: '#efefef', borderRadius: 9, elevation: 1, justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>+91 {mobileNumber}</Text>
-                                    <Icon name="block" size={20} color={'red'} />
-                                </View>
+                        <View style={{ flexDirection: 'column', gap: 10, marginTop: 30, }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                                <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2) }}>Basic Information</Text>
                             </View>
 
-                            {/* Name Input */}
-                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
-                                <Text style={{ color: isNameFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Name</Text>
-
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TextInput
-                                        style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isNameFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
-                                        value={name}
-                                        onChangeText={setName}
-                                        onFocus={() => setIsNameFocused(true)}
-                                        onBlur={() => setIsNameFocused(false)}
-                                    />
+                            <View style={{ marginHorizontal: 0, backgroundColor: '#fff', borderRadius: 17, paddingVertical: 18, width: '95%', borderColor: darkBlue, borderWidth: 1.5, elevation: 1 }}>
+                                {/* Mobile Input */}
+                                <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
+                                    <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Mobile</Text>
+                                    <View style={{ width: '100%', flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 38, backgroundColor: '#efefef', borderRadius: 9, elevation: 1, justifyContent: 'space-between' }}>
+                                        <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>+91 {mobileNumber}</Text>
+                                        <Icon name="block" size={20} color={'red'} />
+                                    </View>
                                 </View>
-                            </View>
 
-                            {/* Email Input */}
-                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
-                                <Text style={{ color: isEmailFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Email</Text>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TextInput
-                                        style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isEmailFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
-                                        value={email}
-                                        onChangeText={setEmail}
-                                        onFocus={() => setIsEmailFocused(true)}
-                                        onBlur={() => setIsEmailFocused(false)}
-                                    />
+                                {/* Name Input */}
+                                <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                    <Text style={{ color: isNameFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Name</Text>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                        <TextInput
+                                            style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isNameFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
+                                            value={name}
+                                            onChangeText={setName}
+                                            onFocus={() => setIsNameFocused(true)}
+                                            onBlur={() => setIsNameFocused(false)}
+                                        />
+                                    </View>
                                 </View>
-                            </View>
 
-                            {/* Gender Input */}
-                            <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
-                                <Text style={{ color: isGenderFocused ? darkBlue : '#000', zIndex: 1, fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Gender</Text>
-                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                    <TextInput
-                                        style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isGenderFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
-                                        value={gender}
-                                        onChangeText={setGender}
-                                        onFocus={() => setIsGenderFocused(true)}
-                                        onBlur={() => setIsGenderFocused(false)}
-                                        placeholder='M or F'
-                                    />
+                                {/* Email Input */}
+                                <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                    <Text style={{ color: isEmailFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your Email</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                        <TextInput
+                                            style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isEmailFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
+                                            value={email}
+                                            onChangeText={setEmail}
+                                            onFocus={() => setIsEmailFocused(true)}
+                                            onBlur={() => setIsEmailFocused(false)}
+                                        />
+                                    </View>
+                                </View>
+
+                                {/* Gender Input */}
+                                <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                    <Text style={{ color: isGenderFocused ? darkBlue : '#000', zIndex: 1, fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Gender</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                        <TextInput
+                                            style={{ height: 38, color: '#000', fontWeight: '500', borderColor: isGenderFocused ? darkBlue : '#ccc', borderWidth: 1, width: '100%', borderRadius: 9, paddingLeft: 10, backgroundColor: 'white' }}
+                                            value={gender}
+                                            onChangeText={setGender}
+                                            onFocus={() => setIsGenderFocused(true)}
+                                            onBlur={() => setIsGenderFocused(false)}
+                                            placeholder='M or F'
+                                        />
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -259,7 +265,7 @@ const EditProfile = () => {
                     end={{ x: 1, y: 0 }}
                     style={{ borderRadius: 12, paddingVertical: 13, paddingHorizontal: 24, elevation: 5, marginTop: 30, width: '95%', alignSelf: 'center', position: 'absolute', bottom: 10 }}
                 >
-                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
                         {loading ? (
                             <ActivityIndicator size="small" color={'#000'} />
                         ) : (
