@@ -34,6 +34,9 @@ const EditProfile = () => {
     const [gender, setGender] = useState('M');
     const [isGenderFocused, setIsGenderFocused] = useState(false);
 
+    const [schoolName, setSchoolName] = useState('Sai Vikash School');
+    const [isSchoolFocused, setIsSchoolFocused] = useState(false);
+
     const [accessToken, setAccessToken] = useState('');
 
     const [password, setPassword] = useState('');
@@ -42,7 +45,7 @@ const EditProfile = () => {
 
     const [error, setError] = useState(false);
 
-    const [dob, setDob] = useState('');
+    const [dob, setDob] = useState('2000-10-10');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [isDobFocused, setIsDobFocused] = useState(false);
 
@@ -169,29 +172,27 @@ const EditProfile = () => {
                 backgroundColor={'#fff'}
                 barStyle="dark-content"
             />
-
+            
             {/* Linear Gradient Background */}
             <LinearGradient
                 colors={['#fff', '#e2f3ff']}
                 style={{ flex: 1 }}
             >
-
-                {/* Header */}
-                <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-                        <Icon4 name="arrowleft" size={22} color={'#000'} />
-                    </TouchableOpacity>
-
-                    <View style={{ position: 'absolute', left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                        <Text style={{ color: '#000', fontSize: responsiveFontSize(2.4), fontWeight: '500' }}>Edit Profile</Text>
-                    </View>
-                </View>
-
                 <KeyboardAvoidingView
                     style={{ flex: 1 }}
                     behavior="padding"
                     keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 100}
                 >
+                    {/* Header */}
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 8 }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+                            <Icon4 name="arrowleft" size={22} color={'#000'} />
+                        </TouchableOpacity>
+
+                        <View style={{ position: 'absolute', left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Text style={{ color: '#000', fontSize: responsiveFontSize(2.4), fontWeight: '500' }}>Edit Profile</Text>
+                        </View>
+                    </View>
                     <ScrollView
                         contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
                         keyboardShouldPersistTaps="handled"
@@ -201,19 +202,9 @@ const EditProfile = () => {
                             <Image source={require('../assets/person.png')} style={{ height: '65%', width: '65%', resizeMode: 'contain' }} />
                         </View>
 
-                        {/* Basic Information */}
-                        <View style={{ flexDirection: 'column', gap: 10, marginTop: 30, }}>
-                            {/* Headline */}
-                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}>
-                                <View style={{ backgroundColor: darkBlue, width: 27, height: 27, borderRadius: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                    <MaterialIcons name="person" size={18} color="#fff" />
-                                </View>
-
-                                <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2) }}>Basic Information</Text>
-                            </View>
-
+                        <ScrollView style={{ flex: 1, paddingBottom: 30 }}>
                             {/* Details */}
-                            <View style={{ marginHorizontal: 0, backgroundColor: '#fff', borderRadius: 17, paddingVertical: 20, width: '95%', borderColor: darkBlue, borderWidth: 1.5, elevation: 1 }}>
+                            <View style={{ borderRadius: 17, paddingVertical: 20, width: '100%', borderColor: darkBlue }}>
                                 {/* Mobile Input */}
                                 <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
                                     <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Mobile</Text>
@@ -307,8 +298,33 @@ const EditProfile = () => {
                                         />
                                     )}
                                 </View>
+
+                                {/* School Name Input */}
+                                <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
+                                    <Text style={{ color: isSchoolFocused ? darkBlue : '#000', fontWeight: '500', fontSize: responsiveFontSize(1.9) }}>Enter Your School Name</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                        <TextInput
+                                            style={{
+                                                height: 38,
+                                                color: '#000',
+                                                fontWeight: '500',
+                                                borderColor: isSchoolFocused ? darkBlue : '#ccc',
+                                                borderWidth: 1,
+                                                width: '100%',
+                                                borderRadius: 9,
+                                                paddingLeft: 10,
+                                                backgroundColor: 'white',
+                                            }}
+                                            value={schoolName}
+                                            onChangeText={setSchoolName}
+                                            onFocus={() => setIsSchoolFocused(true)}
+                                            onBlur={() => setIsSchoolFocused(false)}
+                                        />
+                                    </View>
+                                </View>
+
                             </View>
-                        </View>
+                        </ScrollView>
                     </ScrollView>
                 </KeyboardAvoidingView>
 
