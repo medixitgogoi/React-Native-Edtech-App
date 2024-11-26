@@ -22,8 +22,8 @@ import { logout } from '../redux/LoginSlice';
 
 const Profile = ({ navigation }) => {
 
-    const dispatch = useDispatch()
-        ;
+    const dispatch = useDispatch();
+
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <StatusBar
