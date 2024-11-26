@@ -59,6 +59,7 @@ const EditProfile = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
                             <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Board </Text>
                         </View>
+                        
                         <View style={{}}>
                             <TextInput
                                 style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
@@ -74,6 +75,7 @@ const EditProfile = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
                             <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Class</Text>
                         </View>
+
                         <View style={{}}>
                             <TextInput
                                 style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
@@ -95,6 +97,7 @@ const EditProfile = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
                             <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Name </Text>
                         </View>
+
                         <View style={{}}>
                             <TextInput
                                 style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
@@ -110,6 +113,7 @@ const EditProfile = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
                             <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Gender</Text>
                         </View>
+
                         <View style={{}}>
                             <TextInput
                                 style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
@@ -125,6 +129,7 @@ const EditProfile = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
                             <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>DOB</Text>
                         </View>
+
                         <View style={{}}>
                             <TextInput
                                 style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
@@ -140,6 +145,7 @@ const EditProfile = () => {
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '15%', paddingVertical: 2, position: 'absolute', zIndex: 10, top: -10, left: 5, backgroundColor: "#0d1116" }}>
                             <Text style={{ color: '#fff', fontWeight: '400', fontSize: responsiveFontSize(1.5) }}>Phone</Text>
                         </View>
+
                         <View style={{}}>
                             <TextInput
                                 style={{ paddingVertical: 8, fontSize: responsiveFontSize(1.8), fontWeight: "500", color: "#fff", borderWidth: 0.5, borderRadius: 5, paddingLeft: 9, borderColor: "grey" }}
