@@ -5,7 +5,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
-import { darkBlue, lightBlue } from '../utils/colors';
+import { background, darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
 const lectures = [
@@ -66,10 +66,10 @@ const Notes = ({ navigation }) => {
     );
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
-                backgroundColor="#fff"
+                backgroundColor={background}
                 barStyle="dark-content"
             />
 
