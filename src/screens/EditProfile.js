@@ -401,7 +401,6 @@ const EditProfile = () => {
                                 </View>
                             </View>
                         </View>
-
                     </ScrollView>
                 </KeyboardAvoidingView>
                 
