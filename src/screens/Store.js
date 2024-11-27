@@ -15,7 +15,7 @@ const courses = [
 
 const Store = () => {
 
-    const totalPrice = courses.reduce((sum, course) => sum + course.price, 0);
+    const totalPrice = courses.reduce((sum, course) => sum + course?.price, 0);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
@@ -38,7 +38,7 @@ const Store = () => {
                 data={courses}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={{ flexDirection: 'row', backgroundColor: '#FFF', marginBottom: 15, borderRadius: 10, padding: 10, elevation: 1 }}>
+                    <View style={{ flexDirection: 'row', backgroundColor: '#FFF', marginBottom: 15, borderRadius: 12, padding: 10, elevation: 1 }}>
                         <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
                         <View style={{ justifyContent: 'space-between', flex: 1 }}>
                             <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000' }}>{item.title}</Text>
