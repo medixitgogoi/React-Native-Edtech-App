@@ -70,7 +70,7 @@ const Store = () => {
                     <View style={{ marginTop: 20, paddingVertical: 20, borderTopWidth: 1, borderColor: '#E0E0E0', alignItems: 'center' }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', marginBottom: 10 }}>Total: ₹{totalPrice}</Text>
                         <TouchableOpacity style={{ backgroundColor: '#4CAF50', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 20 }}>
-                            <Text style={{ color: '#FFF', fontSize: 16, fontWeight: 'bold' }}>Proceed to Checkout</Text>
+                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Proceed to Checkout</Text>
                         </TouchableOpacity>
                     </View>
                 }
