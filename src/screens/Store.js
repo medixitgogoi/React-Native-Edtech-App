@@ -58,14 +58,12 @@ const Store = () => {
                     </View>
                 )}
                 ListHeaderComponent={
-                    <View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
-                            <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
-                                <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
-                            </TouchableOpacity>
-                            <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Your Cart</Text>
-                            <View style={{ width: 35, height: 35 }} />
-                        </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
+                        <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                            <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
+                        </TouchableOpacity>
+                        <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Your Cart</Text>
+                        <View style={{ width: 35, height: 35 }} />
                     </View>
                 }
                 ListFooterComponent={
@@ -76,7 +74,7 @@ const Store = () => {
                         </TouchableOpacity>
                     </View>
                 }
-                // contentContainerStyle={{ paddingHorizontal: 10 }}
+                contentContainerStyle={{ paddingHorizontal: 1 }}
             />
 
         </SafeAreaView>
