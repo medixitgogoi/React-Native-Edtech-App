@@ -104,6 +104,7 @@ const Purchases = ({ navigation }) => {
                 <View style={{ width: 35, height: 35 }} />
             </View>
 
+            {/* Content */}
             <FlatList
                 data={purchases}
                 renderItem={renderCourse}
