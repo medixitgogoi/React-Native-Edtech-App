@@ -2,7 +2,9 @@ import { View, Text, TouchableOpacity, FlatList, StatusBar, Dimensions, SafeArea
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+
 import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
 import { background, darkBlue, lightBlue } from '../utils/colors';
