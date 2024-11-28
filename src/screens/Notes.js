@@ -34,27 +34,8 @@ const lectures = [
 const Notes = ({ navigation }) => {
 
     const renderLecture = ({ item }) => (
-        <TouchableOpacity
-            style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                backgroundColor: lightBlue,
-                borderRadius: 12,
-                padding: 14,
-                elevation: 1
-            }}
-        >
-            <View
-                style={{
-                    width: 45,
-                    height: 45,
-                    borderRadius: 25,
-                    backgroundColor: darkBlue,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'row'
-                }}
-            >
+        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 12, padding: 14, elevation: 1 }}>
+            <View style={{ width: 45, height: 45, borderRadius: 25, backgroundColor: darkBlue, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                 <FontAwesome name="book" size={22} color={'#fff'} />
             </View>
 

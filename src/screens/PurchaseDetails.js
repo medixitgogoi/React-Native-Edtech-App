@@ -26,9 +26,7 @@ const PurchaseDetails = ({ navigation, route }) => {
             </View>
 
             <ScrollView style={{ flex: 1 }}>
-                <View>
-
-                </View>
+               
             </ScrollView>
         </SafeAreaView>
     )
