@@ -37,11 +37,11 @@ const Purchases = ({ navigation }) => {
         const daysLeft = Math.max(Math.ceil(timeDifference / (1000 * 60 * 60 * 24)), 0); // Convert to days and ensure non-negative
 
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('PurchaseDetails')} style={{ padding: 18, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 29, borderLeftColor: '#0066cc' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('PurchaseDetails', { data: item })} style={{ padding: 18, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 25, borderLeftColor: '#0066cc' }}>
                 {/* Header */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, gap: 5 }}>
                     <Icon name="book" size={22} color={darkBlue} />
-                    <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#0066cc' }}>{item.name}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#0066cc' }}>{item.name}</Text>
                 </View>
 
                 {/* Details Section */}
