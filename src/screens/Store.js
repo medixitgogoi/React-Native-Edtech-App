@@ -38,12 +38,12 @@ const Store = () => {
                 data={courses}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={{ flexDirection: 'row', backgroundColor: '#FFF', marginBottom: 15, borderRadius: 12, padding: 10, elevation: 1 }}>
+                    <View style={{ flexDirection: 'row', backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1 }}>
                         <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
                         
                         <View style={{ justifyContent: 'space-between', flex: 1 }}>
-                            <Text style={{ fontSize: 16, fontWeight: '600', color: '#000' }}>{item.title}</Text>
-                            <Text style={{ fontSize: 14, color: '#666' }}>₹{item.price}</Text>
+                            <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: '#000' }}>{item.title}</Text>
+                            <Text style={{ fontSize: responsiveFontSize(2), color: '#666' }}>₹{item.price}</Text>
                         </View>
                     </View>
                 )}

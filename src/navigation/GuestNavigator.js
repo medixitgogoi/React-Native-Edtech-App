@@ -76,7 +76,7 @@ function BottomTabs() {
 // Bottom Tab Navigator
 function GuestNavigator() {
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
+        <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade_from_bottom' }}>
             <Stack.Screen name="Main" component={BottomTabs} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="VideoPlayer" component={VideoPlayer} />
