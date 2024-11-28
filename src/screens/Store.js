@@ -32,7 +32,7 @@ const Store = () => {
                 backgroundColor={background}
                 barStyle="dark-content"
             />
-            
+
             <FlatList
                 data={courses}
                 keyExtractor={(item) => item.id}
@@ -42,8 +42,8 @@ const Store = () => {
                         <View style={{ flexDirection: 'row', marginBottom: 15 }}>
                             <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
 
+                            {/* Item Details */}
                             <View style={{ flex: 1 }}>
-                                {/* Item Details */}
                                 <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue, marginBottom: 5 }}>{item.title}</Text>
                                 <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
                                 <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.6), fontWeight: '500', marginBottom: 5 }}>{item.time} mins</Text>
@@ -52,17 +52,7 @@ const Store = () => {
                         </View>
 
                         {/* Remove Button */}
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: '#FF5252',
-                                paddingVertical: 12,
-                                alignItems: 'center',
-                                borderRadius: 12,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                gap: 6,
-                                justifyContent: 'center'
-                            }}>
+                        <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 12, alignItems: 'center', borderRadius: 12, flexDirection: 'row', gap: 6, justifyContent: 'center' }}>
                             <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(2.1) }}>Remove from Cart</Text>
 
                             <View style={{ backgroundColor: '#fff', height: 20, width: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
@@ -83,42 +73,14 @@ const Store = () => {
                 ListFooterComponent={
                     <LinearGradient
                         colors={[darkBlue, '#5badff']}
-                        style={{
-                            marginTop: 20,
-                            padding: 15,
-                            borderTopWidth: 1,
-                            borderColor: '#E0E0E0',
-                            borderRadius: 14,
-                            shadowColor: '#000',
-                            shadowOffset: { width: 0, height: 2 },
-                            shadowOpacity: 0.1,
-                            shadowRadius: 5,
-                            elevation: 3,
-                            marginBottom: 10,
-                        }}
+                        style={{ marginTop: 20, padding: 15, borderTopWidth: 1, borderColor: '#E0E0E0', borderRadius: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}
                     >
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
                             <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '700', color: '#FFF' }}>Total</Text>
                             <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '700', color: '#FFF' }}>₹{totalPrice}</Text>
                         </View>
 
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: '#fff',
-                                borderRadius: 10,
-                                paddingVertical: 10,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                shadowColor: '#000',
-                                shadowOffset: { width: 0, height: 2 },
-                                shadowOpacity: 0.2,
-                                shadowRadius: 4,
-                                elevation: 3,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                gap: 6
-                            }}
-                        >
+                        <TouchableOpacity style={{ backgroundColor: '#fff', borderRadius: 10, paddingVertical: 10, justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3, flexDirection: 'row', gap: 6 }}>
                             <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.3), fontWeight: 'bold' }}>Proceed to Checkout</Text>
                             <AntDesign name="arrowright" style={{ color: darkBlue }} size={20} />
                         </TouchableOpacity>
