@@ -34,41 +34,51 @@ const Store = () => {
             />
 
             {/* Header */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
+            {/* <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
                 <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Your Cart</Text>
                 <View style={{ width: 35, height: 35 }} />
-            </View>
+            </View> */}
 
-            <ScrollView>
-                <FlatList
-                    data={courses}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <View style={{ flexDirection: 'row', backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1 }}>
-                            <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
+            <FlatList
+                data={courses}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <View style={{ flexDirection: 'row', backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1 }}>
+                        <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
 
-                            <View style={{ justifyContent: 'space-between', flex: 1 }}>
-                                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue }}>{item.title}</Text>
-                                <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
-                                <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.8), fontWeight: '500' }}>{item.time} mins</Text>
-                                <Text style={{ fontSize: responsiveFontSize(2), color: '#000', fontWeight: '600' }}>₹{item.price}</Text>
-                            </View>
+                        <View style={{ justifyContent: 'space-between', flex: 1 }}>
+                            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue }}>{item.title}</Text>
+                            <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
+                            <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.8), fontWeight: '500' }}>{item.time} mins</Text>
+                            <Text style={{ fontSize: responsiveFontSize(2), color: '#000', fontWeight: '600' }}>₹{item.price}</Text>
                         </View>
-                    )}
-                    contentContainerStyle={{ paddingHorizontal: 1 }}
-                />
+                    </View>
+                )}
+                ListHeaderComponent={
+                    <View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
+                            <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                                <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
+                            </TouchableOpacity>
+                            <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Your Cart</Text>
+                            <View style={{ width: 35, height: 35 }} />
+                        </View>
+                    </View>
+                }
+                ListFooterComponent={
+                    <View style={{ marginTop: 20, paddingVertical: 20, borderTopWidth: 1, borderColor: '#E0E0E0', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', marginBottom: 10 }}>Total: ₹{totalPrice}</Text>
+                        <TouchableOpacity style={{ backgroundColor: '#4CAF50', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 20 }}>
+                            <Text style={{ color: '#FFF', fontSize: 16, fontWeight: 'bold' }}>Proceed to Checkout</Text>
+                        </TouchableOpacity>
+                    </View>
+                }
+                // contentContainerStyle={{ paddingHorizontal: 10 }}
+            />
 
-                <View style={{ marginTop: 20, paddingVertical: 20, borderTopWidth: 1, borderColor: '#E0E0E0', alignItems: 'center' }}>
-                    <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#000', marginBottom: 10 }}>Total: ₹{totalPrice}</Text>
-
-                    <TouchableOpacity style={{ backgroundColor: '#4CAF50', borderRadius: 5, paddingVertical: 10, paddingHorizontal: 20 }}>
-                        <Text style={{ color: '#FFF', fontSize: 16, fontWeight: 'bold' }}>Proceed to Checkout</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
         </SafeAreaView>
     );
 };
