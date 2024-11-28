@@ -32,6 +32,7 @@ const Store = () => {
                 backgroundColor={background}
                 barStyle="dark-content"
             />
+            
             <FlatList
                 data={courses}
                 keyExtractor={(item) => item.id}
