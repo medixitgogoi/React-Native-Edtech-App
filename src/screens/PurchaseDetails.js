@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { background, darkBlue } from '../utils/colors';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -25,6 +25,11 @@ const PurchaseDetails = ({ navigation, route }) => {
                 <View style={{ width: 35, height: 35 }} />
             </View>
 
+            <ScrollView style={{ flex: 1 }}>
+                <View>
+
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
