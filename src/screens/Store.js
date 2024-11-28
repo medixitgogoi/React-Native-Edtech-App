@@ -25,7 +25,7 @@ const courses = [
 
 const Store = () => {
 
-    const totalPrice = courses.reduce((sum, course) => sum + course?.price, 0);
+    const totalPrice = courses?.reduce((sum, course) => sum + course?.price, 0);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
