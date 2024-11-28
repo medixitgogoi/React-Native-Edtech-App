@@ -19,6 +19,7 @@ import Notes from '../screens/Notes';
 import ViewPdf from '../screens/ViewPdf';
 import MyCourses from '../screens/MyCourses';
 import Store from '../screens/Store';
+import PurchaseDetails from '../screens/PurchaseDetails';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -88,6 +89,7 @@ function GuestNavigator() {
             <Stack.Screen name="Courses" component={Courses} />
             <Stack.Screen name="Purchases" component={Purchases} />
             <Stack.Screen name="ViewPdf" component={ViewPdf} />
+            <Stack.Screen name="PurchaseDetails" component={PurchaseDetails} />
         </Stack.Navigator>
     );
 }
