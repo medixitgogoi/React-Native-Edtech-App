@@ -53,7 +53,7 @@ const Notes = ({ navigation }) => {
                 backgroundColor={background}
                 barStyle="dark-content"
             />
-
+            
             {/* Header */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
