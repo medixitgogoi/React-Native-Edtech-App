@@ -2,7 +2,8 @@ import { View, Text, TouchableOpacity, FlatList, StatusBar, Dimensions, SafeArea
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6';
+import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 
 import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
@@ -27,50 +28,64 @@ const purchases = [
 
 const Purchases = ({ navigation }) => {
 
-    const renderCourse = ({ item }) => (
-        <View style={{ padding: 20, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 29, borderLeftColor: '#0066cc' }}>
-            {/* Header */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 }}>
-                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#0066cc' }}>{item.name}</Text>
-                <Icon name="book" size={28} color="#0066cc" />
-            </View>
+    const renderCourse = ({ item }) => {
 
-            {/* Details Section */}
-            <View style={{ marginBottom: 15 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                    <Icon name="collections-bookmark" size={20} color="#888" />
-                    <Text style={{ fontSize: 14, color: '#555', marginLeft: 8 }}>Lectures: {item.lectures}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                    <Icon name="note" size={20} color="#888" />
-                    <Text style={{ fontSize: 14, color: '#555', marginLeft: 8 }}>Notes: {item.notes}</Text>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
-                    <Icon name="date-range" size={20} color="#888" />
-                    <Text style={{ fontSize: 14, color: '#555', marginLeft: 8 }}>Expiry: {item.expiry}</Text>
-                </View>
-            </View>
+        // Calculate days left
+        const currentDate = new Date();
+        const expiryDate = new Date(item.expiry); // Ensure expiry is a valid date string
+        const timeDifference = expiryDate - currentDate; // Difference in milliseconds
+        const daysLeft = Math.max(Math.ceil(timeDifference / (1000 * 60 * 60 * 24)), 0); // Convert to days and ensure non-negative
 
-            {/* Progress Bar */}
-            <View style={{ height: 10, backgroundColor: '#e0e0e0', borderRadius: 5, overflow: 'hidden', marginTop: 10, marginBottom: 5 }}>
-                <View style={{ width: `${item.progress}%`, height: '100%', backgroundColor: '#32cd32' }} />
-            </View>
-
-            <Text style={{ fontSize: 12, color: '#555', marginBottom: 15 }}>Progress: {item.progress}%</Text>
-
-            {/* Price and Time Left */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon name="monetization-on" size={20} color="#0066cc" />
-                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#0066cc', marginLeft: 5 }}>${item.price}</Text>
+        return (
+            <TouchableOpacity onPress={() => navigation.navigate('PurchaseDetails')} style={{ padding: 18, backgroundColor: '#ffffff', borderRadius: 14, elevation: 5, borderLeftWidth: 29, borderLeftColor: '#0066cc' }}>
+                {/* Header */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, gap: 5 }}>
+                    <Icon name="book" size={22} color={darkBlue} />
+                    <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#0066cc' }}>{item.name}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Icon name="access-time" size={20} color="#888" />
-                    <Text style={{ fontSize: 12, color: '#555', marginLeft: 5 }}>Time Left: {100 - item.progress}%</Text>
+
+                {/* Details Section */}
+                <View style={{ marginBottom: 15, paddingLeft: 2 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
+                        <Icon name="collections-bookmark" size={19} color="#888" />
+                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Lectures: {item.lectures}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
+                        <Icon name="note" size={19} color="#888" />
+                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Notes: {item.notes}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
+                        <Icon name="date-range" size={19} color="#888" />
+                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Expiry: {item.expiry}</Text>
+                    </View>
                 </View>
-            </View>
-        </View>
-    );
+
+                {/* Progress Bar */}
+                <View style={{ height: 10, backgroundColor: '#e0e0e0', borderRadius: 8, overflow: 'hidden', marginBottom: 5 }}>
+                    <View style={{ width: `${item.progress}%`, height: '100%', backgroundColor: '#32cd32' }} />
+                </View>
+
+                <Text style={{ fontSize: responsiveFontSize(1.6), color: '#000', marginBottom: 15, fontWeight: '500' }}>Progress: {item.progress}%</Text>
+
+                {/* Price and Time Left */}
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                        <FontAwesome name="rupee" size={14} color="#0066cc" />
+                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: '#0066cc', paddingBottom: 2 }}>{item.price}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
+                        <Icon name="access-time" size={18} color="#888" />
+                        <Text style={{ fontSize: responsiveFontSize(1.7), color: '#000', fontWeight: '500' }}>
+                            {daysLeft > 0 ? `Time Left: ${daysLeft} days` : 'Expired'}
+                        </Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
