@@ -36,15 +36,38 @@ const Store = () => {
                 data={courses}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={{ flexDirection: 'row', backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1 }}>
-                        <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
+                    <View style={{ backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1, overflow: 'hidden' }}>
+                        {/* Content Wrapper */}
+                        <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+                            <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
 
-                        <View style={{ justifyContent: 'space-between', flex: 1 }}>
-                            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue }}>{item.title}</Text>
-                            <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
-                            <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.6), fontWeight: '500' }}>{item.time} mins</Text>
-                            <Text style={{ fontSize: responsiveFontSize(2), color: '#000', fontWeight: '600' }}>₹{item.price}</Text>
+                            <View style={{ flex: 1 }}>
+                                {/* Item Details */}
+                                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue, marginBottom: 5 }}>{item.title}</Text>
+                                <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
+                                <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.6), fontWeight: '500', marginBottom: 5 }}>{item.time} mins</Text>
+                                <Text style={{ fontSize: responsiveFontSize(2), color: '#000', fontWeight: '600' }}>₹{item.price}</Text>
+                            </View>
                         </View>
+
+                        {/* Remove Button */}
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: '#FF5252',
+                                paddingVertical: 12,
+                                alignItems: 'center',
+                                borderRadius: 12,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                gap: 6,
+                                justifyContent: 'center'
+                            }}>
+                            <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(2.1) }}>Remove from Cart</Text>
+
+                            <View style={{ backgroundColor: '#fff', height: 20, width: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                <MaterialCommunityIcons name="cart-remove" style={{ color: '#FF5252' }} size={14} />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 )}
                 ListHeaderComponent={
