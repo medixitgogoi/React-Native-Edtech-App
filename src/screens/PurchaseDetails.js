@@ -34,8 +34,8 @@ const PurchaseDetails = ({ navigation, route }) => {
             {/* Content */}
             <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
                 {/* Course Name */}
-                <View style={{ marginBottom: 20, padding: 20, backgroundColor: '#fff', borderRadius: 12, elevation: 1 }}>
-                    <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '700', color: darkBlue }}>{data.name}</Text>
+                <View style={{ marginBottom: 20, height: 42, alignItems: 'center', backgroundColor: lightBlue, borderRadius: 12, borderColor: darkBlue, borderWidth: 1, elevation: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                    <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '700', color: darkBlue }}>{data.name}</Text>
                 </View>
 
                 {/* Details Section */}
