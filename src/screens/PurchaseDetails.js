@@ -3,11 +3,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { background, darkBlue, lightBlue } from '../utils/colors';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 
 const PurchaseDetails = ({ navigation, route }) => {
 
-    const { data } = route.params;
+    const { data } = route?.params;
 
     // Calculate days left until expiry
     const currentDate = new Date();
@@ -39,12 +41,42 @@ const PurchaseDetails = ({ navigation, route }) => {
                 </View>
 
                 {/* Details Section */}
-                <View style={{ marginBottom: 20, padding: 20, backgroundColor: '#fff', borderRadius: 12, elevation: 1 }}>
-                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue, marginBottom: 10 }}>Course Details:</Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: '#555', marginBottom: 5 }}>Lectures: {data.lectures}</Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: '#555', marginBottom: 5 }}>Notes: {data.notes}</Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: '#555', marginBottom: 5 }}>Expiry Date: {data.expiry}</Text>
-                    <Text style={{ fontSize: responsiveFontSize(1.9), color: '#555' }}>Days Left: {daysLeft} days</Text>
+                <View style={{ marginBottom: 20, backgroundColor: '#fff', borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden' }}>
+                    <View style={{ backgroundColor: darkBlue, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', height: 37 }}>
+                        <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#fff', textAlign: 'center', textTransform: 'uppercase' }}>Course Details:</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8, marginHorizontal: 20, marginTop: 10 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
+                            <MaterialIcons name="library-books" size={responsiveFontSize(2.2)} color={darkBlue} />
+                        </View>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>Lectures:</Text>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.lectures}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8, marginHorizontal: 20, }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
+                            <FontAwesome name="book" size={15} color={darkBlue} />
+                        </View>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>Notes:</Text>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.notes}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8, marginHorizontal: 20, }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
+                            <FontAwesome name="calendar" size={13} color={darkBlue} />
+                        </View>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>Expiry Date:</Text>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.expiry}</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginHorizontal: 20, marginBottom: 20 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
+                            <FontAwesome name="hourglass-half" size={13} color={darkBlue} />
+                        </View>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>Days Left:</Text>
+                        <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{daysLeft} days</Text>
+                    </View>
                 </View>
 
                 {/* Progress Bar */}
@@ -61,17 +93,12 @@ const PurchaseDetails = ({ navigation, route }) => {
                     <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '700', color: darkBlue }}>Price:</Text>
                     <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '700', color: lightBlue }}>₹{data.price}</Text>
                 </View>
-
-                {/* Action Buttons */}
-                <View style={{ padding: 20 }}>
-                    <TouchableOpacity style={{ backgroundColor: darkBlue, paddingVertical: 15, borderRadius: 8, alignItems: 'center', marginBottom: 10 }}>
-                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Continue Course</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 15, borderRadius: 8, alignItems: 'center' }}>
-                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Contact Support</Text>
-                    </TouchableOpacity>
-                </View>
             </ScrollView>
+
+            {/* Action Buttons */}
+            <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 15, borderRadius: 10, alignItems: 'center', position: 'absolute', bottom: 8, width: '97%', alignSelf: 'center' }}>
+                <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Contact Support</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };
