@@ -23,7 +23,6 @@ const PurchaseDetails = ({ navigation, route }) => {
                 backgroundColor={background}
                 barStyle="dark-content"
             />
-
             {/* Header */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 15, marginHorizontal: 10 }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
@@ -96,8 +95,9 @@ const PurchaseDetails = ({ navigation, route }) => {
             </ScrollView>
 
             {/* Action Buttons */}
-            <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 15, borderRadius: 10, alignItems: 'center', position: 'absolute', bottom: 6, width: '96%', alignSelf: 'center' }}>
-                <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Contact Support</Text>
+            <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 15, borderRadius: 10, alignItems: 'center', position: 'absolute', bottom: 6, width: '96%', alignSelf: 'center', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 5 }}>
+                <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.2), fontWeight: '600' }}>Contact Support</Text>
+                <AntDesign name="customerservice" style={{ color: '#fff' }} size={18} />
             </TouchableOpacity>
         </SafeAreaView>
     );
