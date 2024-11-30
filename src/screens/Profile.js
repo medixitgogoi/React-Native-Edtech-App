@@ -1,21 +1,10 @@
-import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground } from 'react-native';
-import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { background, darkBlue, lightBlue } from '../utils/colors';
-import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
-import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
-import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-import Ionicons from 'react-native-vector-icons/dist/Ionicons';
-import { useEffect, useRef, useState } from 'react';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
-import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/dist/Ionicons';
-import Icon3 from 'react-native-vector-icons/dist/FontAwesome';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon5 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { logout } from '../redux/LoginSlice';
