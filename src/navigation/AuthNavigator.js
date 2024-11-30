@@ -15,7 +15,7 @@ const AuthNavigator = () => {
             initialRouteName={"SplashScreen"}
             screenOptions={{
                 headerShown: false,
-                animation: 'slide_from_right'
+                animation: 'fade_from_bottom'
             }}
         >
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
