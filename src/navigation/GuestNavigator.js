@@ -20,6 +20,14 @@ import ViewPdf from '../screens/ViewPdf';
 import MyCourses from '../screens/MyCourses';
 import Store from '../screens/Store';
 import PurchaseDetails from '../screens/PurchaseDetails';
+import About from '../screens/About';
+import Faq from '../screens/Faq';
+import PrivacyPolicy from '../screens/PrivacyPolicy';
+import Terms from '../screens/Terms';
+import Cancellation from '../screens/Cancellation';
+import Refund from '../screens/Refund';
+import Contact from '../screens/Contact';
+import Disclaimer from '../screens/Disclaimer';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -86,10 +94,18 @@ function GuestNavigator() {
             <Stack.Screen name="CourseDetails" component={CourseDetails} />
             <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="Contact" component={Contact} />
             <Stack.Screen name="Courses" component={Courses} />
+            <Stack.Screen name="Refund" component={Refund} />
+            <Stack.Screen name="Disclaimer" component={Disclaimer} />
+            <Stack.Screen name="Cancellation" component={Cancellation} />
             <Stack.Screen name="Purchases" component={Purchases} />
             <Stack.Screen name="ViewPdf" component={ViewPdf} />
             <Stack.Screen name="PurchaseDetails" component={PurchaseDetails} />
+            <Stack.Screen name="About" component={About} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+            <Stack.Screen name="Faq" component={Faq} />
+            <Stack.Screen name="Terms" component={Terms} />
         </Stack.Navigator>
     );
 }
