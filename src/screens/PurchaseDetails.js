@@ -90,7 +90,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                 {/* Price */}
                 <View style={{ marginBottom: 50, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '700', color: darkBlue }}>Price:</Text>
-                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>₹{data.price}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>₹ {data.price}</Text>
                 </View>
 
                 {/* Stamp */}
