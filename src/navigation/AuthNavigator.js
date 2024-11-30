@@ -4,6 +4,7 @@ import Login from '../auth/Login';
 import OtpVerification from '../auth/OtpVerification';
 import ForgotPassword from '../auth/ForgotPassword';
 import Signup from '../auth/Signup';
+import SplashScreen from '../auth/SplashScreen';
 
 const AuthNavigator = () => {
 
@@ -11,12 +12,13 @@ const AuthNavigator = () => {
 
     return (
         <Stack.Navigator
-            initialRouteName={"Login"}
+            initialRouteName={"SplashScreen"}
             screenOptions={{
                 headerShown: false,
                 animation: 'fade_from_bottom'
             }}
         >
+            <Stack.Screen name="SplashScreen" component={SplashScreen} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={Signup} />
             <Stack.Screen name="OtpVerification" component={OtpVerification} />

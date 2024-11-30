@@ -222,9 +222,8 @@ const Profile = ({ navigation }) => {
                     </View>
                 </ScrollView>
             </LinearGradient>
-
         </View>
     )
 }
 
-export default Profile
+export default Profile;
