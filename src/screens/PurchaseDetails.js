@@ -46,7 +46,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#fff', textAlign: 'center', textTransform: 'uppercase' }}>Course Details:</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8, marginHorizontal: 20, marginTop: 10 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 20, marginTop: 12 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <MaterialIcons name="library-books" size={responsiveFontSize(2.2)} color={darkBlue} />
                         </View>
@@ -54,7 +54,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.lectures}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8, marginHorizontal: 20, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 20, }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <FontAwesome name="book" size={15} color={darkBlue} />
                         </View>
@@ -62,7 +62,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.notes}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 8, marginHorizontal: 20, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 20, }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <FontAwesome name="calendar" size={13} color={darkBlue} />
                         </View>
@@ -96,7 +96,7 @@ const PurchaseDetails = ({ navigation, route }) => {
             </ScrollView>
 
             {/* Action Buttons */}
-            <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 15, borderRadius: 10, alignItems: 'center', position: 'absolute', bottom: 8, width: '97%', alignSelf: 'center' }}>
+            <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 15, borderRadius: 10, alignItems: 'center', position: 'absolute', bottom: 6, width: '96%', alignSelf: 'center' }}>
                 <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: '600' }}>Contact Support</Text>
             </TouchableOpacity>
         </SafeAreaView>
