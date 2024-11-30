@@ -46,7 +46,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#fff', textAlign: 'center', textTransform: 'uppercase' }}>Course Details:</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 20, marginTop: 12 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 18, marginTop: 15 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <MaterialIcons name="library-books" size={responsiveFontSize(2.2)} color={darkBlue} />
                         </View>
@@ -54,7 +54,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.lectures}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 20, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 18, }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <FontAwesome name="book" size={15} color={darkBlue} />
                         </View>
@@ -62,7 +62,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.notes}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 20, }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 12, marginHorizontal: 18, }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <FontAwesome name="calendar" size={13} color={darkBlue} />
                         </View>
@@ -70,7 +70,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                         <Text style={{ fontSize: responsiveFontSize(1.9), color: '#000', fontWeight: '500' }}>{data.expiry}</Text>
                     </View>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginHorizontal: 20, marginBottom: 20 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginHorizontal: 18, marginBottom: 23 }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', width: 20, justifyContent: 'center' }}>
                             <FontAwesome name="hourglass-half" size={13} color={darkBlue} />
                         </View>
@@ -80,18 +80,18 @@ const PurchaseDetails = ({ navigation, route }) => {
                 </View>
 
                 {/* Progress Bar */}
-                <View style={{ marginBottom: 20, padding: 20, backgroundColor: '#fff', borderRadius: 12, elevation: 1 }}>
-                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue, marginBottom: 10 }}>Progress:</Text>
+                <View style={{ marginBottom: 20, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden' }}>
+                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue, marginBottom: 8 }}>Progress:</Text>
                     <View style={{ height: 10, backgroundColor: '#e0e0e0', borderRadius: 8, overflow: 'hidden' }}>
-                        <View style={{ width: `${data.progress}%`, height: '100%', backgroundColor: lightBlue }} />
+                        <View style={{ width: `${data.progress}%`, height: '100%', backgroundColor: darkBlue }} />
                     </View>
-                    <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', marginTop: 5 }}>{data.progress}% Completed</Text>
+                    <Text style={{ fontSize: responsiveFontSize(1.6), color: '#000', marginTop: 5, fontWeight: '500' }}>{data.progress}% Completed</Text>
                 </View>
 
                 {/* Price */}
-                <View style={{ marginBottom: 20, padding: 20, backgroundColor: '#fff', borderRadius: 12, elevation: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                <View style={{ marginBottom: 20, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '700', color: darkBlue }}>Price:</Text>
-                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '700', color: lightBlue }}>₹{data.price}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>₹{data.price}</Text>
                 </View>
             </ScrollView>
 
