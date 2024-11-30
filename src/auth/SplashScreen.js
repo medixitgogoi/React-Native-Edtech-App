@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
@@ -8,7 +8,7 @@ const SplashScreen = ({ navigation }) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate('Login');
-        }, 800)
+        }, 1000)
     }, [])
 
     return (
@@ -28,7 +28,7 @@ const SplashScreen = ({ navigation }) => {
 
             <Animatable.View
                 animation="bounceIn"
-                duration={1200}
+                duration={2000}
                 style={{ height: 350, width: 300, alignSelf: 'center' }}
             >
                 <Animatable.Image
