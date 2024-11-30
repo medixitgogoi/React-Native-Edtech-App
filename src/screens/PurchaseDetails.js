@@ -1,4 +1,4 @@
-import { View, Text, StatusBar, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StatusBar, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { background, darkBlue, lightBlue } from '../utils/colors';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -35,12 +35,12 @@ const PurchaseDetails = ({ navigation, route }) => {
             {/* Content */}
             <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
                 {/* Course Name */}
-                <View style={{ marginBottom: 20, height: 42, alignItems: 'center', backgroundColor: lightBlue, borderRadius: 12, borderColor: darkBlue, borderWidth: 1, elevation: 1, justifyContent: 'center', flexDirection: 'row' }}>
+                <View style={{ marginBottom: 18, height: 42, alignItems: 'center', backgroundColor: lightBlue, borderRadius: 12, borderColor: darkBlue, borderWidth: 1, elevation: 1, justifyContent: 'center', flexDirection: 'row' }}>
                     <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '700', color: darkBlue }}>{data.name}</Text>
                 </View>
 
                 {/* Details Section */}
-                <View style={{ marginBottom: 20, backgroundColor: '#fff', borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden' }}>
+                <View style={{ marginBottom: 18, backgroundColor: '#fff', borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden' }}>
                     <View style={{ backgroundColor: darkBlue, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', height: 37 }}>
                         <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#fff', textAlign: 'center', textTransform: 'uppercase' }}>Course Details:</Text>
                     </View>
@@ -79,7 +79,7 @@ const PurchaseDetails = ({ navigation, route }) => {
                 </View>
 
                 {/* Progress Bar */}
-                <View style={{ marginBottom: 20, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden' }}>
+                <View style={{ marginBottom: 18, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden' }}>
                     <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue, marginBottom: 8 }}>Progress:</Text>
                     <View style={{ height: 10, backgroundColor: '#e0e0e0', borderRadius: 8, overflow: 'hidden' }}>
                         <View style={{ width: `${data.progress}%`, height: '100%', backgroundColor: darkBlue }} />
@@ -88,9 +88,22 @@ const PurchaseDetails = ({ navigation, route }) => {
                 </View>
 
                 {/* Price */}
-                <View style={{ marginBottom: 20, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <View style={{ marginBottom: 50, backgroundColor: '#fff', paddingHorizontal: 23, paddingVertical: 15, borderRadius: 12, elevation: 1, borderColor: darkBlue, borderWidth: 0.4, overflow: 'hidden', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '700', color: darkBlue }}>Price:</Text>
                     <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>₹{data.price}</Text>
+                </View>
+
+                {/* Stamp */}
+                <View style={{ height: 120, width: 150, alignSelf: 'center' }}>
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            opacity: 0.3
+                        }}
+                        resizeMode="cover"
+                    />
                 </View>
             </ScrollView>
 
