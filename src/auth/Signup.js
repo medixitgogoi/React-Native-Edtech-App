@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Alert, StatusBar, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, ScrollView, Animated, Dimensions } from 'react-native';
+import { Alert, StatusBar, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, ScrollView, Animated, Dimensions, SectionList } from 'react-native';
 import { background, lightBlue, darkBlue } from '../utils/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
@@ -69,7 +69,7 @@ const Signup = ({ route }) => {
         const data = await fetchClasses(selectedBoardId);
         setClasses(data);
       } catch (error) {
-        console.error('Error fetching boards:', error);
+        console.error('Error fetching classes: ', error);
       }
     };
 
@@ -131,7 +131,6 @@ const Signup = ({ route }) => {
         position: 'top',
         topOffset: 5,
       });
-
       return;
     }
 
@@ -141,12 +140,10 @@ const Signup = ({ route }) => {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  }
+  };
 
   // class selection handler
-  const classSelectionHandler = () => {
-
-  }
+  const classSelectionHandler = () => { };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -183,8 +180,8 @@ const Signup = ({ route }) => {
               <Animated.View
                 style={{
                   flexDirection: 'row',
-                  width: screenWidth * 3,
-                  transform: [{ translateX: slideAnim }],
+                  width: screenWidth * 3, // The total width (3 sections)
+                  transform: [{ translateX: slideAnim }], // Apply the sliding animation
                 }}
               >
                 {/* Slide 1 - Basic details section */}

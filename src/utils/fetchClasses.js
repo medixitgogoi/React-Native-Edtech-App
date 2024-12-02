@@ -3,16 +3,12 @@ import { Alert } from "react-native";
 
 export const fetchClasses = async (id) => {
     try {
-        const response = await axios.post(
-            '/class/',
-            { board_id: id },
+        const response = await axios.post(`/class/`,
             {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                board_id: id
             }
         );
-        
+
         console.log('class response: ', response);
 
         return response; // Return data inside the try block after receiving the response
