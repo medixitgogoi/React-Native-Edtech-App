@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/LoginSlice';
+import Toast from 'react-native-toast-message';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -79,6 +80,47 @@ const Signup = ({ route }) => {
   const registerUser = () => {
     dispatch(login());
   };
+
+  const nextHandler = () => {
+    if (!name || !email || !password || !confirmPassword) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'All fields are necessary!',
+        position: 'top',
+        topOffset: 5,
+      });
+
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Passwords do not match!',
+        position: 'top',
+        topOffset: 5,
+      });
+      
+      return;
+    }
+
+    // Proceed with slide animation if validation passes
+    Animated.timing(slideAnim, {
+      toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const boardSelectionHandler = () => {
+
+  }
+
+  const classSelectionHandler = () => {
+
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -216,21 +258,18 @@ const Signup = ({ route }) => {
                     </View>
                   </View>
 
-                  {/* Buttons */}
-                  <View style={{ marginTop: 40, }}>
-                    {/* Next button */}
-                    <LinearGradient
-                      colors={[darkBlue, '#5badff']}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
-                    >
-                      <TouchableOpacity onPress={temporaryContinueHandler} style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Next</Text>
-                        <Icon4 name="arrowright" size={23} color='#fff' />
-                      </TouchableOpacity>
-                    </LinearGradient>
-                  </View>
+                  {/* Next button */}
+                  <LinearGradient
+                    colors={[darkBlue, '#5badff']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{ marginTop: 40, borderRadius: 12, elevation: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <TouchableOpacity onPress={nextHandler} style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Next</Text>
+                      <Icon4 name="arrowright" size={23} color='#fff' />
+                    </TouchableOpacity>
+                  </LinearGradient>
                 </View>
 
                 {/* Slide 2 - Board selection */}
