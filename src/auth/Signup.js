@@ -63,18 +63,18 @@ const Signup = ({ route }) => {
   }, []);
 
   // get classes
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchClasses(selectedBoardId);
-        setClasses(data);
-      } catch (error) {
-        console.error('Error fetching classes: ', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const data = await fetchClasses(1);
+  //       setClasses(data);
+  //     } catch (error) {
+  //       console.error('Error fetching classes: ', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const temporaryContinueHandler = () => {
     Animated.timing(slideAnim, {
@@ -122,7 +122,7 @@ const Signup = ({ route }) => {
   };
 
   // board selection handler
-  const boardSelectionHandler = () => {
+  const boardSelectionHandler = async () => {
     if (!selectedBoardId) {
       Toast.show({
         type: 'error',
@@ -134,12 +134,28 @@ const Signup = ({ route }) => {
       return;
     }
 
-    // Proceed with slide animation if validation passes
-    Animated.timing(slideAnim, {
-      toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+    try {
+      // Call fetchClasses and handle the response
+      const classes = await fetchClasses(selectedBoardId);
+
+      setClasses(classes); // Update state with the fetched classes
+
+      // Proceed with slide animation if validation and fetch succeed
+      Animated.timing(slideAnim, {
+        toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } catch (error) {
+      console.error('Error fetching classes:', error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Something went wrong while fetching classes.',
+        position: 'top',
+        topOffset: 5,
+      });
+    }
   };
 
   // class selection handler
