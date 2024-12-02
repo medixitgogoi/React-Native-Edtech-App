@@ -9,7 +9,7 @@ export const fetchClasses = async (id) => {
             }
         );
 
-        // console.log('class response: ', response);
+        console.log('Class response: ', response?.data?.data?.classes);
         return response?.data?.data?.classes;
     } catch (error) {
         Alert.alert("Error", error.message); // Add a title to the alert

@@ -367,7 +367,7 @@ const Signup = ({ route }) => {
                     ))}
                   </View>
 
-                  {/* Buttons */}
+                  {/* Buttons */} 
                   <View style={{ marginTop: 40, }}>
                     {/* Sign up button */}
                     <LinearGradient
