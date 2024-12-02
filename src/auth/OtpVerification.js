@@ -197,7 +197,7 @@ const OtpVerification = ({ route }) => {
             });
 
             if (response.data.status) {
-                console.log('Resend response', response);
+                // console.log('Resend response', response);
                 Toast.show({
                     type: 'success',
                     text1: 'OTP Sent',
@@ -237,7 +237,7 @@ const OtpVerification = ({ route }) => {
             });
 
             if (response?.data?.status) {
-                console.log('verify', response);
+                // console.log('verify', response);
 
                 Toast.show({
                     type: 'success',
