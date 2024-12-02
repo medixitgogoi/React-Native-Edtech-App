@@ -254,7 +254,7 @@ const Signup = ({ route }) => {
                     ))}
                   </View>
 
-                  {/* Buttons */}
+                  {/* Next button */}
                   <View style={{ marginTop: 50, }}>
                     {/* Next button */}
                     <LinearGradient
@@ -321,10 +321,9 @@ const Signup = ({ route }) => {
                   </View>
                 </View>
               </Animated.View>
-
             </View>
+          
           </ScrollView>
-
         </KeyboardAvoidingView>
       </LinearGradient>
     </SafeAreaView>

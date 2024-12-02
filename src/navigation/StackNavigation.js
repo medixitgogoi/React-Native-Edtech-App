@@ -4,8 +4,9 @@ import GuestNavigator from "./GuestNavigator";
 import { StatusBar } from 'react-native';
 import { background } from '../utils/colors';
 import { useSelector } from "react-redux";
+import axios from "axios";``
 
-// axios.defaults.baseURL = 'https://admin.skercart.com/api/';
+axios.defaults.baseURL = 'https://admin.gyaano.com/api/';
 
 const StackNavigation = () => {
 
