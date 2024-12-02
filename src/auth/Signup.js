@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+
 import Icon2 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
