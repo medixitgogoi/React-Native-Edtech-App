@@ -138,67 +138,52 @@ const OtpVerification = ({ route }) => {
                 text1: 'Invalid number',
                 text2: 'Please enter a valid 10-digit mobile number.',
                 position: 'top',
-                topOffset: 0,
+                topOffset: 50,
             });
             return;
+        } else {
+            setLoading(true);
+            try {
+                const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/change/password/otp/send`,
+                    {
+                        mobile: mobileNumber
+                    }
+                );
+
+                if (response?.data?.status) {
+                    Toast.show({
+                        type: 'success',
+                        text1: response?.data?.message,
+                        position: 'top',
+                        topOffset: 50,
+                    });
+
+                    setShowOtpSection(true);
+                    Animated.timing(slideAnim, {
+                        toValue: -screenWidth,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }).start();
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Invalid Information',
+                        text2: response?.data?.message,
+                        position: 'top',
+                        topOffset: 50,
+                    });
+                }
+            } catch (error) {
+                Toast.show({
+                    type: 'error',
+                    text1: error.message,
+                    position: 'top',
+                    topOffset: 50,
+                });
+            } finally {
+                setLoading(false);
+            }
         }
-
-        Toast.show({
-            type: 'success',
-            text1: 'OTP has been sent successfully',
-            position: 'top',
-            topOffset: 0,
-        });
-        setShowOtpSection(true);
-        Animated.timing(slideAnim, {
-            toValue: -screenWidth,
-            duration: 300,
-            useNativeDriver: true,
-        }).start();
-
-
-        // else {
-        //     setLoading(true);
-        //     try {
-        //         const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/change/password/otp/send`,
-        //             {
-        //                 mobile: mobileNumber
-        //             }
-        //         );
-
-        //         if (response?.data?.status) {
-        //             Toast.show({
-        //                 type: 'success',
-        //                 text1: response?.data?.message,
-        //                 position: 'top',
-        //                 topOffset: 50,
-        //             });
-        //             setShowOtpSection(true);
-        //             Animated.timing(slideAnim, {
-        //                 toValue: -screenWidth,
-        //                 duration: 300,
-        //                 useNativeDriver: true,
-        //             }).start();
-        //         } else {
-        //             Toast.show({
-        //                 type: 'error',
-        //                 text1: 'Invalid Information',
-        //                 text2: response?.data?.message,
-        //                 position: 'top',
-        //                 topOffset: 50,
-        //             });
-        //         }
-        //     } catch (error) {
-        //         Toast.show({
-        //             type: 'error',
-        //             text1: error.message,
-        //             position: 'top',
-        //             topOffset: 50,
-        //         });
-        //     } finally {
-        //         setLoading(false);
-        //     }
-        // }
     };
 
     const temporaryOtpHandler = () => {

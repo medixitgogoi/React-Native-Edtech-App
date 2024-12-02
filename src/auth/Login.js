@@ -80,6 +80,7 @@ const Login = () => {
 
                     {/* Password Input */}
                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Password</Text>
+                    
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 8, borderColor: isPasswordFocused ? '#000' : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
                         <TextInput
                             placeholder="Your password"
@@ -117,10 +118,7 @@ const Login = () => {
                     </View>
 
                     {/* Forgot Password */}
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('OtpVerification', { to: 'forgotPassword' })}
-                    // onPress={() => navigation.navigate('ForgotPassword')}
-                    >
+                    <TouchableOpacity onPress={() => navigation.navigate('OtpVerification', { to: 'forgotPassword' })}>
                         <Text style={{ color: darkBlue, textAlign: 'right', marginBottom: 30, fontSize: responsiveFontSize(1.5), fontWeight: '600' }}>Forgot Password?</Text>
                     </TouchableOpacity>
 
