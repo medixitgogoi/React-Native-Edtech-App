@@ -1,5 +1,6 @@
-import { background, lightBlue, darkBlue } from '../utils/colors';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, StatusBar, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, ScrollView, Animated, Dimensions } from 'react-native';
+import { background, lightBlue, darkBlue } from '../utils/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -8,10 +9,10 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Icon2 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
-import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/LoginSlice';
 import Toast from 'react-native-toast-message';
+import { fetchBoards } from '../utils/fetchBoards';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -42,6 +43,12 @@ const Signup = ({ route }) => {
 
   const [selectedBoard, setSelectedBoard] = useState();
   const [selectedClass, setSelectedClass] = useState();
+
+  useEffect(async () => {
+    const data = await fetchBoards();
+
+    console.log('boards', data);
+  }, []);
 
   const temporaryContinueHandler = () => {
     Animated.timing(slideAnim, {
@@ -102,7 +109,7 @@ const Signup = ({ route }) => {
         position: 'top',
         topOffset: 5,
       });
-      
+
       return;
     }
 
