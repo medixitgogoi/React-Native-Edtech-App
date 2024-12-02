@@ -38,7 +38,7 @@ const Login = () => {
                 style={{ flex: 1 }}
                 behavior={'padding'}
             >
-                <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 40, paddingHorizontal: 5 }}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 40, paddingHorizontal: 5 }} keyboardShouldPersistTaps="handled">
                     <Image source={require('../assets/login5.png')} style={{ width: 250, height: 220, marginBottom: 15, alignSelf: 'center' }} />
 
                     {/* Title */}

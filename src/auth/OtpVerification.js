@@ -246,15 +246,18 @@ const OtpVerification = ({ route }) => {
                                 transform: [{ translateX: slideAnim }], // Apply the sliding animation
                             }}
                         >
-                            {/* Enter mobile number */}
+                            {/* Slide 1 - Enter mobile number */}
                             <View style={{ width: screenWidth, paddingHorizontal: 20, flexDirection: 'column', alignItems: 'center' }}>
                                 <View style={{ flexDirection: 'column', gap: 1 }}>
                                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.5), fontWeight: '700', textAlign: 'center' }}>Enter Your Mobile Number</Text>
-                                    <Text style={{ color: '#a3a3a3', fontSize: responsiveFontSize(1.9), fontWeight: '500', textAlign: 'center' }}>We'll send a confirmation code to verify it's really you</Text>
+                                    
+                                    <Text style={{ color: '#909090', fontSize: responsiveFontSize(1.9), fontWeight: '400', textAlign: 'center' }}>We'll send a confirmation code to verify it's really you</Text>
+                                    
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 30 }}>
                                         <View style={{ height: 45, flex: 0.14, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: darkBlue }}>
                                             <Text style={{ color: '#fff', fontWeight: '700', fontSize: responsiveFontSize(2) }}>+91</Text>
                                         </View>
+
                                         <View style={{ flex: 0.82 }}>
                                             <TextInput
                                                 style={{ height: 45, borderColor: isMobileFocused ? '#000' : '', borderWidth: isMobileFocused ? 1 : 0, fontWeight: '500', borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(1.8), color: '#000', backgroundColor: lightBlue, elevation: 1 }}
@@ -264,7 +267,7 @@ const OtpVerification = ({ route }) => {
                                                 value={mobileNumber}
                                                 onChangeText={setMobileNumber}
                                                 placeholderTextColor="#8b8b8b"
-                                                selectionColor={darkBlue}  // Sets the cursor color to black
+                                                selectionColor={darkBlue}
                                                 onFocus={() => setIsMobileFocused(true)}
                                                 onBlur={() => setIsMobileFocused(false)}
                                             />
@@ -293,7 +296,7 @@ const OtpVerification = ({ route }) => {
                                 </LinearGradient>
                             </View>
 
-                            {/* OTP */}
+                            {/* Slide 2 - OTP */}
                             <View style={{ flexDirection: 'column', alignItems: 'center', width: screenWidth }}>
                                 {/* Heading */}
                                 <View style={{ flexDirection: 'column', alignItems: 'center' }}>
