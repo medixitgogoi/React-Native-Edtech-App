@@ -13,14 +13,11 @@ const Notifications = ({ navigation }) => {
     ];
 
     const renderNotification = ({ item }) => (
-        <TouchableOpacity style={{ backgroundColor: '#fff', padding: 12, borderRadius: 10, marginBottom: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 2, borderLeftWidth: item.unread ? 4 : 0, borderLeftColor: '#0066cc' }}>
-            <Text style={{ fontSize: responsiveFontSize(2), fontWeight: 'bold', color: '#333', marginBottom: 3 }}>
-                {item.title}
-            </Text>
-            <Text style={{ fontSize: responsiveFontSize(1.8), color: '#666' }}>
-                {item.message}
-            </Text>
-        </TouchableOpacity>
+        <View style={{ backgroundColor: '#fff', padding: 14, borderRadius: 10, marginBottom: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 2, borderLeftWidth: 4, borderLeftColor: item.unread ? '#FF5252' : '#0066cc', position: 'relative' }}>
+            <Text style={{ fontSize: responsiveFontSize(2), fontWeight: 'bold', color: '#333', marginBottom: 3 }}>{item.title}</Text>
+            <Text style={{ fontSize: responsiveFontSize(1.8), color: '#666' }}>{item.message}</Text>
+            {item.unread && <View style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'red', width: 12, height: 12, borderRadius: 6 }} />}
+        </View>
     );
 
     return (
