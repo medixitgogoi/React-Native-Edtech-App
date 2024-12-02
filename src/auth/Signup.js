@@ -14,6 +14,7 @@ import { login } from '../redux/LoginSlice';
 import Toast from 'react-native-toast-message';
 import { fetchBoards } from '../utils/fetchBoards';
 import { fetchClasses } from '../utils/fetchClasses';
+import axios from 'axios';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -26,6 +27,10 @@ const Signup = ({ route }) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
+
+  const [mobile, setMobile] = useState(null);
+
+  const [otp, setOtp] = useState(null);
 
   const [name, setName] = useState('');
   const [isNameFocused, setIsNameFocused] = useState(false);
@@ -46,7 +51,13 @@ const Signup = ({ route }) => {
   const [selectedBoardId, setselectedBoardId] = useState(null);
 
   const [classes, setClasses] = useState([]);
-  const [selectedClass, setSelectedClass] = useState(null);
+  const [selectedClassId, setselectedClassId] = useState(null);
+
+  // set mobile and otp
+  useEffect(() => {
+    setMobile(route?.params?.mobile);
+    setOtp(route?.params?.otp);
+  }, []);
 
   // get boards
   useEffect(() => {
@@ -62,20 +73,6 @@ const Signup = ({ route }) => {
     fetchData();
   }, []);
 
-  // get classes
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const data = await fetchClasses(1);
-  //       setClasses(data);
-  //     } catch (error) {
-  //       console.error('Error fetching classes: ', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   const temporaryContinueHandler = () => {
     Animated.timing(slideAnim, {
       toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
@@ -84,8 +81,91 @@ const Signup = ({ route }) => {
     }).start();
   };
 
-  const registerUser = () => {
-    dispatch(login());
+  const registerUser = async () => {
+    if (!selectedClassId) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Select a class to continue',
+        position: 'top',
+        topOffset: 5,
+      });
+
+      return;
+    }
+
+    try {
+      setLoading(true);
+      // Data object as per the API requirement
+      const data = {
+        mobile: mobile,
+        otp: otp,
+        name: name,
+        email: email,
+        password: password,
+        confirm_password: confirmPassword,
+        board_id: selectedBoardId,
+        class_id: selectedClassId
+      };
+
+      // API Call using axios
+      const response = await axios.post(`/user/registration/detail/update`, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log('signup', response);
+
+      // Handle success response
+      // if (response.data.status) {
+      //   const userInfo = {
+      //     name: response?.data?.data?.name,
+      //     email: response?.data?.data?.email,
+      //     mobileNumber: mobileNumber,
+      //     password: password,
+      //     accessToken: response?.data?.access_token,
+      //   };
+
+      //   dispatch(addUser(userInfo));
+      //   await AsyncStorage.setItem('userDetails', JSON.stringify(userInfo));
+
+      //   setName('');
+      //   setPassword('');
+      //   setConfirmPassword('');
+      //   setEmail('');
+      // } else {
+      //   Toast.show({
+      //     type: 'error',
+      //     text1: response?.data?.message || 'Something went wrong.',
+      //     text2: 'Please try again.',
+      //     position: 'top',
+      //     topOffset: 50,
+      //   });
+      // }
+
+      setLoading(false);
+
+    } catch (error) {
+      // Handle error response
+      if (error.response) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: error.response.data.message || "Something went wrong. Please try again.",
+          position: 'top',
+          topOffset: 50,
+        });
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: "Network error. Please check your internet connection and try again.",
+          position: 'top',
+          topOffset: 50,
+        });
+      }
+    }
   };
 
   const nextHandler = () => {
@@ -148,18 +228,8 @@ const Signup = ({ route }) => {
       }).start();
     } catch (error) {
       console.error('Error fetching classes:', error);
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Something went wrong while fetching classes.',
-        position: 'top',
-        topOffset: 5,
-      });
     }
   };
-
-  // class selection handler
-  const classSelectionHandler = () => { };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -360,14 +430,14 @@ const Signup = ({ route }) => {
                   {/* Classes */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     {classes?.map(item => (
-                      <TouchableOpacity onPress={() => setSelectedClass(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedClass === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
-                        {selectedClass === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
-                        <Text style={{ color: selectedClass === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
+                      <TouchableOpacity onPress={() => setselectedClassId(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedClassId === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
+                        {selectedClassId === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
+                        <Text style={{ color: selectedClassId === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
                       </TouchableOpacity>
                     ))}
                   </View>
 
-                  {/* Buttons */} 
+                  {/* Buttons */}
                   <View style={{ marginTop: 40, }}>
                     {/* Sign up button */}
                     <LinearGradient

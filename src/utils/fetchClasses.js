@@ -5,7 +5,7 @@ export const fetchClasses = async (id) => {
     try {
         const response = await axios.post(`/class`,
             {
-                board_id: id
+                board_id: id,
             }
         );
 
