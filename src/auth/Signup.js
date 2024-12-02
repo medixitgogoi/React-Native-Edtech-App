@@ -48,6 +48,7 @@ const Signup = ({ route }) => {
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
 
+  // get boards
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,6 +107,7 @@ const Signup = ({ route }) => {
     }).start();
   };
 
+  // board selection handler
   const boardSelectionHandler = () => {
     if (!selectedBoardId) {
       Toast.show({
@@ -119,9 +121,6 @@ const Signup = ({ route }) => {
       return;
     }
 
-    const data = fetchClasses(selectedBoardId);
-    console.log('classes Data: ', data);
-
     // Proceed with slide animation if validation passes
     Animated.timing(slideAnim, {
       toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
@@ -130,6 +129,7 @@ const Signup = ({ route }) => {
     }).start();
   }
 
+  // class selection handler
   const classSelectionHandler = () => {
 
   }
