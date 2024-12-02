@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/LoginSlice';
 import Toast from 'react-native-toast-message';
 import { fetchBoards } from '../utils/fetchBoards';
+import { fetchClasses } from '../utils/fetchClasses';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -41,13 +42,23 @@ const Signup = ({ route }) => {
   const [show, setShow] = useState(true);
   const [confirmShow, setConfirmShow] = useState(true);
 
-  const [selectedBoard, setSelectedBoard] = useState();
-  const [selectedClass, setSelectedClass] = useState();
+  const [boards, setBoards] = useState([]);
+  const [selectedBoardId, setselectedBoardId] = useState(null);
 
-  useEffect(async () => {
-    const data = await fetchBoards();
+  const [classes, setClasses] = useState([]);
+  const [selectedClass, setSelectedClass] = useState(null);
 
-    console.log('boards', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchBoards();
+        setBoards(data);
+      } catch (error) {
+        console.error('Error fetching boards:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const temporaryContinueHandler = () => {
@@ -57,32 +68,6 @@ const Signup = ({ route }) => {
       useNativeDriver: true,
     }).start();
   };
-
-  const boards = [
-    { id: 1, name: 'CBSE' },
-    { id: 2, name: 'ICSE' },
-    { id: 3, name: 'SEBA' },
-    { id: 4, name: 'IB' },
-    { id: 5, name: 'IGCSE' },
-    { id: 6, name: 'NIOS' },
-    { id: 7, name: 'CIE' },
-    { id: 8, name: 'AHSEC' },
-    { id: 9, name: 'NCERT' },
-    { id: 10, name: 'GUJF' }
-  ];
-
-  const classes = [
-    { id: 1, name: 'Class I' },
-    { id: 2, name: 'Class II' },
-    { id: 3, name: 'Class III' },
-    { id: 4, name: 'Class IV' },
-    { id: 5, name: 'Class V' },
-    { id: 6, name: 'Class VI' },
-    { id: 7, name: 'Class VII' },
-    { id: 8, name: 'Class VIII' },
-    { id: 9, name: 'Class IX' },
-    { id: 10, name: 'Class X' }
-  ];
 
   const registerUser = () => {
     dispatch(login());
@@ -122,7 +107,27 @@ const Signup = ({ route }) => {
   };
 
   const boardSelectionHandler = () => {
+    if (!selectedBoardId) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Select a board to continue',
+        position: 'top',
+        topOffset: 5,
+      });
 
+      return;
+    }
+
+    const data = fetchClasses(selectedBoardId);
+    console.log('classes Data: ', data);
+
+    // Proceed with slide animation if validation passes
+    Animated.timing(slideAnim, {
+      toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   }
 
   const classSelectionHandler = () => {
@@ -293,28 +298,25 @@ const Signup = ({ route }) => {
                   {/* Boards */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     {boards?.map(item => (
-                      <TouchableOpacity onPress={() => setSelectedBoard(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedBoard === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
-                        {selectedBoard === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
-                        <Text style={{ color: selectedBoard === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
+                      <TouchableOpacity onPress={() => setselectedBoardId(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedBoardId === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
+                        {selectedBoardId === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
+                        <Text style={{ color: selectedBoardId === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
                       </TouchableOpacity>
                     ))}
                   </View>
 
                   {/* Next button */}
-                  <View style={{ marginTop: 50, }}>
-                    {/* Next button */}
-                    <LinearGradient
-                      colors={[darkBlue, '#5badff']}
-                      start={{ x: 0, y: 0 }}
-                      end={{ x: 1, y: 0 }}
-                      style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
-                    >
-                      <TouchableOpacity onPress={temporaryContinueHandler} style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Next</Text>
-                        <Icon4 name="arrowright" size={23} color='#fff' />
-                      </TouchableOpacity>
-                    </LinearGradient>
-                  </View>
+                  <LinearGradient
+                    colors={[darkBlue, '#5badff']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{ borderRadius: 12, elevation: 2, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 40 }}
+                  >
+                    <TouchableOpacity onPress={boardSelectionHandler} style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Next</Text>
+                      <Icon4 name="arrowright" size={23} color='#fff' />
+                    </TouchableOpacity>
+                  </LinearGradient>
                 </View>
 
                 {/* Slide 3 - Class selection */}
