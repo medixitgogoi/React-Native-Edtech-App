@@ -9,6 +9,7 @@ import { background, backIconColor, darkBlue, darkGreen, lightBlue, offWhite } f
 import { useState, useRef, useEffect } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Toast from 'react-native-toast-message';
+import axios from 'axios';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -138,13 +139,14 @@ const OtpVerification = ({ route }) => {
                 text1: 'Invalid number',
                 text2: 'Please enter a valid 10-digit mobile number.',
                 position: 'top',
-                topOffset: 50,
+                topOffset: 5,
             });
             return;
         } else {
             setLoading(true);
             try {
-                const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/change/password/otp/send`,
+                // const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/change/password/otp/send`,
+                const response = await axios.post(`user/otp/send`,
                     {
                         mobile: mobileNumber
                     }
@@ -155,7 +157,7 @@ const OtpVerification = ({ route }) => {
                         type: 'success',
                         text1: response?.data?.message,
                         position: 'top',
-                        topOffset: 50,
+                        topOffset: 5,
                     });
 
                     setShowOtpSection(true);
@@ -235,9 +237,9 @@ const OtpVerification = ({ route }) => {
                             <View style={{ width: screenWidth, paddingHorizontal: 20, flexDirection: 'column', alignItems: 'center' }}>
                                 <View style={{ flexDirection: 'column', gap: 1 }}>
                                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.5), fontWeight: '700', textAlign: 'center' }}>Enter Your Mobile Number</Text>
-                                    
+
                                     <Text style={{ color: '#909090', fontSize: responsiveFontSize(1.9), fontWeight: '400', textAlign: 'center' }}>We'll send a confirmation code to verify it's really you</Text>
-                                    
+
                                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 30 }}>
                                         <View style={{ height: 45, flex: 0.14, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: darkBlue }}>
                                             <Text style={{ color: '#fff', fontWeight: '700', fontSize: responsiveFontSize(2) }}>+91</Text>
