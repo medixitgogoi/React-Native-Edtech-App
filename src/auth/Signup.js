@@ -119,7 +119,7 @@ const Signup = ({ route }) => {
                   transform: [{ translateX: slideAnim }], // Apply the sliding animation
                 }}
               >
-                {/* Basic details section */}
+                {/* Slide 1 - Basic details section */}
                 <View style={{ width: screenWidth, paddingHorizontal: 15, flexDirection: 'column' }}>
                   {/* Heading */}
                   <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
@@ -233,7 +233,7 @@ const Signup = ({ route }) => {
                   </View>
                 </View>
 
-                {/* Board selection */}
+                {/* Slide 2 - Board selection */}
                 <View style={{ flexDirection: 'column', width: screenWidth, paddingHorizontal: 15 }}>
                   {/* Heading */}
                   <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
@@ -271,7 +271,7 @@ const Signup = ({ route }) => {
                   </View>
                 </View>
 
-                {/* Class selection */}
+                {/* Slide 3 - Class selection */}
                 <View style={{ flexDirection: 'column', width: screenWidth, paddingHorizontal: 15 }}>
                   {/* Heading */}
                   <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
@@ -322,7 +322,7 @@ const Signup = ({ route }) => {
                 </View>
               </Animated.View>
             </View>
-          
+
           </ScrollView>
         </KeyboardAvoidingView>
       </LinearGradient>

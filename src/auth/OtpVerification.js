@@ -146,7 +146,7 @@ const OtpVerification = ({ route }) => {
             setLoading(true);
             try {
                 // const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/change/password/otp/send`,
-                const response = await axios.post(`user/otp/send`,
+                const response = await axios.post(`/user/otp/send`,
                     {
                         mobile: mobileNumber
                     }
@@ -188,15 +188,86 @@ const OtpVerification = ({ route }) => {
         }
     };
 
-    const temporaryOtpHandler = () => {
+    const handleResendOTP = async () => {
+        setLoading(true); // Show loading indicator
+        try {
+            // Make the API call to resend OTP
+            const response = await axios.post(`/user/otp/send`, {
+                mobile: mobileNumber
+            });
 
-        const otpCode = otp.join('');
-
-        if (to === 'signup') {
-            navigation.navigate('SignUp', { mobile: mobileNumber, otp: otpCode });
-        } else if (to === 'forgotPassword') {
-            navigation.navigate('ForgotPassword', { mobile: mobileNumber, otp: otpCode });
+            if (response.data.status) {
+                console.log('Resend response', response);
+                Toast.show({
+                    type: 'success',
+                    text1: 'OTP Sent',
+                    text2: 'A new OTP has been sent to your mobile number.',
+                    position: 'top',
+                    topOffset: 5,
+                });
+                // Alert.alert('OTP Sent', 'A new OTP has been sent to your mobile number.');
+                setResendTimer(30); // Reset the timer to 30 seconds
+                setIsResendDisabled(true); // Disable the resend button
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: response.data.message || 'Failed to resend OTP. Please try again.',
+                    position: 'top',
+                    topOffset: 5,
+                });
+                // Alert.alert('Error', response.data.message || 'Failed to resend OTP. Please try again.');
+            }
+        } catch (error) {
+            Alert.alert('Error', error.message);
         }
+        setLoading(false); // Hide loading indicator
+    };
+
+    const handleOTPVerification = async () => {
+        setLoading(true);
+        try {
+            // Combine the OTP array into a single string
+            const otpCode = otp.join('');
+
+            // const response = await axios.post(to === 'signup' ? `/user/otp/verify` : `/user/change/password/otp/verify`, {
+            const response = await axios.post(`/user/otp/verify`, {
+                mobile: mobileNumber,
+                otp: otpCode, // Send the OTP as a single string
+            });
+
+            if (response?.data?.status) {
+                console.log('verify', response);
+
+                Toast.show({
+                    type: 'success',
+                    text1: response?.data?.message,
+                    position: 'top',
+                    topOffset: 5,
+                });
+
+                navigation.navigate('Signup', { mobile: mobileNumber, otp: otpCode });
+                // if (to === 'signup') {
+                // } else if (to === 'forgotPassword') {
+                //     navigation.navigate('ForgotPassword', { mobile: mobileNumber, otp: otpCode });
+                // }
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: response?.data?.message,
+                    text2: response?.data?.error_message?.otp?.[0] || response?.data?.error_message?.mobile?.[0] || 'Something went wrong.',
+                    position: 'top',
+                    topOffset: 50,
+                });
+            }
+        } catch (error) {
+            if (error.response && error.response.data && error.response.data.message) {
+                Alert.alert('Error', error.response.data.message);
+            } else {
+                Alert.alert('Error', error.message);
+            }
+        }
+        setLoading(false);
     };
 
     return (
@@ -212,7 +283,7 @@ const OtpVerification = ({ route }) => {
                 style={{ flex: 1 }}
                 behavior={'padding'}
             >
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
                     {/* Back Button */}
                     <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10 }} onPress={() => navigation.goBack()}>
                         <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
@@ -330,8 +401,7 @@ const OtpVerification = ({ route }) => {
                                     style={{ borderRadius: 12, paddingHorizontal: 24, elevation: 2, marginTop: 40, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
                                 >
                                     <TouchableOpacity
-                                        // onPress={handleOTPVerificationSuccess}
-                                        onPress={temporaryOtpHandler}
+                                        onPress={handleOTPVerification}
                                         style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '80%' }}
                                     >
                                         {loading ? (
@@ -349,7 +419,7 @@ const OtpVerification = ({ route }) => {
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center', marginTop: 15, gap: 3 }}>
                                     <Text style={{ color: '#333', fontSize: responsiveFontSize(1.5), fontWeight: '500' }}>Didn't receive any code?</Text>
                                     <TouchableOpacity
-                                        // onPress={handleResendOTP}
+                                        onPress={handleResendOTP}
                                         disabled={isResendDisabled}
                                     >
                                         <Text style={{
