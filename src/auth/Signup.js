@@ -6,7 +6,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-
 import Icon2 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
@@ -55,6 +54,20 @@ const Signup = ({ route }) => {
       try {
         const data = await fetchBoards();
         setBoards(data);
+      } catch (error) {
+        console.error('Error fetching boards:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // get classes
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchClasses(selectedBoardId);
+        setClasses(data);
       } catch (error) {
         console.error('Error fetching boards:', error);
       }

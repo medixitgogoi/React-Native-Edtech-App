@@ -3,9 +3,13 @@ import { Alert } from "react-native";
 
 export const fetchClasses = async (id) => {
     try {
-        const response = await axios.post(`/class/`,
+        const response = await axios.post(
+            '/class/',
+            { board_id: id },
             {
-                board_id: id
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             }
         );
         
