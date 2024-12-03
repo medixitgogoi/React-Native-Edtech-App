@@ -145,8 +145,7 @@ const OtpVerification = ({ route }) => {
         } else {
             setLoading(true);
             try {
-                // const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/change/password/otp/send`,
-                const response = await axios.post(`/user/otp/send`,
+                const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/forget/password/otp/send`,
                     {
                         mobile: mobileNumber
                     }
@@ -172,7 +171,7 @@ const OtpVerification = ({ route }) => {
                         text1: 'Invalid Information',
                         text2: response?.data?.message,
                         position: 'top',
-                        topOffset: 50,
+                        topOffset: 5,
                     });
                 }
             } catch (error) {
@@ -180,7 +179,7 @@ const OtpVerification = ({ route }) => {
                     type: 'error',
                     text1: error.message,
                     position: 'top',
-                    topOffset: 50,
+                    topOffset: 5,
                 });
             } finally {
                 setLoading(false);
@@ -189,15 +188,17 @@ const OtpVerification = ({ route }) => {
     };
 
     const handleResendOTP = async () => {
-        setLoading(true); // Show loading indicator
+        setLoading(true);
+
         try {
             // Make the API call to resend OTP
-            const response = await axios.post(`/user/otp/send`, {
-                mobile: mobileNumber
-            });
+            const response = await axios.post(to === 'signup' ? `user/otp/send` : `/user/forget/password/otp/send`,
+                {
+                    mobile: mobileNumber
+                }
+            );
 
             if (response.data.status) {
-                // console.log('Resend response', response);
                 Toast.show({
                     type: 'success',
                     text1: 'OTP Sent',
@@ -205,7 +206,7 @@ const OtpVerification = ({ route }) => {
                     position: 'top',
                     topOffset: 5,
                 });
-                // Alert.alert('OTP Sent', 'A new OTP has been sent to your mobile number.');
+
                 setResendTimer(30); // Reset the timer to 30 seconds
                 setIsResendDisabled(true); // Disable the resend button
             } else {
@@ -216,12 +217,11 @@ const OtpVerification = ({ route }) => {
                     position: 'top',
                     topOffset: 5,
                 });
-                // Alert.alert('Error', response.data.message || 'Failed to resend OTP. Please try again.');
             }
         } catch (error) {
-            Alert.alert('Error', error.message);
+            console.log('Error: ', error.message);
         }
-        setLoading(false); // Hide loading indicator
+        setLoading(false);
     };
 
     const handleOTPVerification = async () => {
@@ -230,15 +230,12 @@ const OtpVerification = ({ route }) => {
             // Combine the OTP array into a single string
             const otpCode = otp.join('');
 
-            // const response = await axios.post(to === 'signup' ? `/user/otp/verify` : `/user/change/password/otp/verify`, {
-            const response = await axios.post(`/user/otp/verify`, {
+            const response = await axios.post(to === 'signup' ? `/user/otp/verify` : `/user/forget/password/otp/verify`, {
                 mobile: mobileNumber,
-                otp: otpCode, // Send the OTP as a single string
+                otp: otpCode,
             });
 
             if (response?.data?.status) {
-                // console.log('verify', response);
-
                 Toast.show({
                     type: 'success',
                     text1: response?.data?.message,
@@ -246,18 +243,18 @@ const OtpVerification = ({ route }) => {
                     topOffset: 5,
                 });
 
-                navigation.navigate('Signup', { mobile: mobileNumber, otp: otpCode });
-                // if (to === 'signup') {
-                // } else if (to === 'forgotPassword') {
-                //     navigation.navigate('ForgotPassword', { mobile: mobileNumber, otp: otpCode });
-                // }
+                if (to === 'signup') {
+                    navigation.navigate('Signup', { mobile: mobileNumber, otp: otpCode });
+                } else if (to === 'forgotPassword') {
+                    navigation.navigate('ForgotPassword', { mobile: mobileNumber, otp: otpCode });
+                }
             } else {
                 Toast.show({
                     type: 'error',
                     text1: response?.data?.message,
                     text2: response?.data?.error_message?.otp?.[0] || response?.data?.error_message?.mobile?.[0] || 'Something went wrong.',
                     position: 'top',
-                    topOffset: 50,
+                    topOffset: 5,
                 });
             }
         } catch (error) {

@@ -80,7 +80,7 @@ const Login = () => {
 
                     {/* Password Input */}
                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Password</Text>
-                    
+
                     <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 8, borderColor: isPasswordFocused ? '#000' : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
                         <TextInput
                             placeholder="Your password"
@@ -139,13 +139,10 @@ const Login = () => {
                         </TouchableOpacity>
                     </LinearGradient>
 
-                    {/* Already Have an Account Statement */}
+                    {/* Dont Have an Account */}
                     <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 20, alignItems: 'flex-end', gap: 3 }}>
                         <Text style={{ color: '#333', fontSize: responsiveFontSize(1.6) }}>Don't have an account?</Text>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('OtpVerification', { to: 'signup' })}
-                        // onPress={() => navigation.navigate('SignUp')}
-                        >
+                        <TouchableOpacity onPress={() => navigation.navigate('OtpVerification', { to: 'signup' })}>
                             <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.7), fontWeight: '600' }}>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
