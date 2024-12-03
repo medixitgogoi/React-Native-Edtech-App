@@ -86,7 +86,7 @@ const HomeScreen = () => {
       >
         <TouchableOpacity
           style={{ overflow: 'hidden' }}
-          onPress={() => navigation.navigate('CourseDetails', { data: item.title })}
+          onPress={() => navigation.navigate('Chapters', { data: item.title })}
         >
           {/* Title */}
           <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.title}</Text>
@@ -212,12 +212,12 @@ const HomeScreen = () => {
       {/* All Courses */}
       <View style={{ marginBottom: 20 }}>
         {/* Heading */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Courses')} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
           <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>All Courses</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Courses')}>
+          <View>
             <Text style={{ color: '#0073c4', fontWeight: '600' }}>See all</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
 
         <FlatList
           data={courses}
