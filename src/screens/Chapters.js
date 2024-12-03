@@ -4,6 +4,7 @@ import { background, darkBlue, lightBlue } from '../utils/colors';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
+import MaskedView from '@react-native-masked-view/masked-view';
 
 const chaptersData = [
     { id: '1', title: 'Introduction to Algebra' },
@@ -20,7 +21,7 @@ const Chapters = ({ navigation, route }) => {
         <TouchableOpacity
             style={{
                 backgroundColor: lightBlue,
-                padding: 12,
+                padding: 13,
                 borderRadius: 10,
                 marginBottom: 15,
                 borderColor: darkBlue,
@@ -53,8 +54,27 @@ const Chapters = ({ navigation, route }) => {
                 <View style={{ width: 35, height: 35 }} />
             </View>
 
-            <View style={{ marginBottom: 15, alignSelf: 'center' }}>
-                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.5), fontWeight: '600' }}>Explore Chapters</Text>
+            <View style={{ marginVertical: 15 }}>
+                <MaskedView
+                    maskElement={
+                        <Text
+                            style={{
+                                fontSize: responsiveFontSize(2.2),
+                                fontWeight: '600',
+                                textAlign: 'center',
+                            }}
+                        >
+                            Explore Chapters
+                        </Text>
+                    }
+                >
+                    <LinearGradient
+                        colors={['#6a11cb', '#2575fc']} // Gradient colors
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{ flex: 1 }}
+                    />
+                </MaskedView>
             </View>
 
             <FlatList
