@@ -11,12 +11,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useState } from 'react';
 import { logoutUser } from '../redux/UserSlice';
+import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const Profile = ({ navigation }) => {
 
     const dispatch = useDispatch();
 
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+    // get data
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchAppLoad();
+                // setBoards(data);
+            } catch (error) {
+                console.error('Error fetching boards:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     // Logout Handler
     const logOutHandler = async () => {
