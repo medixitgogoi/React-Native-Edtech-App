@@ -212,9 +212,9 @@ const ForgotPassword = ({ route }) => {
 
                         {/* Already have an account */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 8, alignItems: 'flex-end' }}>
-                            <Text style={{ color: '#333', fontSize: responsiveFontSize(1.7), fontWeight: '500' }}>Already have an account? </Text>
+                            <Text style={{ color: '#333', fontSize: responsiveFontSize(1.6) }}>Already have an account? </Text>
                             <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ paddingHorizontal: 2 }}>
-                                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
+                                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.7), fontWeight: '600' }}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
