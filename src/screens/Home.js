@@ -10,10 +10,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
+import { useSelector } from 'react-redux';
+import { fetchAppLoad } from '../utils/fetchAppLoad';
+import { applyMiddleware } from 'redux';
 
 const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
+
+  const userDetails = useSelector(state => state.user);
 
   const navigation = useNavigation();
 
@@ -21,9 +26,24 @@ const HomeScreen = () => {
 
   const [activeBannerIndex, setActiveBannerIndex] = useState(0); // State for active banner index
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [appLoad, setAppLoad] = useState(null);
+  console.log('appLoad', appLoad);
+
+  //app load
+  useEffect(() => {
+    if (userDetails) {
+      const fetchData = async () => {
+        try {
+          const data = await fetchAppLoad(userDetails);
+          setAppLoad(data);
+        } catch (error) {
+          console.error('Error fetching boards:', error);
+        }
+      };
+
+      fetchData();
+    }
+  }, []);
 
   // Sample data
   const courses = [
@@ -160,7 +180,7 @@ const HomeScreen = () => {
           </View>
 
           <View style={{ flexDirection: 'column' }}>
-            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>Hello, Marshmallow</Text>
+            <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>Hello, {appLoad?.user?.name || 'User'}</Text>
             <Text style={{ fontSize: responsiveFontSize(1.7), fontWeight: '500', color: '#a2a2a2' }}>What are you learning today?</Text>
           </View>
         </View>
