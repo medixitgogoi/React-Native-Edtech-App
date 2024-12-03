@@ -1,4 +1,4 @@
-import { Image, StatusBar, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Image, StatusBar, Text, TextInput, TouchableOpacity, View, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
 import { SafeAreaInsetsContext, SafeAreaView } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -11,8 +11,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Toast from 'react-native-toast-message';
+import axios from 'axios';
 
 const ForgotPassword = ({ route }) => {
+
+    const mobileNumber = route.params.mobile;
+    const otp = route.params.otp;
 
     const navigation = useNavigation();
 
@@ -22,85 +26,85 @@ const ForgotPassword = ({ route }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] = useState(false);
 
-    const [show, setShow] = useState(true);
-    const [confirmShow, setConfirmShow] = useState(true);
-
     const [loading, setLoading] = useState(false);
 
-    // const changePasswordHandler = async () => {
-    //     if (!password || !confirmPassword) {
-    //         Toast.show({
-    //             type: 'error',
-    //             text1: 'Incomplete Information',
-    //             text2: 'All fields are required.',
-    //             position: 'top',
-    //             topOffset: 10,
-    //         });
-    //         return;
-    //     } else {
-    //         try {
-    //             setLoading(true);
-    //             // Data object as per the API requirement
-    //             const data = {
-    //                 mobile: mobileNumber,
-    //                 otp: otp,
-    //                 password: password,
-    //                 confirm_password: confirmPassword
-    //             };
+    const changePasswordHandler = async () => {
 
-    //             // API Call using axios
-    //             const response = await axios.post(`/user/change/password/submit`, data, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 }
-    //             });
+        if (!password || !confirmPassword) {
+            Toast.show({
+                type: 'error',
+                text1: 'Incomplete Information',
+                text2: 'All fields are required.',
+                position: 'top',
+                topOffset: 5,
+            });
 
-    //             console.log('change password', response);
+            return;
+        }
 
-    //             // Handle success response
-    //             if (!response.data.status) {
-    //                 navigation.navigate('Login');
+        if (password !== confirmPassword) {
+            Toast.show({
+                type: 'error',
+                text1: 'Password Mismatch',
+                text2: 'Passwords do not match. Please try again.',
+                position: 'top',
+                topOffset: 5,
+            });
 
-    //                 Toast.show({
-    //                     type: 'success',
-    //                     text1: 'Success',
-    //                     text2: 'Password changed successfully',
-    //                     position: 'top',
-    //                     topOffset: 50,
-    //                 });
+            return;
+        }
 
-    //                 setPassword('');
-    //                 setConfirmPassword('');
-    //             } else {
-    //                 Alert.alert(response?.data?.message || 'Something went wrong.', 'Please try again.');
-    //             }
-    //         } catch (error) {
-    //             // Handle error response
-    //             if (error.response) {
-    //                 Alert.alert("Error", error.response.data.message || "Something went wrong. Please try again.");
-    //             } else {
-    //                 Alert.alert("Error", "Network error. Please check your internet connection and try again.");
-    //             }
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     }
-    // }
+        try {
+            setLoading(true);
 
-    const temporaryPasswordHandler = () => {
-        navigation.navigate('Login');
+            const data = {
+                mobile: mobileNumber,
+                otp: otp,
+                password: password,
+                confirm_password: confirmPassword,
+            };
 
-        Toast.show({
-            type: 'success',
-            text1: 'Success',
-            text2: 'Password changed successfully',
-            position: 'top',
-            topOffset: 15,
-        });
+            // API Call using axios
+            const response = await axios.post(`/user/forget/password/otp/update`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-        setPassword('');
-        setConfirmPassword('');
-    }
+            console.log('Change password response: ', response);
+
+            // Handle success response
+            if (response.data.status) {
+                navigation.navigate('Login');
+
+                Toast.show({
+                    type: 'success',
+                    text1: 'Success',
+                    text2: response?.data?.message,
+                    position: 'top',
+                    topOffset: 5,
+                });
+
+                setPassword('');
+                setConfirmPassword('');
+            } else {
+                Alert.alert(
+                    response?.data?.message || 'Something went wrong.',
+                    'Please try again.'
+                );
+            }
+        } catch (error) {
+            // Handle error response
+            if (error.response) {
+                Alert.alert("Error", error.response.data.message || "Something went wrong. Please try again.");
+            } else {
+                Alert.alert("Error", "Network error. Please check your internet connection and try again.");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     return (
         <View style={{ flex: 1, backgroundColor: background, paddingTop: 5 }}>
@@ -113,7 +117,7 @@ const ForgotPassword = ({ route }) => {
                 style={{ flex: 1 }}
                 behavior={'padding'}
             >
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
                     {/* Back Button */}
                     <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10 }} onPress={() => navigation.goBack()}>
                         <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
@@ -182,28 +186,34 @@ const ForgotPassword = ({ route }) => {
                             end={{ x: 1, y: 0 }}
                             style={{
                                 borderRadius: 10,
-                                paddingHorizontal: 24,
                                 elevation: 2,
                                 marginTop: 40,
                                 flexDirection: 'row',
                                 justifyContent: 'center',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                overflow: 'hidden'
                             }}
                         >
                             <TouchableOpacity
-                                // onPress={changePasswordHandler}
-                                onPress={temporaryPasswordHandler}
-                                style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '65%' }}
+                                onPress={changePasswordHandler}
+                                style={{ width: '100%', gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+                                disabled={loading}
                             >
-                                <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600' }}>Update Password</Text>
-                                <MaterialIcons name="lock-reset" size={23} color={'#fff'} />
+                                {loading ? (
+                                    <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600', }}>Processing, hold on...</Text>
+                                ) : (
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5 }}>
+                                        <Text style={{ color: '#fff', fontSize: responsiveFontSize(2.5), fontWeight: '600' }}>Update Password</Text>
+                                        <MaterialIcons name="lock-reset" size={23} color={'#fff'} />
+                                    </View>
+                                )}
                             </TouchableOpacity>
                         </LinearGradient>
 
                         {/* Already have an account */}
                         <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 8, alignItems: 'flex-end' }}>
                             <Text style={{ color: '#333', fontSize: responsiveFontSize(1.7), fontWeight: '500' }}>Already have an account? </Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ paddingHorizontal: 2 }}>
                                 <Text style={{ color: darkBlue, fontSize: responsiveFontSize(1.8), fontWeight: '600' }}>Login</Text>
                             </TouchableOpacity>
                         </View>
