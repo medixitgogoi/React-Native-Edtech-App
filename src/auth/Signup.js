@@ -250,7 +250,7 @@ const Signup = ({ route }) => {
           style={{ flex: 1 }}
           behavior={'padding'}
         >
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="always">
             {/* Back button */}
             <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10, marginTop: 5 }} onPress={() => navigation.goBack()}>
               <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />

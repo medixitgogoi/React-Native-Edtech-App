@@ -28,6 +28,7 @@ import Cancellation from '../screens/Cancellation';
 import Refund from '../screens/Refund';
 import Contact from '../screens/Contact';
 import Disclaimer from '../screens/Disclaimer';
+import Chapters from '../screens/Chapters';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -106,6 +107,7 @@ function GuestNavigator() {
             <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
             <Stack.Screen name="Faq" component={Faq} />
             <Stack.Screen name="Terms" component={Terms} />
+            <Stack.Screen name="Chapters" component={Chapters} />
         </Stack.Navigator>
     );
 }
