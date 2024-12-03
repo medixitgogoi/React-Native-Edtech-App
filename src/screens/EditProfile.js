@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StatusBar, Image, ActivityIndicator, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StatusBar, Image, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon2 from 'react-native-vector-icons/dist/FontAwesome';
@@ -28,12 +28,10 @@ const EditProfile = ({ route }) => {
 
     const navigation = useNavigation();
 
-    const [mobileNumber, setMobileNumber] = useState('1234567890');
-
-    const [name, setName] = useState('Dixit Gogoi');
+    const [name, setName] = useState('');
     const [isNameFocused, setIsNameFocused] = useState(false);
 
-    const [email, setEmail] = useState('dixit@gmail.com');
+    const [email, setEmail] = useState('');
     const [isEmailFocused, setIsEmailFocused] = useState(false);
 
     const [gender, setGender] = useState('M');
@@ -48,14 +46,6 @@ const EditProfile = ({ route }) => {
     const [state, setState] = useState('Assam');
     const [isStateFocused, setIsStateFocused] = useState(false);
 
-    const [accessToken, setAccessToken] = useState('');
-
-    const [board, setBoard] = useState('CBSE');
-
-    const [className, setClassName] = useState('CLass VI');
-
-    const [password, setPassword] = useState('');
-
     const [loading, setLoading] = useState(false);
 
     const [appLoad, setAppLoad] = useState(null);
@@ -66,13 +56,16 @@ const EditProfile = ({ route }) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [isDobFocused, setIsDobFocused] = useState(false);
 
-    //app load
+    // fetch app load
     useEffect(() => {
         if (userDetails) {
             const fetchData = async () => {
                 try {
                     const data = await fetchAppLoad(userDetails);
-                    setAppLoad(data);
+                    setAppLoad(data); // Update state
+
+                    setName(data?.user?.name); // Use 'data' directly to set the name
+                    setEmail(data?.user?.email); // Use 'data' directly to set the email
                 } catch (error) {
                     console.error('Error fetching appLoad: ', error);
                 }
@@ -80,16 +73,16 @@ const EditProfile = ({ route }) => {
 
             fetchData();
         }
-    }, []);
+    }, [userDetails]);
 
     // useEffect for setting the user details
-    useEffect(() => {
-        setName(appLoad?.user?.name);
-        setEmail(appLoad?.user?.email);
-        if (userDetails?.[0]?.gender) {
-            setGender(userDetails?.[0]?.gender);
-        }
-    }, []);
+    // useEffect(() => {
+    //     setName(appLoad?.user?.name);
+    //     setEmail(appLoad?.user?.email);
+    //     if (userDetails?.[0]?.gender) {
+    //         setGender(userDetails?.[0]?.gender);
+    //     }
+    // }, []);
 
     // // updateHandler
     // const updateHandler = async () => {

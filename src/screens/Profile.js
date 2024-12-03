@@ -11,7 +11,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import { useEffect, useState } from 'react';
 import { logoutUser } from '../redux/UserSlice';
-import { fetchAppLoad } from '../utils/fetchAppLoad';
 import { fetchProfileData } from '../utils/fetchProfileData';
 
 const Profile = ({ navigation }) => {
@@ -47,15 +46,16 @@ const Profile = ({ navigation }) => {
             Toast.show({
                 type: 'error',
                 text1: 'Failed to log out',
-                text2: `Please try again`,
-                position: 'top', // Adjusts to the bottom by default
-                topOffset: 5, // Moves the toast 10 units down from the bottom
+                text2: `Error: ${error?.message || 'Please try again'}`, // Show error message
+                position: 'top', // Show toast at the top
+                topOffset: 5, // Adjust position slightly down from the top
             });
-            setIsLoggingOut(false);
+        } finally {
+            setIsLoggingOut(false); // Ensure this is called regardless of success or failure
         }
     };
 
-    console.log('profile data: ', data)
+    console.log('profile data: ', data);
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
