@@ -53,8 +53,8 @@ const Chapters = ({ navigation, route }) => {
                 <View style={{ width: 35, height: 35 }} />
             </View>
 
-            <View style={{ marginVertical: 15 }}>
-                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.5), fontWeight: '600' }}>Chapters</Text>
+            <View style={{ marginBottom: 15, alignSelf: 'center' }}>
+                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.5), fontWeight: '600' }}>Explore Chapters</Text>
             </View>
 
             <FlatList
