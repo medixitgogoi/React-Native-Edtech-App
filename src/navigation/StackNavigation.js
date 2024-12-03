@@ -1,33 +1,51 @@
 import { NavigationContainer } from "@react-navigation/native";
 import AuthNavigator from "./AuthNavigator";
 import GuestNavigator from "./GuestNavigator";
-import { StatusBar } from 'react-native';
-import { background } from '../utils/colors';
-import { useSelector } from "react-redux";
-import axios from "axios";``
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import { Alert } from "react-native";
+import { addUser } from "../redux/UserSlice";
 
 axios.defaults.baseURL = 'https://admin.gyaano.com/api/';
 
 const StackNavigation = () => {
 
-    const isUserLoggedIn = useSelector(state => state.login.isUserLoggedIn);
+    const dispatch = useDispatch();
+
+    const userDetails = useSelector(state => state.user);
+
+    const isUserLoggedIn = userDetails?.length > 0 && userDetails?.some(item => item.accessToken);
+
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Load login details from AsyncStorage
+    useEffect(() => {
+        const loadLoginDetails = async () => {
+            try {
+                const storedLoginDetails = await AsyncStorage.getItem('userDetails');
+                if (storedLoginDetails) {
+                    dispatch(addUser(JSON.parse(storedLoginDetails)));
+                }
+            } catch (error) {
+                Alert.alert(error.message);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadLoginDetails();
+    }, [dispatch]);
 
     return (
-        <>
-            {/* Global StatusBar Configuration */}
-            <StatusBar
-                barStyle="light-content" // Light text for the status bar
-                backgroundColor={background} // Replace with your app's primary color
-            />
-
-            <NavigationContainer>
-                {isUserLoggedIn ? (
-                    <GuestNavigator />
-                ) : (
-                    <AuthNavigator />
-                )}
-            </NavigationContainer>
-        </>
+        <NavigationContainer>
+            {isUserLoggedIn ? (
+                <GuestNavigator />
+            ) : (
+                <AuthNavigator />
+            )}
+        </NavigationContainer>
     );
 };
 

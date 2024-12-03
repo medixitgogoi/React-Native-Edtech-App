@@ -7,17 +7,39 @@ import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/dist/Ionicons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon5 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { logout } from '../redux/LoginSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+import { useState } from 'react';
+import { logoutUser } from '../redux/UserSlice';
 
 const Profile = ({ navigation }) => {
 
     const dispatch = useDispatch();
 
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+    // Logout Handler
+    const logOutHandler = async () => {
+        try {
+            dispatch(logoutUser());
+            await AsyncStorage.removeItem('userDetails');
+        } catch {
+            Toast.show({
+                type: 'error',
+                text1: 'Failed to log out',
+                text2: `Please try again`,
+                position: 'top', // Adjusts to the bottom by default
+                topOffset: 5, // Moves the toast 10 units down from the bottom
+            });
+            setIsLoggingOut(false);
+        }
+    };
+
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <StatusBar
                 animated={true}
-                backgroundColor={background}
+                backgroundColor={isLoggingOut ? '#adadad' : background}
                 barStyle="dark-content"
             />
 
@@ -211,7 +233,7 @@ const Profile = ({ navigation }) => {
                             <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                             {/* Log out */}
-                            <TouchableOpacity onPress={() => dispatch(logout())} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                            <TouchableOpacity onPress={() => setIsLoggingOut(true)} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                 <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                     <Icon2 name="power" size={15} color={'#000'} />
                                 </View>
@@ -222,6 +244,26 @@ const Profile = ({ navigation }) => {
                     </View>
                 </ScrollView>
             </LinearGradient>
+
+            {/* Log out confirm */}
+            {isLoggingOut && (
+                <View style={{ position: 'absolute', alignItems: 'center', height: '100%', flexDirection: 'row', justifyContent: 'center', width: '100%', backgroundColor: '#00000050' }}>
+                    <View style={{ backgroundColor: '#fff', overflow: 'hidden', paddingTop: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, shadowColor: '#000', shadowOffset: { width: 0, height: 5 }, shadowOpacity: 0.3, shadowRadius: 10, elevation: 10, width: '80%' }}>
+                        <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2), marginBottom: 30 }}>Are you sure you want to log out?</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+                            {/* Cancel */}
+                            <TouchableOpacity onPress={() => setIsLoggingOut(false)} style={{ width: '50%', backgroundColor: lightBlue, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 13, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 5 }}>
+                                <Text style={{ color: '#000', fontWeight: '600' }}>No, Thank You</Text>
+                            </TouchableOpacity>
+
+                            {/* Confirm */}
+                            <TouchableOpacity onPress={logOutHandler} style={{ width: '50%', backgroundColor:'#e6191a', paddingVertical: 13, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 5 }}>
+                                <Text style={{ color: '#fff', fontWeight: '600' }}>Yes, See you again!</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            )}
         </View>
     )
 }
