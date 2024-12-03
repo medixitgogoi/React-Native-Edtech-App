@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { addUser } from "../redux/UserSlice";
+import { fetchAppLoad } from "../utils/fetchAppLoad";
 
 axios.defaults.baseURL = 'https://admin.gyaano.com/api/';
 
@@ -37,6 +38,22 @@ const StackNavigation = () => {
 
         loadLoginDetails();
     }, [dispatch]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 0);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (isLoading) {
+        return (
+            <NavigationContainer>
+                <AuthNavigator initialRoute="SplashScreen" />
+            </NavigationContainer>
+        );
+    };
 
     return (
         <NavigationContainer>

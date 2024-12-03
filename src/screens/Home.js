@@ -2,15 +2,15 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, S
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { background, darkBlue, darkGreen, lightGreen } from '../utils/colors';
-import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { useEffect, useRef, useState } from 'react';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
+import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const { width } = Dimensions.get('window');
 
@@ -21,6 +21,27 @@ const HomeScreen = () => {
   const scrollViewRef = useRef(null);
 
   const [activeBannerIndex, setActiveBannerIndex] = useState(0); // State for active banner index
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from the API
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/user/app/load/');
+        console.log('appLoad', response);
+        setData(response.data); // Set the data to state
+      } catch (err) {
+        setError('Something went wrong!'); // Handle error
+      } finally {
+        setLoading(false); // Set loading state to false when request is complete
+      }
+    };
+
+    fetchData(); // Call the function to fetch data
+  }, []);
 
   // Sample data
   const courses = [

@@ -6,9 +6,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 
 import Foundation from 'react-native-vector-icons/dist/Foundation';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { background, darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
+import axios from 'axios';
+import { useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const courses = [
     { id: '1', title: 'React Native for Beginners', image: 'https://example.com/course1.jpg', price: 499, instructor: 'John Doe', time: 120 },
@@ -26,6 +30,23 @@ const courses = [
 const Store = () => {
 
     const totalPrice = courses?.reduce((sum, course) => sum + course?.price, 0);
+
+    const userDetails = useSelector(state => state.user);
+
+    // get boards
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchAppLoad();
+                // console.log('data: ', data)
+                // setBoards(data);
+            } catch (error) {
+                console.error('Error fetching apps:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
