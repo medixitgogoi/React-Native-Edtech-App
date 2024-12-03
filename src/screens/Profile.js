@@ -12,6 +12,7 @@ import Toast from 'react-native-toast-message';
 import { useEffect, useState } from 'react';
 import { logoutUser } from '../redux/UserSlice';
 import { fetchAppLoad } from '../utils/fetchAppLoad';
+import { fetchProfileData } from '../utils/fetchProfileData';
 
 const Profile = ({ navigation }) => {
 
@@ -21,12 +22,14 @@ const Profile = ({ navigation }) => {
 
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-    // get data
+    const [data, setData] = useState(null);
+
+    // get profile data
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchAppLoad(userDetails);
-                // setBoards(data);
+                const data = await fetchProfileData(userDetails);
+                setData(data);
             } catch (error) {
                 console.error('Error fetching boards:', error);
             }
@@ -51,6 +54,8 @@ const Profile = ({ navigation }) => {
             setIsLoggingOut(false);
         }
     };
+
+    console.log('profile data: ', data)
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -81,33 +86,33 @@ const Profile = ({ navigation }) => {
                                 {/* Initial */}
                                 <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                                     <View style={{ height: 100, width: 100, backgroundColor: lightBlue, borderRadius: 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>D</Text>
+                                        <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>{userDetails[0]?.name.slice(0, 1)}</Text>
                                     </View>
                                 </View>
 
                                 {/* Name and Email */}
                                 <View style={{ flexDirection: 'column', gap: 3, width: '65%' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                                        <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>Dixit Gogoi</Text>
-                                        <View style={{ width: 20, height: 20, backgroundColor: lightBlue, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
-                                            <Icon2 name="male" size={15} color={'#000'} />
-                                        </View>
-                                        {/* {userDetails?.[0]?.gender === 'M' && (
-                                    )}
+                                        <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>{userDetails[0]?.name}</Text>
+                                        {userDetails?.[0]?.gender === 'M' && (
+                                            <View style={{ width: 20, height: 20, backgroundColor: lightGreen, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                                <Icon2 name="male" size={15} color={backIconColor} />
+                                            </View>
+                                        )}
 
-                                    {userDetails?.[0]?.gender === 'F' && (
-                                        <View style={{ width: 20, height: 20, backgroundColor: lightBlue, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
-                                            <Icon2 name="female" size={15} color={'#000'} />
-                                        </View>
-                                    )} */}
+                                        {userDetails?.[0]?.gender === 'F' && (
+                                            <View style={{ width: 20, height: 20, backgroundColor: lightGreen, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                                <Icon2 name="female" size={15} color={backIconColor} />
+                                            </View>
+                                        )}
                                     </View>
-                                    <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>123@gmail.com</Text>
+                                    <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>{userDetails[0]?.email}</Text>
                                 </View>
                             </View>
                         </LinearGradient>
 
                         {/* Profile */}
-                        <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16, backgroundColor: '#FFFFFF', paddingVertical: 9, paddingHorizontal: 10, borderRadius: 12, elevation: 1 }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('EditProfile', { data: data })} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16, backgroundColor: '#FFFFFF', paddingVertical: 9, paddingHorizontal: 10, borderRadius: 12, elevation: 1 }}>
                             <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                 <Icon name="person-outline" size={15} color={'#000'} style={{}} />
                             </View>

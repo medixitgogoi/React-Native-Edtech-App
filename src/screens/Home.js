@@ -37,7 +37,7 @@ const HomeScreen = () => {
           const data = await fetchAppLoad(userDetails);
           setAppLoad(data);
         } catch (error) {
-          console.error('Error fetching boards:', error);
+          console.error('Error fetching appLoad: ', error);
         }
       };
 

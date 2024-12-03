@@ -15,10 +15,13 @@ import Feather from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { fetchAppLoad } from '../utils/fetchAppLoad';
 
-const EditProfile = () => {
+const EditProfile = ({ route }) => {
 
-    // const userDetails = useSelector(state => state.user);
+    const { data } = route.params;
+
+    const userDetails = useSelector(state => state.user);
     // console.log('userDetails', userDetails);
 
     const dispatch = useDispatch();
@@ -55,23 +58,38 @@ const EditProfile = () => {
 
     const [loading, setLoading] = useState(false);
 
+    const [appLoad, setAppLoad] = useState(null);
+
     const [error, setError] = useState(false);
 
     const [dob, setDob] = useState('2000-10-10');
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [isDobFocused, setIsDobFocused] = useState(false);
 
+    //app load
+    useEffect(() => {
+        if (userDetails) {
+            const fetchData = async () => {
+                try {
+                    const data = await fetchAppLoad(userDetails);
+                    setAppLoad(data);
+                } catch (error) {
+                    console.error('Error fetching appLoad: ', error);
+                }
+            };
+
+            fetchData();
+        }
+    }, []);
+
     // useEffect for setting the user details
-    // useEffect(() => {
-    //     setPassword(userDetails?.[0]?.password);
-    //     setAccessToken(userDetails?.[0]?.accessToken)
-    //     setMobileNumber(userDetails?.[0]?.mobileNumber);
-    //     setName(userDetails[0]?.name);
-    //     setEmail(userDetails?.[0]?.email);
-    //     if (userDetails?.[0]?.gender) {
-    //         setGender(userDetails?.[0]?.gender);
-    //     }
-    // }, [updateHandler]);
+    useEffect(() => {
+        setName(appLoad?.user?.name);
+        setEmail(appLoad?.user?.email);
+        if (userDetails?.[0]?.gender) {
+            setGender(userDetails?.[0]?.gender);
+        }
+    }, []);
 
     // // updateHandler
     // const updateHandler = async () => {
@@ -221,7 +239,7 @@ const EditProfile = () => {
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, }}>
                                 <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Mobile</Text>
                                 <View style={{ width: '100%', flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 38, backgroundColor: '#efefef', borderRadius: 9, elevation: 1, justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>+91 {mobileNumber}</Text>
+                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>+91 {appLoad?.user?.mobile}</Text>
                                     <Icon name="block" size={20} color={'red'} />
                                 </View>
                             </View>
@@ -230,7 +248,7 @@ const EditProfile = () => {
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
                                 <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Board</Text>
                                 <View style={{ width: '100%', flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 38, backgroundColor: '#efefef', borderRadius: 9, elevation: 1, justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>{board}</Text>
+                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>{appLoad?.user?.board}</Text>
                                     <Icon name="block" size={20} color={'red'} />
                                 </View>
                             </View>
@@ -239,7 +257,7 @@ const EditProfile = () => {
                             <View style={{ width: '100%', flexDirection: 'column', paddingHorizontal: 15, gap: 3, marginTop: 20 }}>
                                 <Text style={{ color: '#888888', zIndex: 1, fontWeight: '500', fontStyle: 'italic', fontSize: responsiveFontSize(1.9) }}>Class</Text>
                                 <View style={{ width: '100%', flexDirection: 'row', paddingHorizontal: 10, alignItems: 'center', height: 38, backgroundColor: '#efefef', borderRadius: 9, elevation: 1, justifyContent: 'space-between' }}>
-                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>{className}</Text>
+                                    <Text style={{ color: '#6f6f6f', fontWeight: '500', fontStyle: 'italic' }}>{appLoad?.user?.class}</Text>
                                     <Icon name="block" size={20} color={'red'} />
                                 </View>
                             </View>
@@ -403,7 +421,7 @@ const EditProfile = () => {
                         </View>
                     </ScrollView>
                 </KeyboardAvoidingView>
-                
+
                 {/* Update Profile */}
                 <TouchableOpacity style={{ position: 'absolute', bottom: 8, alignSelf: 'center', width: '95%', height: 50, overflow: 'hidden', borderRadius: 12 }}>
                     <LinearGradient
