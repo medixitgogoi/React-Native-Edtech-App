@@ -1,14 +1,13 @@
 import axios from "axios";
-import { Alert } from "react-native";
 
-export const fetchAppLoad = async () => {
+export const fetchAppLoad = async (userDetails) => {
     try {
-        const response = await axios.get('/user/profile/fetch/');
-        console.log('response app load: ', response);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${userDetails[0]?.accessToken}`;
+        const response = await axios.get('/user/app/load/');
 
-        // return response?.data?.data?.boards; // Return data inside the try block after receiving the response
+        return response?.data?.data;
     } catch (error) {
-        Alert.alert("Error", error?.message); // Add a title to the alert
-        return null; // Return null in case of error
+        console.log("Error", error?.message);
+        return null;
     }
 };

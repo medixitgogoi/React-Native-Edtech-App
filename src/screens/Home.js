@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
-import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const { width } = Dimensions.get('window');
 
@@ -25,23 +24,6 @@ const HomeScreen = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    // Fetch data from the API
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/user/app/load/');
-        console.log('appLoad', response);
-        setData(response.data); // Set the data to state
-      } catch (err) {
-        setError('Something went wrong!'); // Handle error
-      } finally {
-        setLoading(false); // Set loading state to false when request is complete
-      }
-    };
-
-    fetchData(); // Call the function to fetch data
-  }, []);
 
   // Sample data
   const courses = [

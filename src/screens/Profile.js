@@ -2,18 +2,20 @@ import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-nativ
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { background, darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/dist/Ionicons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon5 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { logoutUser } from '../redux/UserSlice';
 import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const Profile = ({ navigation }) => {
+
+    const userDetails = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
@@ -23,7 +25,7 @@ const Profile = ({ navigation }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await fetchAppLoad();
+                const data = await fetchAppLoad(userDetails);
                 // setBoards(data);
             } catch (error) {
                 console.error('Error fetching boards:', error);
@@ -272,7 +274,7 @@ const Profile = ({ navigation }) => {
                             </TouchableOpacity>
 
                             {/* Confirm */}
-                            <TouchableOpacity onPress={logOutHandler} style={{ width: '50%', backgroundColor:'#e6191a', paddingVertical: 13, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 5 }}>
+                            <TouchableOpacity onPress={logOutHandler} style={{ width: '50%', backgroundColor: '#e6191a', paddingVertical: 13, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 5 }}>
                                 <Text style={{ color: '#fff', fontWeight: '600' }}>Yes, See you again!</Text>
                             </TouchableOpacity>
                         </View>
