@@ -43,7 +43,7 @@ const Login = () => {
 
                     {/* Title */}
                     <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.8), fontWeight: '600', marginBottom: 8, textAlign: 'center' }}>
-                        Log in to Gyano
+                        Log in to Gyaano
                     </Text>
 
                     {/* Subheadline */}

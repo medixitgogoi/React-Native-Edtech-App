@@ -9,16 +9,21 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Icon2 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/LoginSlice';
 import Toast from 'react-native-toast-message';
 import { fetchBoards } from '../utils/fetchBoards';
 import { fetchClasses } from '../utils/fetchClasses';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addUser } from '../redux/UserSlice';
 
 const { width: screenWidth } = Dimensions.get('window');
 
 const Signup = ({ route }) => {
+
+  // const userDetails = useSelector(state => state.user);
+  // console.log('userDetails', userDetails);
 
   const navigation = useNavigation();
 
@@ -48,10 +53,10 @@ const Signup = ({ route }) => {
   const [confirmShow, setConfirmShow] = useState(true);
 
   const [boards, setBoards] = useState([]);
-  const [selectedBoardId, setselectedBoardId] = useState(null);
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
 
   const [classes, setClasses] = useState([]);
-  const [selectedClassId, setselectedClassId] = useState(null);
+  const [selectedClassId, setSelectedClassId] = useState(null);
 
   // set mobile and otp
   useEffect(() => {
@@ -73,15 +78,8 @@ const Signup = ({ route }) => {
     fetchData();
   }, []);
 
-  const temporaryContinueHandler = () => {
-    Animated.timing(slideAnim, {
-      toValue: slideAnim._value - screenWidth, // Move the slide animation to the next section
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-
   const registerUser = async () => {
+
     if (!selectedClassId) {
       Toast.show({
         type: 'error',
@@ -118,31 +116,35 @@ const Signup = ({ route }) => {
       console.log('signup', response);
 
       // Handle success response
-      // if (response.data.status) {
-      //   const userInfo = {
-      //     name: response?.data?.data?.name,
-      //     email: response?.data?.data?.email,
-      //     mobileNumber: mobileNumber,
-      //     password: password,
-      //     accessToken: response?.data?.access_token,
-      //   };
+      if (response.data.status) {
 
-      //   dispatch(addUser(userInfo));
-      //   await AsyncStorage.setItem('userDetails', JSON.stringify(userInfo));
+        const userInfo = {
+          name: response?.data?.data?.name,
+          email: response?.data?.data?.email,
+          mobileNumber: response?.data?.data?.mobile,
+          accessToken: response?.data?.access_token,
+        };
 
-      //   setName('');
-      //   setPassword('');
-      //   setConfirmPassword('');
-      //   setEmail('');
-      // } else {
-      //   Toast.show({
-      //     type: 'error',
-      //     text1: response?.data?.message || 'Something went wrong.',
-      //     text2: 'Please try again.',
-      //     position: 'top',
-      //     topOffset: 50,
-      //   });
-      // }
+        dispatch(addUser(userInfo));
+        await AsyncStorage.setItem('userDetails', JSON.stringify(userInfo));
+
+        setName('');
+        setPassword('');
+        setConfirmPassword('');
+        setEmail('');
+        setSelectedBoardId(null);
+        setSelectedClassId(null);
+
+
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: response?.data?.message || 'Something went wrong.',
+          text2: 'Please try again.',
+          position: 'top',
+          topOffset: 50,
+        });
+      }
 
       setLoading(false);
 
@@ -154,7 +156,7 @@ const Signup = ({ route }) => {
           text1: 'Error',
           text2: error.response.data.message || "Something went wrong. Please try again.",
           position: 'top',
-          topOffset: 50,
+          topOffset: 5,
         });
       } else {
         Toast.show({
@@ -162,7 +164,7 @@ const Signup = ({ route }) => {
           text1: 'Error',
           text2: "Network error. Please check your internet connection and try again.",
           position: 'top',
-          topOffset: 50,
+          topOffset: 5,
         });
       }
     }
@@ -248,7 +250,7 @@ const Signup = ({ route }) => {
           style={{ flex: 1 }}
           behavior={'padding'}
         >
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
             {/* Back button */}
             <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10, marginTop: 5 }} onPress={() => navigation.goBack()}>
               <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
@@ -395,7 +397,7 @@ const Signup = ({ route }) => {
                   {/* Boards */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     {boards?.map(item => (
-                      <TouchableOpacity onPress={() => setselectedBoardId(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedBoardId === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
+                      <TouchableOpacity onPress={() => setSelectedBoardId(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedBoardId === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
                         {selectedBoardId === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
                         <Text style={{ color: selectedBoardId === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
                       </TouchableOpacity>
@@ -430,7 +432,7 @@ const Signup = ({ route }) => {
                   {/* Classes */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
                     {classes?.map(item => (
-                      <TouchableOpacity onPress={() => setselectedClassId(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedClassId === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
+                      <TouchableOpacity onPress={() => setSelectedClassId(item.id)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, elevation: 1, backgroundColor: selectedClassId === item.id ? darkBlue : '#fff', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 8, borderColor: darkBlue, borderWidth: 1, alignSelf: 'flex-start' }}>
                         {selectedClassId === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
                         <Text style={{ color: selectedClassId === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
                       </TouchableOpacity>
