@@ -12,6 +12,7 @@ import Toast from 'react-native-toast-message';
 import { useEffect, useState } from 'react';
 import { logoutUser } from '../redux/UserSlice';
 import { fetchProfileData } from '../utils/fetchProfileData';
+import { Image } from 'react-native-animatable';
 
 const Profile = ({ navigation }) => {
 
@@ -67,11 +68,26 @@ const Profile = ({ navigation }) => {
 
             {/* Content */}
             {userDetails ? (
-                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={{ color: darkBlue, fontWeight: '500', fontSize: responsiveFontSize(2.2) }}>Please log in</Text>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9f9f9', paddingHorizontal: 20 }}>
+                    <View style={{ width: 300, height: 300 }}>
+                        <Image
+                            source={require('../assets/fallback.jpeg')}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                opacity: 0.9
+                            }}
+                            resizeMode="cover"
+                        />
+                    </View>
 
-                    <TouchableOpacity style={{ backgroundColor: darkBlue, paddingHorizontal: 8, paddingVertical: 4, borderRadius: 10 }} onPress={() => navigation.navigate('Login')}>
-                        <Text style={{ color: lightBlue, fontWeight: '500' }}>Log in</Text>
+                    <Text style={{ color: '#333', fontWeight: '600', fontSize: responsiveFontSize(2.2), textAlign: 'center', marginBottom: 20 }}>You need to log in to continue.</Text>
+
+                    <TouchableOpacity
+                        style={{ backgroundColor: darkBlue, paddingVertical: 10, paddingHorizontal: 25, borderRadius: 25, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 }}
+                        onPress={() => navigation.navigate('Login')}
+                    >
+                        <Text style={{ color: lightBlue, fontWeight: 'bold', fontSize: responsiveFontSize(1.9) }}>Log In</Text>
                     </TouchableOpacity>
                 </View>
             ) : (
