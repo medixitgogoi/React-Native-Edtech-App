@@ -10,31 +10,35 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
 
-  const userDetails = useSelector(state => state.user);
+  const userDetails = useSelector((state) => state.user, shallowEqual);
   console.log('userDetails', userDetails);
 
   const navigation = useNavigation();
 
   const scrollViewRef = useRef(null);
 
-  const [activeBannerIndex, setActiveBannerIndex] = useState(0); // State for active banner index
+  const [activeBannerIndex, setActiveBannerIndex] = useState(0);
 
   const [appLoad, setAppLoad] = useState(null);
 
   //app load
   useEffect(() => {
+    let isMounted = true;
+
     if (userDetails) {
       const fetchData = async () => {
         try {
           const data = await fetchAppLoad(userDetails);
-          setAppLoad(data);
+          if (isMounted) {
+            setAppLoad(data);
+          }
         } catch (error) {
           console.error('Error fetching appLoad: ', error);
         }
@@ -42,7 +46,11 @@ const HomeScreen = () => {
 
       fetchData();
     }
-  }, []);
+
+    return () => {
+      isMounted = false; // Prevent state updates after unmount
+    };
+  }, [userDetails]);
 
   // Sample data
   const courses = [
@@ -69,10 +77,10 @@ const HomeScreen = () => {
 
     const interval = setInterval(() => {
       bannerIndex = (bannerIndex + 1) % bannerImages.length;
-      scrollViewRef.current.scrollTo({ x: bannerIndex * width, animated: true });
+      scrollViewRef.current?.scrollTo({ x: bannerIndex * width, animated: true });
     }, 3000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // Clean up interval
   }, [bannerImages.length]);
 
   // handle scroll
