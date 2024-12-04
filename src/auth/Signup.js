@@ -113,7 +113,7 @@ const Signup = ({ route }) => {
         }
       });
 
-      console.log('signup', response);
+      console.log('signup: ', response);
 
       // Handle success response
       if (response.data.status) {
@@ -128,6 +128,8 @@ const Signup = ({ route }) => {
         dispatch(addUser(userInfo));
         await AsyncStorage.setItem('userDetails', JSON.stringify(userInfo));
 
+        navigation.navigate('Main');
+
         setName('');
         setPassword('');
         setConfirmPassword('');
@@ -135,14 +137,13 @@ const Signup = ({ route }) => {
         setSelectedBoardId(null);
         setSelectedClassId(null);
 
-
       } else {
         Toast.show({
           type: 'error',
           text1: response?.data?.message || 'Something went wrong.',
           text2: 'Please try again.',
           position: 'top',
-          topOffset: 50,
+          topOffset: 5,
         });
       }
 

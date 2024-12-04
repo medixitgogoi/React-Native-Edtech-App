@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, ImageBackground } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { background, darkBlue, darkGreen, lightGreen } from '../utils/colors';
+import { background, darkBlue } from '../utils/colors';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -12,7 +12,6 @@ import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSelector } from 'react-redux';
 import { fetchAppLoad } from '../utils/fetchAppLoad';
-import { applyMiddleware } from 'redux';
 
 const { width } = Dimensions.get('window');
 
@@ -27,7 +26,6 @@ const HomeScreen = () => {
   const [activeBannerIndex, setActiveBannerIndex] = useState(0); // State for active banner index
 
   const [appLoad, setAppLoad] = useState(null);
-  console.log('appLoad', appLoad);
 
   //app load
   useEffect(() => {
