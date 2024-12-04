@@ -2,13 +2,12 @@ import { View, Text, TouchableOpacity, FlatList, StatusBar, Dimensions, SafeArea
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
-
 import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { background, darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
+import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import axios from 'axios';
 import { useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -27,26 +26,11 @@ const courses = [
     { id: '10', title: 'Kubernetes Fundamentals', image: 'https://example.com/course10.jpg', price: 1199, instructor: 'Ethan Taylor', time: 240 },
 ];
 
-const Store = () => {
+const Store = ({ navigation }) => {
 
     const totalPrice = courses?.reduce((sum, course) => sum + course?.price, 0);
 
     const userDetails = useSelector(state => state.user);
-
-    // get boards
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetchAppLoad();
-                // console.log('data: ', data)
-                // setBoards(data);
-            } catch (error) {
-                console.error('Error fetching apps:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
@@ -56,61 +40,89 @@ const Store = () => {
                 barStyle="dark-content"
             />
 
-            <FlatList
-                data={courses}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={{ backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1, overflow: 'hidden' }}>
-                        {/* Content Wrapper */}
-                        <View style={{ flexDirection: 'row', marginBottom: 15 }}>
-                            <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
-
-                            {/* Item Details */}
-                            <View style={{ flex: 1 }}>
-                                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue, marginBottom: 5 }}>{item.title}</Text>
-                                <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
-                                <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.6), fontWeight: '500', marginBottom: 5 }}>{item.time} mins</Text>
-                                <Text style={{ fontSize: responsiveFontSize(2), color: '#000', fontWeight: '600' }}>₹{item.price}</Text>
-                            </View>
-                        </View>
-
-                        {/* Remove Button */}
-                        <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 12, alignItems: 'center', borderRadius: 12, flexDirection: 'row', gap: 6, justifyContent: 'center' }}>
-                            <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(2.1) }}>Remove from Cart</Text>
-
-                            <View style={{ backgroundColor: '#fff', height: 20, width: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                <MaterialCommunityIcons name="cart-remove" style={{ color: '#FF5252' }} size={14} />
-                            </View>
-                        </TouchableOpacity>
+            {userDetails.length === 0 ? (
+                <View style={{ flex: 0.9, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: 320, aspectRatio: 1 / 1 }}>
+                        <Image
+                            source={require('../assets/fallback.png')}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }}
+                            resizeMode="contain"
+                        />
                     </View>
-                )}
-                ListHeaderComponent={
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
-                        <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
-                            <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
-                        </TouchableOpacity>
-                        <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Your Cart</Text>
-                        <View style={{ width: 35, height: 35 }} />
-                    </View>
-                }
-                ListFooterComponent={
-                    <LinearGradient
-                        colors={[darkBlue, '#5badff']}
-                        style={{ marginTop: 20, padding: 15, borderTopWidth: 1, borderColor: '#E0E0E0', borderRadius: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}
+
+                    <Text style={{ color: '#333', fontWeight: '600', fontSize: responsiveFontSize(2.2), textAlign: 'center', marginBottom: 20 }}>You need to log in to continue.</Text>
+
+                    <TouchableOpacity
+                        style={{ backgroundColor: darkBlue, paddingVertical: 12, flexDirection: 'row', alignItems: 'center', gap: 5, justifyContent: 'center', paddingHorizontal: 25, borderRadius: 25, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 }}
+                        onPress={() => navigation.navigate('Login')}
                     >
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
-                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '700', color: '#FFF' }}>Total</Text>
-                            <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '700', color: '#FFF' }}>₹{totalPrice}</Text>
-                        </View>
+                        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: responsiveFontSize(1.9) }}>Log In</Text>
+                        <Icon4 name="arrowright" size={18} color={'#fff'} />
+                    </TouchableOpacity>
+                </View>
+            ) : (
+                <FlatList
+                    data={courses}
+                    keyExtractor={(item) => item.id}
+                    renderItem={
+                        ({ item }) => (
+                            <View style={{ backgroundColor: '#fff', marginBottom: 15, borderRadius: 14, padding: 12, elevation: 1, overflow: 'hidden' }}>
+                                {/* Content Wrapper */}
+                                <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+                                    <Image source={require('../assets/maths.png')} style={{ width: 80, height: 80, borderRadius: 10, marginRight: 15 }} />
 
-                        <TouchableOpacity style={{ backgroundColor: '#fff', borderRadius: 10, paddingVertical: 10, justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3, flexDirection: 'row', gap: 6 }}>
-                            <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.3), fontWeight: 'bold' }}>Proceed to Checkout</Text>
-                            <AntDesign name="arrowright" style={{ color: darkBlue }} size={20} />
-                        </TouchableOpacity>
-                    </LinearGradient>
-                }
-                contentContainerStyle={{ paddingHorizontal: 1 }}
-            />
+                                    {/* Item Details */}
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkBlue, marginBottom: 5 }}>{item.title}</Text>
+                                        <Text style={{ color: '#a2a2a2', fontSize: responsiveFontSize(1.8), marginBottom: 5, fontWeight: '500' }}>By {item.instructor}</Text>
+                                        <Text style={{ color: '#212121', fontSize: responsiveFontSize(1.6), fontWeight: '500', marginBottom: 5 }}>{item.time} mins</Text>
+                                        <Text style={{ fontSize: responsiveFontSize(2), color: '#000', fontWeight: '600' }}>₹{item.price}</Text>
+                                    </View>
+                                </View>
+
+                                {/* Remove Button */}
+                                <TouchableOpacity style={{ backgroundColor: '#FF5252', paddingVertical: 12, alignItems: 'center', borderRadius: 12, flexDirection: 'row', gap: 6, justifyContent: 'center' }}>
+                                    <Text style={{ color: '#fff', fontWeight: '600', fontSize: responsiveFontSize(2.1) }}>Remove from Cart</Text>
+
+                                    <View style={{ backgroundColor: '#fff', height: 20, width: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                        <MaterialCommunityIcons name="cart-remove" style={{ color: '#FF5252' }} size={14} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    }
+                    ListHeaderComponent={
+                        < View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 5 }}>
+                            <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                                <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
+                            </TouchableOpacity>
+                            <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Your Cart</Text>
+                            <View style={{ width: 35, height: 35 }} />
+                        </View >
+                    }
+                    ListFooterComponent={
+                        < LinearGradient
+                            colors={[darkBlue, '#5badff']}
+                            style={{ marginTop: 20, padding: 15, borderTopWidth: 1, borderColor: '#E0E0E0', borderRadius: 14, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 5, elevation: 3, marginBottom: 10 }}
+                        >
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 }}>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '700', color: '#FFF' }}>Total</Text>
+                                <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '700', color: '#FFF' }}>₹{totalPrice}</Text>
+                            </View>
+
+                            <TouchableOpacity style={{ backgroundColor: '#fff', borderRadius: 10, paddingVertical: 10, justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 3, flexDirection: 'row', gap: 6 }}>
+                                <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.3), fontWeight: 'bold' }}>Proceed to Checkout</Text>
+                                <AntDesign name="arrowright" style={{ color: darkBlue }} size={20} />
+                            </TouchableOpacity>
+                        </LinearGradient >
+                    }
+                    contentContainerStyle={{ paddingHorizontal: 1 }}
+                />
+            )}
+
         </SafeAreaView>
     );
 };

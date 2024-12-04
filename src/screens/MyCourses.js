@@ -12,10 +12,12 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from '../redux/LoginSlice';
+import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import PagerView from 'react-native-pager-view';
 
 const MyCourses = ({ navigation }) => {
+
+    const userDetails = useSelector(state => state.user);
 
     const [activeTab, setActiveTab] = useState(0);
     const pagerRef = useRef(null); // Create a reference for PagerView
@@ -212,75 +214,103 @@ const MyCourses = ({ navigation }) => {
                 </View>
             </View>
 
-            {/* Top Tab Bar */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                {/* All */}
-                <TouchableOpacity
-                    style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 0 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 0 ? lightBlue : background }}
-                    onPress={() => handleTabClick(0)} // Navigate to "All"
-                >
-                    <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 0 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>All</Text>
-                </TouchableOpacity>
+            {userDetails.length === 0 ? (
+                <View style={{ flex: 0.9, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: 320, aspectRatio: 1 / 1 }}>
+                        <Image
+                            source={require('../assets/fallback.png')}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }}
+                            resizeMode="contain"
+                        />
+                    </View>
 
-                {/* Individual */}
-                <TouchableOpacity
-                    style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 1 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 1 ? lightBlue : background }}
-                    onPress={() => handleTabClick(1)} // Navigate to "Individual"
-                >
-                    <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 1 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Individual</Text>
-                </TouchableOpacity>
+                    <Text style={{ color: '#333', fontWeight: '600', fontSize: responsiveFontSize(2.2), textAlign: 'center', marginBottom: 20 }}>You need to log in to view your courses.</Text>
 
-                {/* Combo */}
-                <TouchableOpacity
-                    style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 2 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 2 ? lightBlue : background }}
-                    onPress={() => handleTabClick(2)} // Navigate to "Combo"
-                >
-                    <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 2 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Combo</Text>
-                </TouchableOpacity>
-            </View>
-
-            {/* PagerView */}
-            <PagerView style={{ flex: 1 }} initialPage={0} onPageSelected={handlePageChange} ref={pagerRef}>
-                {/* All Courses */}
-                <ScrollView style={{ flex: 1 }} key="1">
-                    {/* Individual courses */}
-                    <FlatList
-                        data={courses}
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        contentContainerStyle={{ gap: 10, paddingHorizontal: 10, paddingTop: 10 }}
-                    />
-
-                    <FlatList
-                        data={comboCourses} // Combo courses data array
-                        keyExtractor={(item) => item.id}
-                        renderItem={comboCardItem} // Separate card component or function for combo courses
-                        contentContainerStyle={{ gap: 10, paddingHorizontal: 10, paddingTop: 10, marginBottom: 15 }}
-                    />
-                </ScrollView>
-
-                {/* Individual Courses Content */}
-                <View style={{ flex: 1 }} key="2">
-
-                    {/* Individual courses */}
-                    <FlatList
-                        data={courses}
-                        keyExtractor={(item) => item.id}
-                        renderItem={cardItem}
-                        contentContainerStyle={{ gap: 8, paddingHorizontal: 10, paddingTop: 10 }}
-                    />
+                    <TouchableOpacity
+                        style={{ backgroundColor: darkBlue, paddingVertical: 12, flexDirection: 'row', alignItems: 'center', gap: 5, justifyContent: 'center', paddingHorizontal: 25, borderRadius: 25, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 }}
+                        onPress={() => navigation.navigate('Login')}
+                    >
+                        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: responsiveFontSize(1.9) }}>Log In</Text>
+                        <Icon4 name="arrowright" size={18} color={'#fff'} />
+                    </TouchableOpacity>
                 </View>
+            ) : (
+                <>
+                    {/* Top Tab Bar */}
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                        {/* All */}
+                        <TouchableOpacity
+                            style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 0 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 0 ? lightBlue : background }}
+                            onPress={() => handleTabClick(0)} // Navigate to "All"
+                        >
+                            <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 0 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>All</Text>
+                        </TouchableOpacity>
 
-                {/* Combo Courses Content */}
-                <View style={{ flex: 1 }} key="3">
-                    <FlatList
-                        data={comboCourses}
-                        keyExtractor={(item) => item.id}
-                        renderItem={comboCardItem}
-                        contentContainerStyle={{ gap: 10, paddingHorizontal: 10, paddingTop: 10, marginBottom: 15 }}
-                    />
-                </View>
-            </PagerView>
+                        {/* Individual */}
+                        <TouchableOpacity
+                            style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 1 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 1 ? lightBlue : background }}
+                            onPress={() => handleTabClick(1)} // Navigate to "Individual"
+                        >
+                            <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 1 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Individual</Text>
+                        </TouchableOpacity>
+
+                        {/* Combo */}
+                        <TouchableOpacity
+                            style={{ height: 38, justifyContent: 'center', alignItems: 'center', flex: 1, borderBottomWidth: activeTab === 2 ? 2 : 0, borderBottomColor: darkBlue, backgroundColor: activeTab === 2 ? lightBlue : background }}
+                            onPress={() => handleTabClick(2)} // Navigate to "Combo"
+                        >
+                            <Text style={{ fontSize: responsiveFontSize(2), color: activeTab === 2 ? darkBlue : '#6c6c6c', fontWeight: '600' }}>Combo</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* PagerView */}
+                    <PagerView style={{ flex: 1 }} initialPage={0} onPageSelected={handlePageChange} ref={pagerRef}>
+                        {/* All Courses */}
+                        <ScrollView style={{ flex: 1 }} key="1">
+                            {/* Individual courses */}
+                            <FlatList
+                                data={courses}
+                                keyExtractor={(item) => item.id}
+                                renderItem={cardItem}
+                                contentContainerStyle={{ gap: 10, paddingHorizontal: 10, paddingTop: 10 }}
+                            />
+
+                            <FlatList
+                                data={comboCourses} // Combo courses data array
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem} // Separate card component or function for combo courses
+                                contentContainerStyle={{ gap: 10, paddingHorizontal: 10, paddingTop: 10, marginBottom: 15 }}
+                            />
+                        </ScrollView>
+
+                        {/* Individual Courses Content */}
+                        <View style={{ flex: 1 }} key="2">
+
+                            {/* Individual courses */}
+                            <FlatList
+                                data={courses}
+                                keyExtractor={(item) => item.id}
+                                renderItem={cardItem}
+                                contentContainerStyle={{ gap: 8, paddingHorizontal: 10, paddingTop: 10 }}
+                            />
+                        </View>
+
+                        {/* Combo Courses Content */}
+                        <View style={{ flex: 1 }} key="3">
+                            <FlatList
+                                data={comboCourses}
+                                keyExtractor={(item) => item.id}
+                                renderItem={comboCardItem}
+                                contentContainerStyle={{ gap: 10, paddingHorizontal: 10, paddingTop: 10, marginBottom: 15 }}
+                            />
+                        </View>
+                    </PagerView>
+                </>
+            )}
+
         </View>
     )
 }
