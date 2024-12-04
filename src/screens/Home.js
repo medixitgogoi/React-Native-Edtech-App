@@ -257,6 +257,7 @@ const HomeScreen = () => {
         <Text style={{ fontSize: responsiveFontSize(2.3), fontWeight: '600', color: '#333' }}>Trending Courses</Text>
       </View>
 
+      {/* Trending flatlist */}
       <FlatList
         data={trending}
         horizontal
