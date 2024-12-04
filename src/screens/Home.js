@@ -18,6 +18,7 @@ const { width } = Dimensions.get('window');
 const HomeScreen = () => {
 
   const userDetails = useSelector(state => state.user);
+  console.log('userDetails', userDetails);
 
   const navigation = useNavigation();
 

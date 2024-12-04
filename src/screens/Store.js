@@ -53,7 +53,7 @@ const Store = ({ navigation }) => {
                         />
                     </View>
 
-                    <Text style={{ color: '#333', fontWeight: '600', fontSize: responsiveFontSize(2.2), textAlign: 'center', marginBottom: 20 }}>You need to log in to continue.</Text>
+                    <Text style={{ color: '#333', fontWeight: '600', fontSize: responsiveFontSize(2.1), textAlign: 'center', marginBottom: 20 }}>Your store is empty. Start adding items now!.</Text>
 
                     <TouchableOpacity
                         style={{ backgroundColor: darkBlue, paddingVertical: 12, flexDirection: 'row', alignItems: 'center', gap: 5, justifyContent: 'center', paddingHorizontal: 25, borderRadius: 25, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 }}
