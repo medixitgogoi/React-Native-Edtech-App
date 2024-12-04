@@ -46,9 +46,9 @@ const EditProfile = ({ route }) => {
     const [state, setState] = useState('Assam');
     const [isStateFocused, setIsStateFocused] = useState(false);
 
-    const [loading, setLoading] = useState(false);
-
     const [appLoad, setAppLoad] = useState(null);
+
+    const [loading, setLoading] = useState(false);
 
     const [error, setError] = useState(false);
 
