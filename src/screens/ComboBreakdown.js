@@ -10,7 +10,7 @@ import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 const ComboBreakdown = ({ navigation, route }) => {
 
   const { data } = route.params;
-  console.log('data: ', data);
+  console.log('subjects data: ', data);
 
   const [subjects, setSubjects] = useState(null);
 
