@@ -66,7 +66,7 @@ const HomeScreen = () => {
         const fetchData = async () => {
           try {
             const data = await fetchAppLoad(userDetails);
-            // console.log('appLoad: ', data);
+            console.log('appLoad: ', data);
 
             setAppLoad(data);
             setCourses(data?.subject);
@@ -135,7 +135,7 @@ const HomeScreen = () => {
       >
         <TouchableOpacity
           style={{ overflow: 'hidden' }}
-          onPress={() => navigation.navigate('Chapters', { data: item.name, id: item.id })}
+          onPress={() => navigation.navigate('Chapters', { data: item.name, id: item.id, price: item.price })}
         >
           {/* Title */}
           <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
