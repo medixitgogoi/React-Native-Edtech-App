@@ -31,17 +31,19 @@ const lectures = [
     { id: '20', title: 'Lecture 20: Integrating Third-party Libraries', subtitle: 'Adding libraries and understanding linking' },
 ];
 
-const Notes = ({ navigation }) => {
+const Notes = ({ navigation, route }) => {
+
+    const { data } = route.params;
 
     const renderLecture = ({ item }) => (
-        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 12, padding: 14, elevation: 1 }}>
+        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 12, padding: 14, elevation: 1 }} onPress={() => navigation.navigate('NotesViewer', { data: item.writeup, heading: item.heading })}>
             <View style={{ width: 45, height: 45, borderRadius: 25, backgroundColor: darkBlue, justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                 <FontAwesome name="book" size={22} color={'#fff'} />
             </View>
 
             <View style={{ marginLeft: 10, flex: 1 }}>
-                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue }}>{item.title}</Text>
-                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.subtitle}</Text>
+                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue }}>{item.heading}</Text>
+                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.short_desc}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -62,9 +64,9 @@ const Notes = ({ navigation }) => {
                 <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2) }}>Notes</Text>
                 <View style={{ width: 35, height: 35 }} />
             </View>
-        
+
             <FlatList
-                data={lectures}
+                data={data}
                 renderItem={renderLecture}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 1, gap: 15, paddingTop: 3 }}

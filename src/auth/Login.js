@@ -1,14 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, KeyboardAvoidingView, ScrollView, StatusBar, ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { lightBlue, darkBlue, background } from '../utils/colors';
-import { login } from '../redux/LoginSlice';
 import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addUser } from '../redux/UserSlice';
 
 const Login = () => {
 
@@ -25,6 +28,92 @@ const Login = () => {
     const [show, setShow] = useState(true);
 
     const [loading, setLoading] = useState(false);
+
+    const handleLoginSubmit = async () => {
+        // Ensure all fields are filled
+        if (!mobile || !password) {
+            Toast.show({
+                type: 'error',
+                text1: 'Missing Information',
+                text2: !mobile
+                    ? 'Mobile number is required.'
+                    : 'Password is required.',
+                position: 'top',
+                topOffset: 5,
+            });
+
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            // Data object as per the API requirement
+            const data = {
+                mobile: mobile,
+                password: password,
+            };
+
+            // API Call using axios
+            const response = await axios.post(`/user/login`, data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            // console.log('login response: ', response);
+
+            // Handle success response
+            if (response.data.status) {
+
+                const userInfo = {
+                    name: response?.data?.data?.name,
+                    email: response?.data?.data?.email,
+                    mobileNumber: response?.data?.data?.mobile,
+                    accessToken: response?.data?.access_token,
+                    // password: password,
+                    // gender: response?.data?.data?.gender,
+                };
+
+                dispatch(addUser(userInfo));
+                await AsyncStorage.setItem('userDetails', JSON.stringify(userInfo));
+
+                navigation.navigate('Main');
+
+                setMobile('');
+                setPassword('');
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: response?.data?.message || 'Something went wrong.',
+                    text2: 'Please check your credentials and try again.',
+                    position: 'top',
+                    topOffset: 5,
+                });
+            }
+
+            setLoading(false);
+        } catch (error) {
+            // Handle error response
+            if (error?.response) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: error.response?.data?.message || 'Something went wrong. Please try again.',
+                    position: 'top',
+                    topOffset: 5,
+                });
+            } else {
+                Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: 'Network error. Please check your internet connection and try again.',
+                    position: 'top',
+                    topOffset: 5,
+                });
+            }
+        }
+    };
 
     return (
         <View style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10, justifyContent: 'center', paddingTop: 5 }}>
@@ -47,22 +136,22 @@ const Login = () => {
                     </Text>
 
                     {/* Subheadline */}
-                    <Text style={{ color: '#858585', fontSize: responsiveFontSize(1.8), fontWeight: '500', marginBottom: 40, textAlign: 'center', width: '85%', alignSelf: 'center' }}>
+                    <Text style={{ color: '#333', fontSize: responsiveFontSize(1.8), fontWeight: '500', marginBottom: 40, textAlign: 'center', width: '85%', alignSelf: 'center' }}>
                         Empowering your learning journey with seamless access to resources and knowledge.
                     </Text>
 
                     {/* Mobile Input */}
-                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Mobile Number</Text>
+                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 8 }}>Mobile Number</Text>
                     <TextInput
                         placeholder="Your mobile number"
-                        placeholderTextColor="#8b8b8b"
+                        placeholderTextColor="#4b4b4b"
                         value={mobile}
                         selectionColor={darkBlue}  // Sets the cursor color to black
                         onChangeText={setMobile}
                         keyboardType='number-pad'
                         maxLength={10}
                         style={{
-                            backgroundColor: lightBlue,
+                            backgroundColor: '#edf8ff',
                             paddingVertical: 6,
                             paddingHorizontal: 15,
                             color: '#000',
@@ -79,12 +168,12 @@ const Login = () => {
                     />
 
                     {/* Password Input */}
-                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 5 }}>Password</Text>
+                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2), fontWeight: '500', marginBottom: 8 }}>Password</Text>
 
-                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: lightBlue, borderRadius: 8, borderColor: isPasswordFocused ? '#000' : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#edf8ff', borderRadius: 8, borderColor: isPasswordFocused ? '#000' : '', borderWidth: isPasswordFocused ? 1 : 0, paddingHorizontal: 10, marginBottom: 5, elevation: 1 }}>
                         <TextInput
                             placeholder="Your password"
-                            placeholderTextColor="#8b8b8b"
+                            placeholderTextColor="#4b4b4b"
                             value={password}
                             onChangeText={setPassword}
                             selectionColor={darkBlue}  // Sets the cursor color to black
@@ -130,12 +219,17 @@ const Login = () => {
                         style={{ borderRadius: 10, elevation: 2, marginTop: 10, width: '100%', marginBottom: 10 }}
                     >
                         <TouchableOpacity
-                            onPress={() => dispatch(login())}
-                            // onPress={handleSendOtpPress}
+                            onPress={handleLoginSubmit}
                             style={{ gap: 5, height: 47, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%' }}
                         >
-                            <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600', textAlign: 'center', textTransform: 'uppercase' }}>Login</Text>
-                            <MaterialIcons name="login" style={{ color: '#fff' }} size={22} />
+                            {loading ? (
+                                <ActivityIndicator size='small' color={'#fff'} />
+                            ) : (
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, width: '100%', height: '100%', justifyContent: 'center' }}>
+                                    <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600', textAlign: 'center', textTransform: 'uppercase' }}>Login</Text>
+                                    <MaterialIcons name="login" style={{ color: '#fff' }} size={22} />
+                                </View>
+                            )}
                         </TouchableOpacity>
                     </LinearGradient>
 

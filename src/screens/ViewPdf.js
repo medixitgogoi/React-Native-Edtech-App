@@ -31,7 +31,10 @@ const lectures = [
     { id: '20', title: 'Lecture 20: Integrating Third-party Libraries', subtitle: 'Adding libraries and understanding linking' },
 ];
 
-const ViewPdf = ({ navigation }) => {
+const ViewPdf = ({ navigation, route }) => {
+
+    const { data } = route.params;
+    // console.log('pdf data: ', data);
 
     const renderLecture = ({ item }) => (
         <TouchableOpacity
@@ -43,6 +46,7 @@ const ViewPdf = ({ navigation }) => {
                 padding: 14,
                 elevation: 1
             }}
+            onPress={() => navigation.navigate('PdfViewer', { data: item.pdf, heading: item?.heading })}
         >
             <View
                 style={{
@@ -59,8 +63,8 @@ const ViewPdf = ({ navigation }) => {
             </View>
 
             <View style={{ marginLeft: 10, flex: 1 }}>
-                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue }}>{item.title}</Text>
-                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.subtitle}</Text>
+                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: darkBlue }}>{item.heading}</Text>
+                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.short_desc}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -83,7 +87,7 @@ const ViewPdf = ({ navigation }) => {
             </View>
 
             <FlatList
-                data={lectures}
+                data={data}
                 renderItem={renderLecture}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 1, gap: 15, paddingTop: 3 }}

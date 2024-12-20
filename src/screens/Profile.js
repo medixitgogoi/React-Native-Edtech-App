@@ -9,10 +9,12 @@ import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import Icon5 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { logoutUser } from '../redux/UserSlice';
 import { fetchProfileData } from '../utils/fetchProfileData';
 import { Image } from 'react-native-animatable';
+import { useFocusEffect } from '@react-navigation/native';
+import { fetchAppLoad } from '../utils/fetchAppLoad';
 
 const Profile = ({ navigation }) => {
 
@@ -24,19 +26,46 @@ const Profile = ({ navigation }) => {
 
     const [data, setData] = useState(null);
 
-    // get profile data
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetchProfileData(userDetails);
-                setData(data);
-            } catch (error) {
-                console.error('Error fetching boards: ', error);
-            }
-        };
+    const [appLoad, setAppLoad] = useState(null);
 
-        fetchData();
-    }, []);
+    // get profile data
+    useFocusEffect(
+        useCallback(() => {
+            const fetchData = async () => {
+                try {
+                    const data = await fetchProfileData(userDetails);
+                    // console.log('profile: ', data);
+
+                    setData(data);
+                } catch (error) {
+                    console.error('Error fetching boards: ', error);
+                }
+            };
+
+            fetchData();
+        }, [userDetails])
+    );
+
+    // app load
+    useFocusEffect(
+        useCallback(() => {
+            if (userDetails) {
+
+                const fetchData = async () => {
+                    try {
+                        const data = await fetchAppLoad(userDetails);
+                        // console.log('appLoad profile: ', data);
+
+                        setAppLoad(data?.app_writeup);
+                    } catch (error) {
+                        console.log('Error fetching appLoad: ', error);
+                    }
+                };
+
+                fetchData();
+            }
+        }, [userDetails])
+    );
 
     // Logout Handler
     const logOutHandler = async () => {
@@ -68,8 +97,12 @@ const Profile = ({ navigation }) => {
 
             {/* Content */}
             {userDetails.length === 0 ? (
-                <View style={{ flex: 0.9, justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ width: 320, aspectRatio: 1 / 1 }}>
+                <View style={{ width: '100%' }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 10, paddingHorizontal: 12, alignSelf: 'flex-start' }}>
+                        <Icon4 name="arrowleft" size={23} color={'#000'} />
+                    </TouchableOpacity>
+
+                    <View style={{ width: 300, aspectRatio: 1 / 1, alignSelf: 'center' }}>
                         <Image
                             source={require('../assets/fallback.png')}
                             style={{
@@ -80,15 +113,17 @@ const Profile = ({ navigation }) => {
                         />
                     </View>
 
-                    <Text style={{ color: '#333', fontWeight: '600', fontSize: responsiveFontSize(2.1), textAlign: 'center', marginBottom: 20 }}>You need to log in to view your profile.</Text>
+                    <View style={{ paddingHorizontal: 12 }}>
+                        <View style={{ backgroundColor: '#fff', width: '100%', alignSelf: 'center', borderRadius: 10, elevation: 3, padding: 15 }}>
+                            <Text style={{ color: '#000', fontSize: responsiveFontSize(2.1), fontWeight: '500', marginBottom: 5 }}>Your Profile</Text>
 
-                    <TouchableOpacity
-                        style={{ backgroundColor: darkBlue, paddingVertical: 12, flexDirection: 'row', alignItems: 'center', gap: 5, justifyContent: 'center', paddingHorizontal: 25, borderRadius: 25, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 }}
-                        onPress={() => navigation.navigate('Login')}
-                    >
-                        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: responsiveFontSize(1.9) }}>Log In</Text>
-                        <Icon4 name="arrowright" size={18} color={'#fff'} />
-                    </TouchableOpacity>
+                            <Text style={{ color: '#000', fontSize: responsiveFontSize(1.6), marginBottom: 20 }}>Login or sign up to view your complete profile</Text>
+
+                            <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginBottom: 3, borderColor: darkBlue, borderWidth: 1, borderRadius: 8, paddingVertical: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ color: darkBlue, fontWeight: '600', fontSize: responsiveFontSize(2) }}>Continue</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             ) : (
                 <LinearGradient
@@ -184,7 +219,7 @@ const Profile = ({ navigation }) => {
                                 </View>
 
                                 {/* About */}
-                                <TouchableOpacity onPress={() => navigation.navigate('About')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('About', { data: appLoad?.about })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon2 name="information-circle-outline" size={15} color={'#000'} />
                                     </View>
@@ -208,7 +243,7 @@ const Profile = ({ navigation }) => {
                                 <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                                 {/* Disclaimer */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Disclaimer')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Disclaimer', { data: appLoad?.disclaimer })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon2 name="alert-circle-outline" size={15} color={'#000'} />
                                     </View>
@@ -220,7 +255,7 @@ const Profile = ({ navigation }) => {
                                 <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                                 {/* Privacy Policy */}
-                                <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy', { data: appLoad?.privacy_policy })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon2 name="shield-outline" size={15} color={'#000'} />
                                     </View>
@@ -232,7 +267,7 @@ const Profile = ({ navigation }) => {
                                 <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                                 {/* T&C */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Terms')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Terms', { data: appLoad?.terms_condition })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon4 name="filetext1" size={15} color={'#000'} />
                                     </View>
@@ -244,7 +279,7 @@ const Profile = ({ navigation }) => {
                                 <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                                 {/* Cancellation */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Cancellation')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Cancellation', { data: appLoad?.cancellation })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon5 name="cancel" size={15} color={'#000'} />
                                     </View>
@@ -256,7 +291,7 @@ const Profile = ({ navigation }) => {
                                 <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                                 {/* Refund and Return Policy */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Refund')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Refund', { data: appLoad?.return_refund })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon5 name="cash-refund" size={15} color={'#000'} />
                                     </View>
@@ -268,7 +303,7 @@ const Profile = ({ navigation }) => {
                                 <View style={{ width: '86%', alignSelf: 'flex-end', backgroundColor: '#f0f1f2', height: 1 }}></View>
 
                                 {/* Contact */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Contact')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Contact', { data: appLoad?.contact_no })} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 3, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon5 name="phone-outline" size={15} color={'#000'} />
                                     </View>

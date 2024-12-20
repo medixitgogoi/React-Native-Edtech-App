@@ -204,7 +204,7 @@ const Signup = ({ route }) => {
     }).start();
   };
 
-  // board selection handler
+  // board selection handler -> get classes
   const boardSelectionHandler = async () => {
     if (!selectedBoardId) {
       Toast.show({
@@ -214,6 +214,7 @@ const Signup = ({ route }) => {
         position: 'top',
         topOffset: 5,
       });
+
       return;
     }
 

@@ -41,6 +41,10 @@ import OtpVerification from '../auth/OtpVerification';
 import ForgotPassword from '../auth/ForgotPassword';
 import Signup from '../auth/Signup';
 import SplashScreen from '../auth/SplashScreen';
+import PDF from "../screens/PdfViewer";
+import PdfViewer from "../screens/PdfViewer";
+import NotesViewer from "../screens/NotesViewer";
+import ComboBreakdown from "../screens/ComboBreakdown";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -101,12 +105,6 @@ const StackNavigation = () => {
 
     const dispatch = useDispatch();
 
-    // const userDetails = useSelector(state => state.user);
-
-    // const isUserLoggedIn = userDetails?.length > 0 && userDetails?.some(item => item.accessToken);
-
-    const [isLoading, setIsLoading] = useState(true);
-
     // Load login details from AsyncStorage
     useEffect(() => {
         const loadLoginDetails = async () => {
@@ -117,29 +115,11 @@ const StackNavigation = () => {
                 }
             } catch (error) {
                 Alert.alert(error.message);
-            } finally {
-                setIsLoading(false);
             }
         };
 
         loadLoginDetails();
     }, [dispatch]);
-
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 0);
-
-    //     return () => clearTimeout(timer);
-    // }, []);
-
-    // if (isLoading) {
-    //     return (
-    //         <NavigationContainer>
-    //             <AuthNavigator initialRoute="SplashScreen" />
-    //         </NavigationContainer>
-    //     );
-    // };
 
     return (
         <NavigationContainer>
@@ -166,6 +146,9 @@ const StackNavigation = () => {
                 <Stack.Screen name="Faq" component={Faq} />
                 <Stack.Screen name="Terms" component={Terms} />
                 <Stack.Screen name="Chapters" component={Chapters} />
+                <Stack.Screen name="NotesViewer" component={NotesViewer} />
+                <Stack.Screen name="PdfViewer" component={PdfViewer} />
+                <Stack.Screen name="ComboBreakdown" component={ComboBreakdown} />
 
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Signup" component={Signup} />

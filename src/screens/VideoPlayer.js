@@ -10,8 +10,9 @@ import { responsiveFontSize } from "react-native-responsive-dimensions";
 
 export default function VideoPlayer({ route }) {
 
-    const { data } = route.params;
-    console.log('data', data);
+    const { title } = route.params;
+    const { videoId } = route.params;
+    // console.log('videoId: ', videoId);
 
     const navigation = useNavigation();
 
@@ -80,7 +81,7 @@ export default function VideoPlayer({ route }) {
                 </TouchableOpacity>
 
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{data}</Text>
+                    <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{title}</Text>
                 </View>
 
                 <View style={{ width: 35, height: 35 }}>
@@ -94,7 +95,7 @@ export default function VideoPlayer({ route }) {
                     height={playerHeight}
                     width={width}
                     play={playing}
-                    videoId={"S8u8P6R1t-Q"}
+                    videoId={videoId}
                     onChangeState={onStateChange}
                     onReady={() => playerRef.current.getDuration().then(setDuration)}
                     onProgress={({ currentTime }) => {

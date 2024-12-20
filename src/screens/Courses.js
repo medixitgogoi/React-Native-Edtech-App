@@ -8,15 +8,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { useEffect, useRef, useState } from 'react';
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from '../redux/LoginSlice';
 
 const Courses = () => {
 
-    const isUserLoggedIn = useSelector(state => state.login.isUserLoggedIn);
+    const userDetails = useSelector(state => state.user);
+    // console.log('userDetails', userDetails);
 
     const dispatch = useDispatch();
 
@@ -216,7 +216,13 @@ const Courses = () => {
     );
 
     return (
-        <View style={{ flex: 1, backgroundColor: background, }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: background, }}>
+            <StatusBar
+                animated={true}
+                backgroundColor={background}
+                barStyle="dark-content"
+            />
+
             {/* Header */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10, paddingVertical: 5, justifyContent: 'space-between' }}>
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
@@ -304,6 +310,7 @@ const Courses = () => {
                                 </View>
                                 <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
                             </View>
+                            
                             <FlatList
                                 data={comboCourses} // Combo courses data array
                                 horizontal
@@ -620,7 +627,7 @@ const Courses = () => {
                     </View>
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }
 

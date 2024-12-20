@@ -7,26 +7,34 @@ import Foundation from 'react-native-vector-icons/dist/Foundation';
 import { useNavigation } from '@react-navigation/native';
 import { darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
+import { useEffect, useState } from 'react';
 
 const CourseDetails = ({ route }) => {
 
     const { data } = route.params;
+    const { title } = route.params;
 
     const navigation = useNavigation();
 
+    const [videos, setVideos] = useState(null);
+
+    useEffect(() => {
+        setVideos(data?.videos);
+    }, [videos]);
+
     // Dummy data for videos
-    const videos = [
-        { id: '1', title: 'Introduction to Subject', description: 'A brief overview of the subject.' },
-        { id: '2', title: 'Advanced Concepts', description: 'Detailed explanation of advanced topics.' },
-        { id: '3', title: 'Practical Applications', description: 'Real-world use cases of the subject.' },
-        { id: '4', title: 'Key Definitions', description: 'Important terms and definitions explained.' },
-        { id: '5', title: 'Problem-Solving Techniques', description: 'Methods for solving typical problems in the subject.' },
-        { id: '6', title: 'Interactive Examples', description: 'Step-by-step walkthroughs of example problems.' },
-        { id: '7', title: 'FAQs', description: 'Answers to common questions about the subject.' },
-        { id: '8', title: 'Subject History', description: 'An overview of how this field has evolved over time.' },
-        { id: '9', title: 'Expert Tips', description: 'Tips and tricks from industry professionals.' },
-        { id: '10', title: 'Future Trends', description: 'Predictions and upcoming advancements in the field.' },
-    ];
+    // const videos = [
+    //     { id: '1', title: 'Introduction to Subject', description: 'A brief overview of the subject.' },
+    //     { id: '2', title: 'Advanced Concepts', description: 'Detailed explanation of advanced topics.' },
+    //     { id: '3', title: 'Practical Applications', description: 'Real-world use cases of the subject.' },
+    //     { id: '4', title: 'Key Definitions', description: 'Important terms and definitions explained.' },
+    //     { id: '5', title: 'Problem-Solving Techniques', description: 'Methods for solving typical problems in the subject.' },
+    //     { id: '6', title: 'Interactive Examples', description: 'Step-by-step walkthroughs of example problems.' },
+    //     { id: '7', title: 'FAQs', description: 'Answers to common questions about the subject.' },
+    //     { id: '8', title: 'Subject History', description: 'An overview of how this field has evolved over time.' },
+    //     { id: '9', title: 'Expert Tips', description: 'Tips and tricks from industry professionals.' },
+    //     { id: '10', title: 'Future Trends', description: 'Predictions and upcoming advancements in the field.' },
+    // ];
 
     const renderVideoCard = ({ item }) => (
         <TouchableOpacity
@@ -38,7 +46,7 @@ const CourseDetails = ({ route }) => {
                 padding: 14,
                 elevation: 1
             }}
-            onPress={() => navigation.navigate('VideoPlayer', { data: item.title })}
+            onPress={() => navigation.navigate('VideoPlayer', { title: item.heading, videoId: item?.video_url })}
         >
             <View
                 style={{
@@ -55,9 +63,9 @@ const CourseDetails = ({ route }) => {
 
             <View style={{ marginLeft: 10, flex: 1 }}>
                 <Text style={{ fontSize: responsiveFontSize(2), fontWeight: 'bold', color: darkBlue }}>
-                    {item.title}
+                    {item.heading}
                 </Text>
-                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.description}</Text>
+                <Text style={{ fontSize: responsiveFontSize(1.7), color: '#8b8b8b', fontWeight: '500' }}>{item.desc}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -75,7 +83,7 @@ const CourseDetails = ({ route }) => {
                 <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
-                <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{data}</Text>
+                <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{title}</Text>
                 <View style={{ width: 35, height: 35 }} />
             </View>
 
@@ -89,7 +97,7 @@ const CourseDetails = ({ route }) => {
 
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'space-between' }}>
                 {/* View */}
-                <TouchableOpacity onPress={() => navigation.navigate("ViewPdf")} style={{ width: "48%", height: 65 }}>
+                <TouchableOpacity onPress={() => navigation.navigate("ViewPdf", { data: data.pdf })} style={{ width: "48%", height: 65 }}>
                     <LinearGradient
                         colors={['#4c669f', '#3b5998', '#192f6a']}
                         style={{ width: "100%", borderRadius: 12, padding: 10, alignItems: "center", flexDirection: 'column', justifyContent: 'center', height: '100%' }}
@@ -100,7 +108,7 @@ const CourseDetails = ({ route }) => {
                 </TouchableOpacity>
 
                 {/* Notes */}
-                <TouchableOpacity style={{ width: "48%", height: 65 }} onPress={() => navigation.navigate("Notes")}>
+                <TouchableOpacity style={{ width: "48%", height: 65 }} onPress={() => navigation.navigate("Notes", { data: data.writeUp })}>
                     <LinearGradient
                         colors={['#4c669f', '#3b5998', '#192f6a']}
                         style={{ width: "100%", borderRadius: 12, padding: 10, alignItems: "center", flexDirection: 'column', justifyContent: 'center', height: '100%' }}

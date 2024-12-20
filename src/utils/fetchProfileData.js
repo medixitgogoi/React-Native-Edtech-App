@@ -7,7 +7,7 @@ export const fetchProfileData = async (userDetails) => {
 
         return response?.data?.data;
     } catch (error) {
-        console.log("Error", error?.message);
+        // console.log("Error", error?.message);
         return null;
     }
 };

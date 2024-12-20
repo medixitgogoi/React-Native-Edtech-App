@@ -1,17 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, ScrollView, StatusBar, TouchableOpacity, useWindowDimensions } from 'react-native';
+import RenderHTML from 'react-native-render-html';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
-import RenderHTML from 'react-native-render-html';
 
-const Disclaimer = ({ route }) => {
+const NotesViewer = ({ route }) => {
+
+    const navigation = useNavigation();
 
     const { width } = useWindowDimensions(); // Get screen width for RenderHTML
 
-    const disclaimer = route?.params?.data || ''; // Disclaimer content
-
-    const navigation = useNavigation();
+    const { data } = route?.params || '';
+    const { heading } = route.params;
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -26,8 +27,8 @@ const Disclaimer = ({ route }) => {
                 <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
                     <Icon4 name="arrowleft" size={22} color={'#000'} />
                 </TouchableOpacity>
-                <View style={{ position: 'absolute', left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                    <Text style={{ color: '#000', fontSize: responsiveFontSize(2.4), fontWeight: '500' }}>Disclaimer</Text>
+                <View style={{ position: 'absolute', left: 0, right: 0, flexDirection: 'row', justifyContent: 'center', }}>
+                    <Text style={{ color: '#000', fontSize: responsiveFontSize(2.4), fontWeight: '500' }}>{heading}</Text>
                 </View>
             </View>
 
@@ -36,7 +37,7 @@ const Disclaimer = ({ route }) => {
                 <View style={{ flexDirection: 'column', paddingHorizontal: 12, marginTop: 0 }}>
                     <RenderHTML
                         contentWidth={width} // Use device width
-                        source={{ html: disclaimer }} // Render the HTML disclaimer
+                        source={{ html: data }} // Render the HTML disclaimer
                         tagsStyles={{
                             p: {
                                 color: '#000',      // Black text
@@ -52,4 +53,4 @@ const Disclaimer = ({ route }) => {
     )
 }
 
-export default Disclaimer;
+export default NotesViewer;
