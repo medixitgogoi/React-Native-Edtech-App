@@ -681,8 +681,8 @@ const HomeScreen = () => {
               {/* Boards */}
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap', alignSelf: 'center', marginBottom: 20, marginTop: 10 }}>
                 {boards?.map(item => (
-                  <TouchableOpacity onPress={() => setSelectedBoard(item)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 3, elevation: 1, backgroundColor: selectedBoard?.id === item.id ? darkerBlue : '#fff', paddingHorizontal: 8, height: 30, borderRadius: 8, borderColor: darkBlue, borderWidth: selectedBoard?.id === item.id ? 0 : 1, alignSelf: 'flex-start' }}>
-                    {selectedBoard?.id === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
+                  <TouchableOpacity onPress={() => setSelectedBoard(item)} key={item?.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 3, elevation: 1, backgroundColor: selectedBoard?.id === item?.id ? darkerBlue : '#fff', paddingHorizontal: 8, height: 30, borderRadius: 8, borderColor: darkBlue, borderWidth: selectedBoard?.id === item?.id ? 0 : 1, alignSelf: 'flex-start' }}>
+                    {selectedBoard?.id === item?.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
 
                     <Text style={{ color: selectedBoard?.id === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
                   </TouchableOpacity>
@@ -727,7 +727,7 @@ const HomeScreen = () => {
                 <Text style={{ textAlign: 'center', color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2), }}>Choose one of the classes below</Text>
               </View>
 
-              {/* Boards */}
+              {/* Classes */}
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap', alignSelf: 'center', marginBottom: 20, marginTop: 10 }}>
                 {classes?.map(item => (
                   <TouchableOpacity onPress={() => setSelectedClass(item)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 3, elevation: 1, backgroundColor: selectedClass?.id === item.id ? darkerBlue : '#fff', paddingHorizontal: 8, height: 30, borderRadius: 8, borderColor: darkBlue, borderWidth: selectedClass?.id === item.id ? 0 : 1, alignSelf: 'flex-start' }}>
