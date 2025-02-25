@@ -1,8 +1,8 @@
-import { View, Text, StatusBar, TouchableOpacity, FlatList, Animated } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, StatusBar, TouchableOpacity, FlatList, Animated } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions'
-import { darkBlue } from '../utils/colors'
+import { darkBlue } from '../utils/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,7 +11,7 @@ import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 const ComboBreakdown = ({ navigation, route }) => {
 
   const { data } = route.params;
-  console.log('subjects data: ', data);
+  // console.log('subjects data: ', data);
 
   const [subjects, setSubjects] = useState(null);
 

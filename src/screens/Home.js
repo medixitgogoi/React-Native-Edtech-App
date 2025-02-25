@@ -1,17 +1,21 @@
-import { View, Text, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, BackHandler, Alert, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, BackHandler, Alert, ImageBackground, ActivityIndicator, Animated } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-import { background, darkBlue } from '../utils/colors';
+import { background, darkBlue, darkerBlue, lightBlue, modalBackColor } from '../utils/colors';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Icon3 from 'react-native-vector-icons/dist/FontAwesome5';
 import { useFocusEffect, useNavigation, useIsFocused } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import Modal from "react-native-modal";
 import { useSelector } from 'react-redux';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import { fetchAppLoad } from '../utils/fetchAppLoad';
 import { fetchBoards } from '../utils/fetchBoards';
+import Toast from 'react-native-toast-message';
+import { fetchClasses } from '../utils/fetchClasses';
 
 const { width: width } = Dimensions.get('window');
 
@@ -30,16 +34,25 @@ const HomeScreen = () => {
 
   const [activeBannerIndex, setActiveBannerIndex] = useState(0);
 
+  const slideAnim = useRef(new Animated.Value(0)).current;
+
   const [appLoad, setAppLoad] = useState(null);
 
   const [courses, setCourses] = useState(null);
   const [comboCourses, setComboCourses] = useState(null);
 
+  const [modal, setModal] = useState(false);
+
   const [boards, setBoards] = useState(null);
+  const [selectedBoard, setSelectedBoard] = useState(null);
+
+  const [classes, setClasses] = useState(null);
+  const [selectedClass, setSelectedClass] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  const [boardLoading, setBoardLoading] = useState(false);
 
-  // get boards
+  // Get Boards
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -280,6 +293,58 @@ const HomeScreen = () => {
     )
   };
 
+  const handleBoardSubmit = async () => {
+    if (!selectedBoard) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Select a board to continue',
+        position: 'top',
+        topOffset: 5,
+      });
+
+      return;
+    }
+
+    try {
+      setBoardLoading(true);
+
+      // Call fetchClasses and handle the response
+      const classes = await fetchClasses(selectedBoard?.id);
+
+      if (classes) {
+
+        setClasses(classes); // Update state with the fetched classes
+
+        Animated.timing(slideAnim, {
+          toValue: slideAnim._value - width, // Move the slide animation to the next section
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      }
+
+    } catch (error) {
+      console.error('Error fetching classes:', error);
+    } finally {
+      setBoardLoading(false);
+    }
+  };
+
+  const handleClassSubmit = () => {
+    setModal(false);
+  }
+
+  useEffect(() => {
+    if (modal) {
+      // Reset animation to Slide 1 when modal opens
+      Animated.timing(slideAnim, {
+        toValue: 0, // Moves back to Slide 1
+        duration: 0, // Instantly reset (no animation)
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modal]);
+
   return (
     <View style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10, paddingTop: 10 }}>
       <StatusBar
@@ -288,7 +353,7 @@ const HomeScreen = () => {
         barStyle="dark-content"
       />
 
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
@@ -302,12 +367,12 @@ const HomeScreen = () => {
 
             <View style={{ flexDirection: 'column' }}>
               <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>Hello, {appLoad?.user?.name || 'User'}</Text>
-              <Text style={{ fontSize: responsiveFontSize(1.7), fontWeight: '500', color: '#a2a2a2' }}>What are you learning today?</Text>
+              <Text style={{ fontSize: responsiveFontSize(1.7), fontWeight: '400', color: '#a2a2a2' }}>What are you learning today?</Text>
             </View>
           </View>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Notifications')} style={{ backgroundColor: '#d9efff', borderRadius: 8, width: responsiveWidth(9), aspectRatio: 1 / 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', elevation: 1 }}>
-            <Ionicons name="notifications" size={18} color={darkBlue} />
+          <TouchableOpacity onPress={() => navigation.navigate('Notifications')} style={{ elevation: 4, backgroundColor: darkerBlue, borderRadius: 8, width: responsiveWidth(9), aspectRatio: 1 / 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <Ionicons name="notifications" size={18} color={lightBlue} />
           </TouchableOpacity>
         </View>
 
@@ -356,32 +421,56 @@ const HomeScreen = () => {
         {userDetails?.length != 0 && (
           <>
             {/* What you get */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
               <Text style={{ color: '#ebedf0', }}>____________________ </Text>
               <Text style={{ color: '#8593a2', fontWeight: '500', fontSize: responsiveFontSize(1.6), textTransform: 'uppercase', letterSpacing: 1.1 }}> What you get </Text>
               <Text style={{ color: '#ebedf0', }}>____________________ </Text>
             </View>
 
             {/* Board showcase */}
-            <View style={{ backgroundColor: '#e9f6ff', paddingHorizontal: 10, paddingVertical: 15, borderRadius: 12, marginBottom: 15, elevation: 2, marginHorizontal: 1 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, justifyContent: 'space-between' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7 }}>
+                <View style={{ backgroundColor: lightBlue, elevation: 1, borderColor: darkBlue, borderWidth: 0.5, width: 27, height: 27, borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                  <MaterialCommunityIcons name="book-open-variant" size={16} color={darkerBlue} />
+                </View>
 
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
-                <MaterialCommunityIcons name="book-open-variant" size={20} color="#000" style={{ marginRight: 8 }} />
-                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '500', color: '#000', textAlign: 'center' }}>
-                  You will get courses on these boards
+                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: darkerBlue, textAlign: 'center' }}>
+                  Available boards
                 </Text>
               </View>
 
+              {/* Change board button */}
+              {userDetails?.length !== 0 && (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    backgroundColor: darkerBlue,
+                    paddingVertical: 10,
+                    paddingHorizontal: 12,
+                    borderRadius: 25,
+                    elevation: 3,
+                  }}
+                  onPress={() => setModal(true)}
+                >
+                  <Ionicons name={'grid-outline'} size={15} color={lightBlue} style={{ marginRight: 5 }} />
+                  <Text style={{ color: lightBlue, fontSize: responsiveFontSize(1.8), fontWeight: '500' }}>Change Board</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+
+            {/* Boards */}
+            <View style={{ paddingHorizontal: 0, paddingVertical: 0, borderRadius: 12, marginBottom: 15, marginHorizontal: 1 }}>
               <FlatList
                 data={boards}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={3}
                 columnWrapperStyle={{ justifyContent: 'space-between', width: '100%' }}
-                contentContainerStyle={{ gap: 10, width: '100%' }}
+                contentContainerStyle={{ gap: 12, width: '100%' }}
                 renderItem={({ item }) => (
                   <ImageBackground
                     source={require('../assets/sub.png')}
-                    style={{ width: 100, height: 120, justifyContent: 'flex-end', alignItems: 'center', borderRadius: 10, overflow: 'hidden' }}
+                    style={{ width: 103, height: 120, justifyContent: 'flex-end', alignItems: 'center', borderRadius: 10, overflow: 'hidden', elevation: 3 }}
                     imageStyle={{ borderRadius: 12 }}
                     resizeMode='cover'
                   >
@@ -537,6 +626,151 @@ const HomeScreen = () => {
           </>
         )}
       </ScrollView>
+
+      {/* Modal */}
+      <Modal
+        isVisible={modal}
+        onBackdropPress={() => {
+          setSelectedBoard(null);
+          setSelectedClass(null);
+          setModal(false);
+        }}
+        onSwipeComplete={() => {
+          setSelectedBoard(null);
+          setSelectedClass(null);
+          setModal(false);
+        }}
+        onRequestClose={() => {
+          setSelectedBoard(null);
+          setSelectedClass(null);
+          setModal(false);
+        }}
+        animationType="slide"
+        swipeDirection={['down']}
+        backdropOpacity={0.5}
+        style={{ justifyContent: 'flex-end', margin: 0 }}
+      >
+        <View style={{ width: "100%", height: '100%', justifyContent: 'flex-end' }}>
+
+          {/* Close Button */}
+          <TouchableOpacity
+            style={{ alignSelf: 'center', backgroundColor: '#000', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 35, height: 35, borderRadius: 50, marginBottom: 10 }}
+            onPress={() => {
+              // setIsRateFocused(false);
+              setModal(false);
+            }}
+          >
+            <Ionicons name="close" size={20} style={{ color: '#fff' }} />
+          </TouchableOpacity>
+
+          {/* Slidable sections */}
+          <Animated.View
+            style={{
+              flexDirection: 'row',
+              width: width * 2, // The total width (2 sections)
+              transform: [{ translateX: slideAnim }], // Apply the sliding animation
+            }}
+          >
+            {/* Slide 1 - Boards */}
+            <View style={{ backgroundColor: '#fff', borderTopLeftRadius: 15, borderTopRightRadius: 15, elevation: 1, paddingVertical: 8, width: width, }}>
+              {/* Headline */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, marginVertical: 8, marginBottom: 10 }}>
+                <Text style={{ textAlign: 'center', color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2), }}>Choose one of the boards below</Text>
+              </View>
+
+              {/* Boards */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap', alignSelf: 'center', marginBottom: 20, marginTop: 10 }}>
+                {boards?.map(item => (
+                  <TouchableOpacity onPress={() => setSelectedBoard(item)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 3, elevation: 1, backgroundColor: selectedBoard?.id === item.id ? darkerBlue : '#fff', paddingHorizontal: 8, height: 30, borderRadius: 8, borderColor: darkBlue, borderWidth: selectedBoard?.id === item.id ? 0 : 1, alignSelf: 'flex-start' }}>
+                    {selectedBoard?.id === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
+
+                    <Text style={{ color: selectedBoard?.id === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              {/* Buttons */}
+              <View style={{ width: '100%', flexDirection: 'row', paddingVertical: 6, justifyContent: 'space-evenly', alignItems: "center" }}>
+                {/* Cancel */}
+                <TouchableOpacity activeOpacity={0.7} onPress={() => setModal(false)} style={{ width: '47%', backgroundColor: '#fff', borderRadius: 12, gap: 3, borderColor: darkerBlue, borderWidth: 1, height: 45, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ color: darkerBlue, fontSize: responsiveFontSize(2.2), fontWeight: "600" }}>Cancel</Text>
+
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 19, height: 19, alignItems: 'center', backgroundColor: darkerBlue, borderRadius: 5, borderColor: darkerBlue, borderWidth: 1 }}>
+                    <Ionicons name="close" size={13} style={{ color: '#fff' }} />
+                  </View>
+                </TouchableOpacity>
+
+                {/* Confirm */}
+                <TouchableOpacity onPress={handleBoardSubmit} style={{ height: 45, backgroundColor: loading ? '#e1e1e1' : darkerBlue, borderRadius: 12, justifyContent: 'center', flexDirection: 'row', width: '47%', alignSelf: 'center', elevation: loading ? 2 : 4, borderColor: loading ? '#000' : '', borderWidth: loading ? 0.3 : 0, gap: 4, alignItems: 'center' }}>
+                  {boardLoading ? (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                      <ActivityIndicator size="small" color='#fff' />
+                      {/* <Text style={{ color: '#5a5a5a', fontSize: responsiveFontSize(2) }}>Submitting data ...</Text> */}
+                    </View>
+                  ) : (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                      <Text style={{ color: '#fff', fontWeight: '500', fontSize: responsiveFontSize(2.2) }}>Submit</Text>
+
+                      <View style={{ backgroundColor: '#fff', width: 19, height: 19, borderRadius: 4, alignItems: 'center', justifyContent: 'center', borderColor: 'red', borderEndWidth: 0.6 }}>
+                        <Icon3 name="save" size={13} color={darkerBlue} />
+                      </View>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Slide 2 - Classes */}
+            <View style={{ backgroundColor: '#fff', borderTopLeftRadius: 15, borderTopRightRadius: 15, elevation: 1, paddingVertical: 8, width: width, }}>
+              {/* Headline */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, marginVertical: 8, marginBottom: 10 }}>
+                <Text style={{ textAlign: 'center', color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.2), }}>Choose one of the classes below</Text>
+              </View>
+
+              {/* Boards */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flexWrap: 'wrap', alignSelf: 'center', marginBottom: 20, marginTop: 10 }}>
+                {classes?.map(item => (
+                  <TouchableOpacity onPress={() => setSelectedClass(item)} key={item.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 3, elevation: 1, backgroundColor: selectedClass?.id === item.id ? darkerBlue : '#fff', paddingHorizontal: 8, height: 30, borderRadius: 8, borderColor: darkBlue, borderWidth: selectedClass?.id === item.id ? 0 : 1, alignSelf: 'flex-start' }}>
+                    {selectedClass?.id === item.id && <AntDesign name="check" style={{ color: '#fff' }} size={15} />}
+
+                    <Text style={{ color: selectedClass?.id === item.id ? '#fff' : darkBlue, fontWeight: '600', fontSize: responsiveFontSize(1.8) }}>{item.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+
+              {/* Buttons */}
+              <View style={{ width: '100%', flexDirection: 'row', paddingVertical: 6, justifyContent: 'space-evenly', alignItems: "center" }}>
+                {/* Cancel */}
+                <TouchableOpacity activeOpacity={0.7} onPress={() => setModal(false)} style={{ width: '47%', backgroundColor: '#fff', borderRadius: 12, gap: 3, borderColor: darkerBlue, borderWidth: 1, height: 45, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ color: darkerBlue, fontSize: responsiveFontSize(2.2), fontWeight: "600" }}>Cancel</Text>
+
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 19, height: 19, alignItems: 'center', backgroundColor: darkerBlue, borderRadius: 5, borderColor: darkerBlue, borderWidth: 1 }}>
+                    <Ionicons name="close" size={13} style={{ color: '#fff' }} />
+                  </View>
+                </TouchableOpacity>
+
+                {/* Confirm */}
+                <TouchableOpacity onPress={handleClassSubmit} style={{ height: 45, backgroundColor: loading ? '#e1e1e1' : darkerBlue, borderRadius: 12, justifyContent: 'center', flexDirection: 'row', width: '47%', alignSelf: 'center', elevation: loading ? 2 : 4, borderColor: loading ? '#000' : '', borderWidth: loading ? 0.3 : 0, gap: 4, alignItems: 'center' }}>
+                  {loading ? (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+                      <ActivityIndicator size="small" color='#fff' />
+                      {/* <Text style={{ color: '#5a5a5a', fontSize: responsiveFontSize(2) }}>Updating data ...</Text> */}
+                    </View>
+                  ) : (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                      <Text style={{ color: '#fff', fontWeight: '500', fontSize: responsiveFontSize(2.2) }}>Submit</Text>
+
+                      <View style={{ backgroundColor: '#fff', width: 19, height: 19, borderRadius: 4, alignItems: 'center', justifyContent: 'center', borderColor: 'red', borderEndWidth: 0.6 }}>
+                        <Icon3 name="save" size={13} color={darkerBlue} />
+                      </View>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Animated.View>
+        </View>
+      </Modal>
     </View>
   );
 };

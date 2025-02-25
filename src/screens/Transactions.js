@@ -26,7 +26,7 @@ const Transactions = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
 
     const [activeTab, setActiveTab] = useState(0);
-    const pagerRef = useRef(null); // Create a reference for PagerView
+    const pagerRef = useRef(null);
 
     // Handle tab click
     const handleTabClick = (tabIndex) => {
