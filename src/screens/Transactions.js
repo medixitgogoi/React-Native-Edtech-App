@@ -37,7 +37,7 @@ const Transactions = ({ navigation }) => {
     // Handle page change on swipe
     const handlePageChange = (event) => {
         setActiveTab(event.nativeEvent.position); // Update active tab on swipe
-    }
+    };
 
     // fetch orders
     useFocusEffect(
@@ -101,7 +101,7 @@ const Transactions = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
         )
-    }
+    };
 
     return (
         <View style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>

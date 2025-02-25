@@ -59,13 +59,13 @@ const Signup = ({ route }) => {
   const [classes, setClasses] = useState([]);
   const [selectedClassId, setSelectedClassId] = useState(null);
 
-  // set mobile and otp
+  // Set mobile and otp
   useEffect(() => {
     setMobile(route?.params?.mobile);
     setOtp(route?.params?.otp);
   }, []);
 
-  // get boards
+  // Get boards
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -205,7 +205,7 @@ const Signup = ({ route }) => {
     }).start();
   };
 
-  // board selection handler -> get classes
+  // Board selection handler -> get classes
   const boardSelectionHandler = async () => {
     if (!selectedBoardId) {
       Toast.show({
