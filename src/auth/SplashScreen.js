@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { StatusBar, Text, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import { lightBlue } from '../utils/colors';
 
 const SplashScreen = ({ navigation }) => {
 
@@ -13,7 +14,7 @@ const SplashScreen = ({ navigation }) => {
 
     return (
         <LinearGradient
-            colors={['#fff', '#6ef5a0']} // Gradient colors
+            colors={['#fff', '#c5e7ff']} // Gradient colors
             style={{
                 flex: 1, // Full screen
                 justifyContent: 'center', // Center content vertically

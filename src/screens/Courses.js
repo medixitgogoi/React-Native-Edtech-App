@@ -22,18 +22,6 @@ const Courses = () => {
 
     const navigation = useNavigation();
 
-    // Sample data
-    const courses = [
-        { id: '1', title: 'Biology for class X', author: 'By Smith J.', files: '17 lectures', time: '40 Mins', color: '#FFDAB9' },
-        { id: '2', title: 'Math for class IX', author: 'By Smith J.', files: '20 lectures', time: '50 Mins', color: '#ADD8E6' },
-        { id: '3', title: 'Chemistry Basics', author: 'By John D.', files: '12 lectures', time: '35 Mins', color: '#98FB98' },
-        { id: '4', title: 'Physics for Beginners', author: 'By Sarah L.', files: '18 lectures', time: '45 Mins', color: '#FFB6C1' },
-        { id: '5', title: 'History of Arts', author: 'By Alice K.', files: '10 lectures', time: '30 Mins', color: '#E6E6FA' },
-        { id: '6', title: 'Geography: World Maps', author: 'By David P.', files: '15 lectures', time: '40 Mins', color: '#FFE4B5' },
-        { id: '7', title: 'Introduction to Coding', author: 'By Emily W.', files: '25 lectures', time: '60 Mins', color: '#AFEEEE' },
-        { id: '8', title: 'Environmental Studies', author: 'By Thomas B.', files: '14 lectures', time: '38 Mins', color: '#F0E68C' },
-    ];
-
     const comboCourses = [
         {
             id: '1',
@@ -310,7 +298,7 @@ const Courses = () => {
                                 </View>
                                 <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#333' }}>Combo Courses</Text>
                             </View>
-                            
+
                             <FlatList
                                 data={comboCourses} // Combo courses data array
                                 horizontal

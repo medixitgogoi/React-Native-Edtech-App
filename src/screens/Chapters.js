@@ -17,8 +17,12 @@ const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 const Chapters = ({ navigation, route }) => {
 
     const { data } = route.params;
+    const { item } = route.params;
     const { id } = route.params;
     const { price } = route.params;
+    const { isCombo } = route.params;
+
+    console.log('item: ', item);
 
     const [chapters, setChapters] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -147,52 +151,53 @@ const Chapters = ({ navigation, route }) => {
             )}
 
             {/* Buy Button */}
-            <LinearGradient
-                colors={['#000', darkBlue]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-                style={{ borderRadius: 14, elevation: 2, marginTop: 10, width: '100%', height: 53, position: 'absolute', bottom: 5, alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}
-            >
-                <>
-                    {loading ? (
-                        <ShimmerPlaceHolder
-                            autoRun={true}
-                            visible={!loading}
-                            style={{ width: '100%', height: 53, borderRadius: 9, elevation: 1 }}
-                        />
-                    ) : (
-                        <TouchableOpacity
-                            style={{ gap: 8, height: '100%', borderRadius: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 8 }}
-                        >
-                            <View style={{ height: '100%', backgroundColor: '#fff', paddingHorizontal: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: darkBlue, fontWeight: '800', fontSize: responsiveFontSize(2.3) }}>₹ {price}.00</Text>
-                            </View>
+            {!isCombo && (
+                <LinearGradient
+                    colors={['#000', darkBlue]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={{ borderRadius: 14, elevation: 2, marginTop: 10, width: '100%', height: 53, position: 'absolute', bottom: 5, alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}
+                >
+                    <>
+                        {loading ? (
+                            <ShimmerPlaceHolder
+                                autoRun={true}
+                                visible={!loading}
+                                style={{ width: '100%', height: 53, borderRadius: 9, elevation: 1 }}
+                            />
+                        ) : (
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('Checkout', { item: item, type: 1 })}
+                                style={{ gap: 8, height: '100%', borderRadius: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 8 }}
+                            >
+                                <View style={{ height: '100%', backgroundColor: '#fff', paddingHorizontal: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text style={{ color: darkBlue, fontWeight: '800', fontSize: responsiveFontSize(2.3) }}>₹ {price}.00</Text>
+                                </View>
 
-                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, height: '100%', justifyContent: 'center', flex: 1 }}>
-                                <MaterialCommunityIcons name="wallet-plus" style={{ color: '#fff' }} size={22} />
-                                <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600', textAlign: 'center', }}>Buy this course</Text>
-                            </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                                    <Text style={{ fontSize: responsiveFontSize(2.2), color: '#fff', fontWeight: 'bold' }}>Buy this course</Text>
 
-                            {/* Animated Arrows */}
-                            <View style={{ flexDirection: 'row', overflow: 'hidden', paddingRight: 20, }}>
-                                {Array(3)
-                                    .fill(0)
-                                    .map((_, index) => (
-                                        <Animated.Text
-                                            key={index}
-                                            style={{
-                                                transform: [{ translateX }],
-                                            }}
-                                        >
-                                            <Ionicons name="caret-forward" style={{ color: '#fff' }} size={18} />
-                                        </Animated.Text>
-                                    ))}
-                            </View>
-                        </TouchableOpacity>
-                    )}
-                </>
-            </LinearGradient>
-
+                                    {/* Animated Arrows */}
+                                    <View style={{ flexDirection: 'row', overflow: 'hidden', paddingRight: 20, }}>
+                                        {Array(3)
+                                            .fill(0)
+                                            .map((_, index) => (
+                                                <Animated.Text
+                                                    key={index}
+                                                    style={{
+                                                        transform: [{ translateX }],
+                                                    }}
+                                                >
+                                                    <Ionicons name="caret-forward" style={{ color: '#fff' }} size={18} />
+                                                </Animated.Text>
+                                            ))}
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        )}
+                    </>
+                </LinearGradient>
+            )}
         </SafeAreaView>
     );
 };

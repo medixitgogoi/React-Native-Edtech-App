@@ -32,17 +32,19 @@ const About = ({ route }) => {
             </View>
 
             {/* Content */}
-            <ScrollView>
-                <View style={{ flexDirection: 'column', paddingHorizontal: 12, marginTop: 0 }}>
+            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 10 }}>
+                <View style={{ flexDirection: 'column', paddingHorizontal: 12 }}>
                     <RenderHTML
                         contentWidth={width} // Use device width
                         source={{ html: about }} // Render the HTML disclaimer
                         tagsStyles={{
                             p: {
                                 color: '#000',      // Black text
+                                fontWeight: '500',  // Bolder text
                             },
                             span: {
                                 color: '#000',      // Black text for inline elements
+                                fontWeight: '500',  // Bolder text
                             }
                         }}
                     />

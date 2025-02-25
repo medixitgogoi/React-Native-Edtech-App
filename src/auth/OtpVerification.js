@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { background, backIconColor, darkBlue, darkGreen, lightBlue, offWhite } from '../utils/colors';
 import { useState, useRef, useEffect } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
 
@@ -16,7 +17,7 @@ const { width: screenWidth } = Dimensions.get('window');
 const OtpVerification = ({ route }) => {
 
     const to = route?.params?.to;
-    console.log('to: ', to);
+    // console.log('to: ', to);
 
     const navigation = useNavigation();
 
@@ -282,8 +283,8 @@ const OtpVerification = ({ route }) => {
             >
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
                     {/* Back Button */}
-                    <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10 }} onPress={() => navigation.goBack()}>
-                        <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
+                    <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', width: 40, height: 40, marginLeft: 12, marginTop: 5 }} onPress={() => navigation.goBack()}>
+                        <Ionicons name="arrow-back-outline" style={{ color: '#000' }} size={25} />
                     </TouchableOpacity>
 
                     {/* Content */}

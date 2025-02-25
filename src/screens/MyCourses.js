@@ -295,7 +295,6 @@ const MyCourses = ({ navigation }) => {
 
                         {/* Individual Courses Content */}
                         <View style={{ flex: 1 }} key="2">
-
                             {/* Individual courses */}
                             <FlatList
                                 data={courses}

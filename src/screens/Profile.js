@@ -34,7 +34,7 @@ const Profile = ({ navigation }) => {
             const fetchData = async () => {
                 try {
                     const data = await fetchProfileData(userDetails);
-                    // console.log('profile: ', data);
+                    console.log('profile: ', data);
 
                     setData(data);
                 } catch (error) {
@@ -146,27 +146,27 @@ const Profile = ({ navigation }) => {
                                     {/* Initial */}
                                     <View style={{ flexDirection: 'column', alignItems: 'center', }}>
                                         <View style={{ height: 100, width: 100, backgroundColor: lightBlue, borderRadius: 100, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>{userDetails[0]?.name.slice(0, 1)}</Text>
+                                            <Text style={{ color: '#000', fontSize: responsiveFontSize(7), textTransform: 'uppercase' }}>{data?.name.slice(0, 1)}</Text>
                                         </View>
                                     </View>
 
                                     {/* Name and Email */}
                                     <View style={{ flexDirection: 'column', gap: 3, width: '65%' }}>
                                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                                            <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>{userDetails[0]?.name}</Text>
-                                            {userDetails?.[0]?.gender === 'M' && (
-                                                <View style={{ width: 20, height: 20, backgroundColor: lightGreen, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
-                                                    <Icon2 name="male" size={15} color={backIconColor} />
+                                                <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: '600', color: '#fff', textTransform: 'uppercase' }}>{data?.name?.split(' ')[0]}</Text>
+                                            {data?.gender === 'M' && (
+                                                <View style={{ width: 20, height: 20, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Icon2 name="male" size={13} color={darkBlue} />
                                                 </View>
                                             )}
 
-                                            {userDetails?.[0]?.gender === 'F' && (
-                                                <View style={{ width: 20, height: 20, backgroundColor: lightGreen, borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
-                                                    <Icon2 name="female" size={15} color={backIconColor} />
+                                            {data?.gender === 'F' && (
+                                                <View style={{ width: 20, height: 20, backgroundColor: '#fff', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Icon2 name="female" size={13} color={darkBlue} />
                                                 </View>
                                             )}
                                         </View>
-                                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>{userDetails[0]?.email}</Text>
+                                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#fff', fontWeight: '400' }}>{data?.email}</Text>
                                     </View>
                                 </View>
                             </LinearGradient>
@@ -189,11 +189,11 @@ const Profile = ({ navigation }) => {
                                 </View>
 
                                 {/* Purchases */}
-                                <TouchableOpacity onPress={() => navigation.navigate('Purchases')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
+                                <TouchableOpacity onPress={() => navigation.navigate('Transactions')} style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, gap: 10, marginTop: 5, marginBottom: 2 }}>
                                     <View style={{ padding: 5, borderRadius: 50, backgroundColor: lightBlue, elevation: 1 }}>
                                         <Icon2 name="receipt-outline" size={15} color={'#000'} />
                                     </View>
-                                    <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Your Purchases</Text>
+                                    <Text style={{ fontSize: responsiveFontSize(2), flex: 1, color: '#000', fontWeight: '500' }}>Your Transactions</Text>
                                     <Icon name="keyboard-arrow-right" size={20} color={'#818181'} />
                                 </TouchableOpacity>
 

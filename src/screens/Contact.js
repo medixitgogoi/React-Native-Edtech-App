@@ -11,7 +11,7 @@ const Contact = ({ route }) => {
     const { width } = useWindowDimensions(); // Get screen width for RenderHTML
 
     const contact = route?.params?.data || '';
-    console.log('contact', contact);
+    console.log('contact: ', contact);
 
     const navigation = useNavigation();
 
@@ -53,24 +53,10 @@ const Contact = ({ route }) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ color: '#000', fontSize: responsiveFontSize(1.9), marginRight: 5 }}>Phone:</Text>
 
-                    <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.1), marginRight: 2, fontWeight: '500' }}>+91 1234567890</Text>
-
-                    {/* <RenderHTML
-                        contentWidth={width} // Use device width
-                        source={{ html: contact }} // Render the HTML disclaimer
-                        tagsStyles={{
-                            p: {
-                                color: darkBlue, // Black text
-                                fontWeight: 500,
-                                fontSize: responsiveFontSize(2.1),  // Increase font size for <p> tag
-                            },
-                            span: {
-                                color: darkBlue, // Black text for inline elements
-                                fontWeight: 500,
-                                fontSize: responsiveFontSize(2.1),  // Increase font size for <p> tag
-                            }
-                        }}
-                    /> */}
+                    <TouchableOpacity onPress={handleCallPress} style={{ flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+                        <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.1), marginRight: 2, fontWeight: '500' }}>+91</Text>
+                        <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.1), marginRight: 2, fontWeight: '500' }}>{contact}</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
 

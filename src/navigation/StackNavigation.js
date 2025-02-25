@@ -1,8 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Alert } from "react-native";
 import { addUser } from "../redux/UserSlice";
 
@@ -20,7 +20,6 @@ import CourseDetails from '../screens/CourseDetails';
 import Home from '../screens/Home';
 import Notifications from '../screens/Notifications';
 import Courses from '../screens/Courses';
-import Purchases from '../screens/Purchases';
 import Notes from '../screens/Notes';
 import ViewPdf from '../screens/ViewPdf';
 import MyCourses from '../screens/MyCourses';
@@ -36,15 +35,18 @@ import Contact from '../screens/Contact';
 import Disclaimer from '../screens/Disclaimer';
 import Chapters from '../screens/Chapters';
 
+// Authentication
 import Login from '../auth/Login';
 import OtpVerification from '../auth/OtpVerification';
 import ForgotPassword from '../auth/ForgotPassword';
 import Signup from '../auth/Signup';
 import SplashScreen from '../auth/SplashScreen';
-import PDF from "../screens/PdfViewer";
 import PdfViewer from "../screens/PdfViewer";
 import NotesViewer from "../screens/NotesViewer";
 import ComboBreakdown from "../screens/ComboBreakdown";
+import Checkout from "../screens/Checkout";
+import Transactions from "../screens/Transactions";
+import Coupons from "../screens/Coupons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,8 +64,8 @@ function BottomTabs() {
                         iconName = focused ? 'person' : 'person-outline';
                     } else if (route.name === 'MyCourses') {
                         iconName = focused ? 'book' : 'book-outline';
-                    } else if (route.name === 'Store') {
-                        iconName = focused ? 'storefront' : 'storefront-outline';
+                    } else if (route.name === 'Transactions') {
+                        iconName = focused ? 'receipt' : 'receipt-outline';
                     }
 
                     return <Icon name={iconName} size={20} color={color} />;
@@ -93,7 +95,7 @@ function BottomTabs() {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="MyCourses" component={MyCourses} />
-            <Tab.Screen name="Store" component={Store} />
+            <Tab.Screen name="Transactions" component={Transactions} />
             <Tab.Screen name="Profile" component={Profile} />
         </Tab.Navigator>
     );
@@ -138,7 +140,8 @@ const StackNavigation = () => {
                 <Stack.Screen name="Refund" component={Refund} />
                 <Stack.Screen name="Disclaimer" component={Disclaimer} />
                 <Stack.Screen name="Cancellation" component={Cancellation} />
-                <Stack.Screen name="Purchases" component={Purchases} />
+                <Stack.Screen name="Transactions" component={Transactions} />
+                <Stack.Screen name="Coupons" component={Coupons} />
                 <Stack.Screen name="ViewPdf" component={ViewPdf} />
                 <Stack.Screen name="PurchaseDetails" component={PurchaseDetails} />
                 <Stack.Screen name="About" component={About} />
@@ -148,6 +151,7 @@ const StackNavigation = () => {
                 <Stack.Screen name="Chapters" component={Chapters} />
                 <Stack.Screen name="NotesViewer" component={NotesViewer} />
                 <Stack.Screen name="PdfViewer" component={PdfViewer} />
+                <Stack.Screen name="Checkout" component={Checkout} />
                 <Stack.Screen name="ComboBreakdown" component={ComboBreakdown} />
 
                 <Stack.Screen name="Login" component={Login} />

@@ -7,6 +7,7 @@ import { responsiveFontSize } from 'react-native-responsive-dimensions';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Icon2 from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon4 from 'react-native-vector-icons/dist/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -254,8 +255,8 @@ const Signup = ({ route }) => {
         >
           <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="always">
             {/* Back button */}
-            <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue, marginLeft: 10, marginTop: 5 }} onPress={() => navigation.goBack()}>
-              <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
+            <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', width: 40, height: 40, marginLeft: 12, marginTop: 5 }} onPress={() => navigation.goBack()}>
+              <Ionicons name="arrow-back-outline" style={{ color: '#000' }} size={25} />
             </TouchableOpacity>
 
             {/* Content */}
@@ -263,7 +264,7 @@ const Signup = ({ route }) => {
               {/* Heading */}
               <View style={{ marginBottom: 40, marginLeft: 15 }}>
                 <Text style={{ fontSize: responsiveFontSize(3.5), fontWeight: '700', color: '#000', marginBottom: 6 }}>Create Your Gyano Account</Text>
-                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '400', color: '#333', fontWeight: '500' }}>Unlock your potential and start learning today!</Text>
+                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '400', color: '#9d9d9d', fontWeight: '400' }}>Unlock your potential and start learning today!</Text>
               </View>
 
               {/* Slidable sections */}
@@ -276,20 +277,22 @@ const Signup = ({ route }) => {
               >
                 {/* Slide 1 - Basic details section */}
                 <View style={{ width: screenWidth, paddingHorizontal: 15, flexDirection: 'column' }}>
-                  {/* Heading */}
-                  <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-                    <View style={{ borderRadius: 8, justifyContent: 'center', flexDirection: 'row', gap: 8, alignItems: 'center', width: 25, height: 25, backgroundColor: darkBlue, }}>
-                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.6), fontWeight: '600' }}>1</Text>
+                  {/* Modern Heading */}
+                  <View style={{ marginBottom: 20, flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                    <View style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: 'linear-gradient(45deg, #4A90E2, #007AFF)', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 4, elevation: 5 }}>
+                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: 'bold' }}>1</Text>
                     </View>
 
-                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '500', color: '#000', }}>Let's begin by adding your basic information</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#333', flex: 1 }}>
+                      Let's begin by adding your basic information
+                    </Text>
                   </View>
 
                   {/* Text Inputs */}
                   <View>
                     {/* Name */}
                     <TextInput
-                      style={{ height: 45, borderColor: isNameFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
+                      style={{ height: 45, borderColor: isNameFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 10, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
                       placeholder="Enter Your Name"
                       value={name}
                       onChangeText={setName}
@@ -301,7 +304,7 @@ const Signup = ({ route }) => {
 
                     {/* Email */}
                     <TextInput
-                      style={{ marginTop: 25, height: 45, borderColor: isEmailFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
+                      style={{ marginTop: 25, height: 45, borderColor: isEmailFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 10, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
                       placeholder="Enter Your Email"
                       value={email}
                       onChangeText={setEmail}
@@ -315,7 +318,7 @@ const Signup = ({ route }) => {
                     {/* Password */}
                     <View style={{ marginTop: 25 }}>
                       <TextInput
-                        style={{ height: 45, borderColor: isPasswordFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
+                        style={{ height: 45, borderColor: isPasswordFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 10, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
                         placeholder="Enter Password"
                         value={password}
                         onChangeText={setPassword}
@@ -344,7 +347,7 @@ const Signup = ({ route }) => {
                     {/* Confirm Password */}
                     <View style={{ marginTop: 25 }}>
                       <TextInput
-                        style={{ height: 45, borderColor: isConfirmPasswordFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 8, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
+                        style={{ height: 45, borderColor: isConfirmPasswordFocused ? '#000' : '#ccc', fontWeight: "500", borderWidth: 1.4, borderRadius: 10, paddingHorizontal: 15, fontSize: responsiveFontSize(2), color: '#000' }}
                         placeholder="Confirm Password"
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
@@ -387,13 +390,16 @@ const Signup = ({ route }) => {
 
                 {/* Slide 2 - Board selection */}
                 <View style={{ flexDirection: 'column', width: screenWidth, paddingHorizontal: 15 }}>
-                  {/* Heading */}
-                  <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-                    <View style={{ borderRadius: 8, justifyContent: 'center', flexDirection: 'row', gap: 8, alignItems: 'center', width: 25, height: 25, backgroundColor: darkBlue, }}>
-                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.6), fontWeight: '600' }}>2</Text>
+                  
+                  {/* Modern Heading */}
+                  <View style={{ marginBottom: 24, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                    <View style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(0, 106, 255, 0.9)', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.12, shadowRadius: 5, elevation: 5 }}>
+                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: 'bold' }}>2</Text>
                     </View>
 
-                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '500', color: '#000', }}>Select the board you are stuying in</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#222', flex: 1, lineHeight: responsiveFontSize(3) }}>
+                      Select the board you are studying in
+                    </Text>
                   </View>
 
                   {/* Boards */}
@@ -422,13 +428,15 @@ const Signup = ({ route }) => {
 
                 {/* Slide 3 - Class selection */}
                 <View style={{ flexDirection: 'column', width: screenWidth, paddingHorizontal: 15 }}>
-                  {/* Heading */}
-                  <View style={{ marginBottom: 20, flexDirection: 'row', gap: 8, alignItems: 'center', }}>
-                    <View style={{ borderRadius: 8, justifyContent: 'center', flexDirection: 'row', gap: 8, alignItems: 'center', width: 25, height: 25, backgroundColor: darkBlue, }}>
-                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(1.6), fontWeight: '600' }}>3</Text>
+                  {/* Modern Heading */}
+                  <View style={{ marginBottom: 24, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+                    <View style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(0, 102, 255, 0.9)', justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOpacity: 0.12, shadowRadius: 5, elevation: 5 }}>
+                      <Text style={{ color: '#fff', fontSize: responsiveFontSize(2), fontWeight: 'bold' }}>3</Text>
                     </View>
 
-                    <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '500', color: '#000', }}>Select the class you are stuying in</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#222', flex: 1, lineHeight: responsiveFontSize(3) }}>
+                      Select the class you are studying in
+                    </Text>
                   </View>
 
                   {/* Classes */}

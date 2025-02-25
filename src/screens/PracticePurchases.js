@@ -3,13 +3,15 @@ import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-nat
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Foundation from 'react-native-vector-icons/dist/Foundation';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { background, darkBlue, lightBlue } from '../utils/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useSelector } from 'react-redux';
+import { useCallback, useRef, useState } from 'react';
+import { getOrders } from '../utils/getOrders';
 
 const purchases = [
     { id: '1', name: 'React Basics', lectures: 20, notes: '17 files', expiry: '2024-12-31', progress: 75, price: 2499 },
@@ -28,12 +30,19 @@ const purchases = [
 
 const Purchases = ({ navigation }) => {
 
+    const userDetails = useSelector(state => state.user);
+
+    const [loading, setLoading] = useState(false);
+
+    const [singles, setSingles] = useState(null);
+    const [combos, setCombos] = useState(null);
+
     const renderCourse = ({ item }) => {
 
         // Calculate days left
-        const currentDate = new Date();
-        const expiryDate = new Date(item.expiry); // Ensure expiry is a valid date string
-        const timeDifference = expiryDate - currentDate; // Difference in milliseconds
+        const expiryDate = new Date(item.expiry_date); // Ensure expiry is a valid date string
+        const purchasedDate = new Date(item.purchased_date); // Ensure expiry is a valid date string
+        const timeDifference = expiryDate - purchasedDate; // Difference in milliseconds
         const daysLeft = Math.max(Math.ceil(timeDifference / (1000 * 60 * 60 * 24)), 0); // Convert to days and ensure non-negative
 
         return (
@@ -41,12 +50,12 @@ const Purchases = ({ navigation }) => {
                 {/* Header */}
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, gap: 5 }}>
                     <Icon name="book" size={22} color={darkBlue} />
-                    <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#0066cc' }}>{item.name}</Text>
+                    <Text style={{ fontSize: responsiveFontSize(2.2), fontWeight: '600', color: '#0066cc' }}>{item.subject[0].name}</Text>
                 </View>
 
                 {/* Details Section */}
                 <View style={{ marginBottom: 15, paddingLeft: 2 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
                         <Icon name="collections-bookmark" size={19} color="#888" />
                         <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Lectures: {item.lectures}</Text>
                     </View>
@@ -54,11 +63,11 @@ const Purchases = ({ navigation }) => {
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
                         <Icon name="note" size={19} color="#888" />
                         <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Notes: {item.notes}</Text>
-                    </View>
+                    </View> */}
 
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5, gap: 5 }}>
                         <Icon name="date-range" size={19} color="#888" />
-                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Expiry: {item.expiry}</Text>
+                        <Text style={{ fontSize: responsiveFontSize(1.8), color: '#555', fontWeight: '500' }}>Expiry: {item.expiry_date}</Text>
                     </View>
                 </View>
 
@@ -67,13 +76,13 @@ const Purchases = ({ navigation }) => {
                     <View style={{ width: `${item.progress}%`, height: '100%', backgroundColor: '#32cd32' }} />
                 </View>
 
-                <Text style={{ fontSize: responsiveFontSize(1.6), color: '#000', marginBottom: 15, fontWeight: '500' }}>Progress: {item.progress}%</Text>
+                {/* <Text style={{ fontSize: responsiveFontSize(1.6), color: '#000', marginBottom: 15, fontWeight: '500' }}>Progress: {item.progress}%</Text> */}
 
                 {/* Price and Time Left */}
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
                         <FontAwesome name="rupee" size={14} color="#0066cc" />
-                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: '#0066cc', paddingBottom: 2 }}>{item.price}</Text>
+                        <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '600', color: '#0066cc', paddingBottom: 2 }}>{item.subject?.[0].price}</Text>
                     </View>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3 }}>
@@ -87,8 +96,32 @@ const Purchases = ({ navigation }) => {
         );
     }
 
+    // fetch orders
+    useFocusEffect(
+        useCallback(() => {
+            if (userDetails.length !== 0) {
+
+                const fetchData = async () => {
+                    try {
+                        const data = await getOrders(userDetails);
+                        console.log('fetch orders: ', data);
+
+                        setSingles(data?.single);
+                        setCombos(data?.combo);
+                    } catch (error) {
+                        console.error('Error fetching appLoad: ', error);
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+
+                fetchData();
+            }
+        }, [userDetails])
+    );
+
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
+        <View style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
                 backgroundColor={background}
@@ -106,12 +139,12 @@ const Purchases = ({ navigation }) => {
 
             {/* Content */}
             <FlatList
-                data={purchases}
+                data={combos}
                 renderItem={renderCourse}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={{ paddingBottom: 20, paddingHorizontal: 1, paddingTop: 10, gap: 15 }}
             />
-        </SafeAreaView>
+        </View>
     );
 };
 

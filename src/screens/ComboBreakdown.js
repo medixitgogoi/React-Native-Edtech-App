@@ -1,9 +1,10 @@
-import { View, Text, StatusBar, TouchableOpacity, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, StatusBar, TouchableOpacity, FlatList, Animated } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import { responsiveFontSize, responsiveWidth } from 'react-native-responsive-dimensions'
 import { darkBlue } from '../utils/colors'
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 
@@ -13,6 +14,10 @@ const ComboBreakdown = ({ navigation, route }) => {
   console.log('subjects data: ', data);
 
   const [subjects, setSubjects] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+
+  const translateX = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     setSubjects(data?.subjects);
@@ -33,7 +38,7 @@ const ComboBreakdown = ({ navigation, route }) => {
       >
         <TouchableOpacity
           style={{ overflow: 'hidden' }}
-          onPress={() => navigation.navigate('Chapters', { data: item.name, id: item.id })}
+          onPress={() => navigation.navigate('Chapters', { data: item.name, id: item.id, isCombo: true })}
         >
           {/* Title */}
           <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
@@ -88,6 +93,24 @@ const ComboBreakdown = ({ navigation, route }) => {
     );
   };
 
+  useEffect(() => {
+    // Infinite loop for arrow movement
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(translateX, {
+          toValue: 10, // Move arrows 10px to the right
+          duration: 500, // Half a second
+          useNativeDriver: true,
+        }),
+        Animated.timing(translateX, {
+          toValue: 0, // Move arrows back to the original position
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [translateX]);
+
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', paddingHorizontal: 10 }}>
       <StatusBar
@@ -115,6 +138,44 @@ const ComboBreakdown = ({ navigation, route }) => {
           contentContainerStyle={{ gap: 8 }}
         />
       </View>
+
+      {/* Buy Button */}
+      <LinearGradient
+        colors={['#000', darkBlue]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={{ borderRadius: 14, elevation: 2, marginTop: 10, width: '100%', height: 53, position: 'absolute', bottom: 5, alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Checkout', { item: data, type: 2 })}
+          style={{ gap: 8, height: '100%', borderRadius: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: 8 }}
+        >
+          <View style={{ height: '100%', backgroundColor: '#fff', paddingHorizontal: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ color: darkBlue, fontWeight: '800', fontSize: responsiveFontSize(2.3) }}>₹ {data.price}.00</Text>
+          </View>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, height: '100%', justifyContent: 'center', flex: 1 }}>
+            <MaterialCommunityIcons name="wallet-plus" style={{ color: '#fff' }} size={22} />
+            <Text style={{ color: '#fff', fontSize: 16, fontWeight: '600', textAlign: 'center', }}>Buy this course</Text>
+          </View>
+
+          {/* Animated Arrows */}
+          <View style={{ flexDirection: 'row', overflow: 'hidden', paddingRight: 20, }}>
+            {Array(3)
+              .fill(0)
+              .map((_, index) => (
+                <Animated.Text
+                  key={index}
+                  style={{
+                    transform: [{ translateX }],
+                  }}
+                >
+                  <Ionicons name="caret-forward" style={{ color: '#fff' }} size={18} />
+                </Animated.Text>
+              ))}
+          </View>
+        </TouchableOpacity>
+      </LinearGradient>
     </View>
   )
 }

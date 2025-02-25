@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, BackHandler, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, BackHandler, Alert, ImageBackground } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { background, darkBlue } from '../utils/colors';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -8,11 +7,11 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFocusEffect, useNavigation, useIsFocused } from '@react-navigation/native';
-import { trending } from '../utils/trending';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSelector } from 'react-redux';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import { fetchAppLoad } from '../utils/fetchAppLoad';
+import { fetchBoards } from '../utils/fetchBoards';
 
 const { width: width } = Dimensions.get('window');
 
@@ -25,7 +24,7 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-  const isFocused = useIsFocused(); // Hook to check if the current screen is focused
+  const isFocused = useIsFocused();
 
   const scrollViewRef = useRef(null);
 
@@ -36,7 +35,26 @@ const HomeScreen = () => {
   const [courses, setCourses] = useState(null);
   const [comboCourses, setComboCourses] = useState(null);
 
+  const [boards, setBoards] = useState(null);
+
   const [loading, setLoading] = useState(true);
+
+  // get boards
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchBoards();
+        console.log('boards: ', data);
+
+        setBoards(data);
+
+      } catch (error) {
+        console.error('Error fetching boards:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Preventing from navigating back
   useEffect(() => {
@@ -135,7 +153,7 @@ const HomeScreen = () => {
       >
         <TouchableOpacity
           style={{ overflow: 'hidden' }}
-          onPress={() => navigation.navigate('Chapters', { data: item.name, id: item.id, price: item.price })}
+          onPress={() => navigation.navigate('Chapters', { data: item.name, id: item.id, price: item.price, item: item, type: 1, isCombo: false })}
         >
           {/* Title */}
           <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '600', color: '#000', marginBottom: 2, width: '73%' }} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
@@ -276,7 +294,7 @@ const HomeScreen = () => {
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
             <View style={{ width: responsiveWidth(8), height: responsiveHeight(4), borderColor: darkBlue, borderWidth: 1, padding: 2, borderRadius: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
               {appLoad ? (
-                <Image source={require('../assets/user2.png')} style={{ width: '100%', height: '100%', borderRadius: 40 }} />
+                <Image source={require('../assets/mal.png')} style={{ width: '100%', height: '100%', borderRadius: 40 }} />
               ) : (
                 <Image source={require('../assets/avatar.png')} style={{ width: '100%', height: '100%', borderRadius: 40 }} />
               )}
@@ -335,6 +353,52 @@ const HomeScreen = () => {
           </View>
         </View>
 
+        {userDetails?.length != 0 && (
+          <>
+            {/* What you get */}
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
+              <Text style={{ color: '#ebedf0', }}>____________________ </Text>
+              <Text style={{ color: '#8593a2', fontWeight: '500', fontSize: responsiveFontSize(1.6), textTransform: 'uppercase', letterSpacing: 1.1 }}> What you get </Text>
+              <Text style={{ color: '#ebedf0', }}>____________________ </Text>
+            </View>
+
+            {/* Board showcase */}
+            <View style={{ backgroundColor: '#e9f6ff', paddingHorizontal: 10, paddingVertical: 15, borderRadius: 12, marginBottom: 15, elevation: 2, marginHorizontal: 1 }}>
+
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
+                <MaterialCommunityIcons name="book-open-variant" size={20} color="#000" style={{ marginRight: 8 }} />
+                <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '500', color: '#000', textAlign: 'center' }}>
+                  You will get courses on these boards
+                </Text>
+              </View>
+
+              <FlatList
+                data={boards}
+                keyExtractor={(item) => item.id.toString()}
+                numColumns={3}
+                columnWrapperStyle={{ justifyContent: 'space-between', width: '100%' }}
+                contentContainerStyle={{ gap: 10, width: '100%' }}
+                renderItem={({ item }) => (
+                  <ImageBackground
+                    source={require('../assets/sub.png')}
+                    style={{ width: 100, height: 120, justifyContent: 'flex-end', alignItems: 'center', borderRadius: 10, overflow: 'hidden' }}
+                    imageStyle={{ borderRadius: 12 }}
+                    resizeMode='cover'
+                  >
+                    {/* Fading Bottom Effect */}
+                    <View style={{ width: '100%', height: '25%', flexDirection: 'row', gap: 5, backgroundColor: 'rgba(0, 0, 0, 0.5)', justifyContent: 'center', alignItems: 'center', borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
+                      <MaterialCommunityIcons name="school-outline" size={18} color="#fff" />
+                      <Text style={{ fontSize: responsiveFontSize(1.8), fontWeight: '600', color: '#fff', textAlign: 'center' }}>
+                        {item.name}
+                      </Text>
+                    </View>
+                  </ImageBackground>
+                )}
+              />
+            </View>
+          </>
+        )}
+
         {/* Explore */}
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
           <Text style={{ color: '#ebedf0', }}>___________________ </Text>
@@ -344,7 +408,7 @@ const HomeScreen = () => {
 
         {/* Fallback text */}
         {userDetails.length === 0 && (
-          <View style={{ width: '99%', alignSelf: 'center' }}>
+          <View style={{ width: '99%', alignSelf: 'center', marginBottom: 20 }}>
             <View style={{ width: 260, aspectRatio: 1 / 1, alignSelf: 'center' }}>
               <Image
                 source={require('../assets/fall.png')}
@@ -371,6 +435,7 @@ const HomeScreen = () => {
         {/* Individual Courses and Combo Courses */}
         {userDetails?.length !== 0 && (
           <>
+            {/* Individual courses */}
             <View style={{ marginBottom: 20 }}>
               {/* Heading */}
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
@@ -399,17 +464,28 @@ const HomeScreen = () => {
                   contentContainerStyle={{ paddingHorizontal: 1, gap: 8, paddingVertical: 1 }}
                 />
               ) : (
-                <FlatList
-                  data={courses}
-                  horizontal
-                  keyExtractor={(item) => item.id}
-                  renderItem={cardItem}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{ gap: 8 }}
-                />
+                courses?.length > 0 ? (
+                  <FlatList
+                    data={courses}
+                    horizontal
+                    keyExtractor={(item) => item.id}
+                    renderItem={cardItem}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ gap: 8 }}
+                  />
+                ) : (
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
+                    <View style={{ width: 150, height: 150, marginBottom: 10 }}>
+                      <Image source={require('../assets/fallback_courses.png')} style={{ width: '100%', height: '100%' }} resizeMode='contain' />
+                    </View>
+
+                    <Text style={{ fontSize: responsiveFontSize(1.9), color: '#999', textAlign: 'center', fontWeight: '500' }}>No courses available at the moment. Please check back later!</Text>
+                  </View>
+                )
               )}
             </View>
 
+            {/* Combo courses */}
             <View style={{ marginBottom: 20 }}>
               {/* Heading */}
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, gap: 5 }}>
@@ -438,14 +514,24 @@ const HomeScreen = () => {
                   contentContainerStyle={{ paddingHorizontal: 1, gap: 8, paddingVertical: 1 }}
                 />
               ) : (
-                <FlatList
-                  data={comboCourses}
-                  horizontal
-                  keyExtractor={(item) => item.id}
-                  renderItem={comboCardItem}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{ gap: 8 }}
-                />
+                comboCourses?.length > 0 ? (
+                  <FlatList
+                    data={comboCourses}
+                    horizontal
+                    keyExtractor={(item) => item.id}
+                    renderItem={comboCardItem}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ gap: 8 }}
+                  />
+                ) : (
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
+                    <View style={{ width: 150, height: 150, marginBottom: 10 }}>
+                      <Image source={require('../assets/fallback_courses.png')} style={{ width: '100%', height: '100%' }} resizeMode='contain' />
+                    </View>
+
+                    <Text style={{ fontSize: responsiveFontSize(1.9), color: '#999', textAlign: 'center', fontWeight: '500' }}>No combo courses available at the moment. Please check back later!</Text>
+                  </View>
+                )
               )}
             </View>
           </>
