@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, FlatList, Image, ScrollView, StatusBar, Dimensions, BackHandler, Alert, ImageBackground, ActivityIndicator, Animated } from 'react-native';
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from 'react-native-responsive-dimensions';
-import { background, darkBlue, darkerBlue, lightBlue, modalBackColor } from '../utils/colors';
+import { background, darkBlue, darkerBlue, lightBlue } from '../utils/colors';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -332,7 +332,7 @@ const HomeScreen = () => {
 
   const handleClassSubmit = () => {
     setModal(false);
-  }
+  };
 
   useEffect(() => {
     if (modal) {
@@ -498,7 +498,7 @@ const HomeScreen = () => {
         {/* Fallback text */}
         {userDetails.length === 0 && (
           <View style={{ width: '99%', alignSelf: 'center', marginBottom: 20 }}>
-            <View style={{ width: 260, aspectRatio: 1 / 1, alignSelf: 'center' }}>
+            <View style={{ width: 200, aspectRatio: 1 / 1, alignSelf: 'center' }}>
               <Image
                 source={require('../assets/fall.png')}
                 style={{
