@@ -367,7 +367,7 @@ const HomeScreen = () => {
 
             <View style={{ flexDirection: 'column' }}>
               <Text style={{ fontSize: responsiveFontSize(2.1), fontWeight: '700', color: '#000' }}>Hello, {appLoad?.user?.name || 'User'}</Text>
-              <Text style={{ fontSize: responsiveFontSize(1.7), fontWeight: '400', color: '#a2a2a2' }}>What are you learning today?</Text>
+              <Text style={{ fontSize: responsiveFontSize(1.7), fontWeight: '500', color: '#a2a2a2' }}>What are you learning today?</Text>
             </View>
           </View>
 
@@ -469,7 +469,7 @@ const HomeScreen = () => {
                 contentContainerStyle={{ gap: 12, width: '100%' }}
                 renderItem={({ item }) => (
                   <ImageBackground
-                    source={require('../assets/sub.png')}
+                    source={require('../assets/trending.jpeg')}
                     style={{ width: 103, height: 120, justifyContent: 'flex-end', alignItems: 'center', borderRadius: 10, overflow: 'hidden', elevation: 3 }}
                     imageStyle={{ borderRadius: 12 }}
                     resizeMode='cover'

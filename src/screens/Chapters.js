@@ -1,18 +1,22 @@
-import { View, Text, FlatList, TouchableOpacity, StatusBar, Animated } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StatusBar, Animated, Dimensions, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { background, darkBlue, lightBlue } from '../utils/colors';
+import { background, darkBlue, darkerBlue, lightBlue } from '../utils/colors';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import { responsiveFontSize } from 'react-native-responsive-dimensions';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon3 from 'react-native-vector-icons/dist/FontAwesome5';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { fetchSubjects } from '../utils/fetchSubjects';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
+import Modal from "react-native-modal";
 
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
+
+const { width: width } = Dimensions.get('window');
 
 const Chapters = ({ navigation, route }) => {
 
@@ -22,10 +26,14 @@ const Chapters = ({ navigation, route }) => {
     const { price } = route.params;
     const { isCombo } = route.params;
 
-    console.log('item: ', item);
+    // console.log('item: ', item);
 
     const [chapters, setChapters] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const [modal, setModal] = useState(false);
+
+    const [selectedChapter, setSelectedChapter] = useState(null);
 
     const translateX = useRef(new Animated.Value(0)).current;
 
@@ -49,6 +57,12 @@ const Chapters = ({ navigation, route }) => {
         }, [id])
     );
 
+    const showModal = (chapter) => {
+        setModal(true);
+        setSelectedChapter(chapter)
+    }
+
+    // Render Chapter Item 
     const renderChapterItem = ({ item }) => (
         <TouchableOpacity
             style={{
@@ -62,33 +76,17 @@ const Chapters = ({ navigation, route }) => {
                 alignItems: 'center',
                 gap: 8
             }}
-            onPress={() => navigation.navigate('CourseDetails', { title: item.heading, data: item })}
+            onPress={() => showModal(item.heading)}
+
+        // onPress={() => navigation.navigate('CourseDetails', { title: item.heading, data: item })}
         >
             <Entypo name="chevron-right" style={{ color: '#000' }} size={18} />
             <Text style={{ color: darkBlue, fontSize: responsiveFontSize(2.1), fontWeight: '500' }}>{item.heading}</Text>
         </TouchableOpacity>
     );
 
-    useEffect(() => {
-        // Infinite loop for arrow movement
-        Animated.loop(
-            Animated.sequence([
-                Animated.timing(translateX, {
-                    toValue: 10, // Move arrows 10px to the right
-                    duration: 500, // Half a second
-                    useNativeDriver: true,
-                }),
-                Animated.timing(translateX, {
-                    toValue: 0, // Move arrows back to the original position
-                    duration: 500,
-                    useNativeDriver: true,
-                }),
-            ])
-        ).start();
-    }, [translateX]);
-
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
+        <View style={{ flex: 1, backgroundColor: background, paddingHorizontal: 10 }}>
             <StatusBar
                 animated={true}
                 backgroundColor={background}
@@ -97,7 +95,7 @@ const Chapters = ({ navigation, route }) => {
 
             {/* Header */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 5, justifyContent: 'space-between', marginBottom: 10 }}>
-                <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkBlue }} onPress={() => navigation.goBack()}>
+                <TouchableOpacity style={{ borderRadius: 8, justifyContent: 'center', alignItems: 'center', width: 30, height: 30, backgroundColor: darkerBlue }} onPress={() => navigation.goBack()}>
                     <AntDesign name="arrowleft" style={{ color: '#fff' }} size={15} />
                 </TouchableOpacity>
                 <Text style={{ color: '#000', fontWeight: '600', fontSize: responsiveFontSize(2.3) }}>{data}</Text>
@@ -198,7 +196,77 @@ const Chapters = ({ navigation, route }) => {
                     </>
                 </LinearGradient>
             )}
-        </SafeAreaView>
+
+            {/* Modal */}
+            <Modal
+                isVisible={modal}
+                onBackdropPress={() => {
+                    // setSelectedBoard(null);
+                    // setSelectedClass(null);
+                    setModal(false);
+                }}
+                onSwipeComplete={() => {
+                    // setSelectedBoard(null);
+                    // setSelectedClass(null);
+                    setModal(false);
+                }}
+                onRequestClose={() => {
+                    // setSelectedBoard(null);
+                    // setSelectedClass(null);
+                    setModal(false);
+                }}
+                animationType="slide"
+                swipeDirection={['down']}
+                backdropOpacity={0.5}
+                style={{ justifyContent: 'flex-end', margin: 0 }}
+            >
+                <View style={{ width: "100%", height: '100%', justifyContent: 'flex-end' }}>
+
+                    {/* Close Button */}
+                    <TouchableOpacity
+                        style={{ alignSelf: 'center', backgroundColor: '#000', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 35, height: 35, borderRadius: 50, marginBottom: 10 }}
+                        onPress={() => {
+                            // setIsRateFocused(false);
+                            setModal(false);
+                        }}
+                    >
+                        <Ionicons name="close" size={20} style={{ color: '#fff' }} />
+                    </TouchableOpacity>
+
+                    <View style={{ flexDirection: 'column', backgroundColor: '#fff', borderTopLeftRadius: 15, borderTopRightRadius: 15, paddingTop: 20, paddingBottom: 5 }}>
+
+                        <Text style={{ fontSize: responsiveFontSize(2.5), fontWeight: 'bold', color: darkBlue, textAlign: 'center' }}>Unlock Chapter</Text>
+
+                        <Text style={{ marginTop: 10, fontSize: responsiveFontSize(2), textAlign: 'center', color: '#444', fontWeight: '500' }}>
+                            You need to purchase this course to access "{selectedChapter}".
+                        </Text>
+
+                        {/* Buttons */}
+                        <View style={{ width: '100%', flexDirection: 'row', paddingVertical: 6, justifyContent: 'space-evenly', alignItems: "center" }}>
+                            {/* Cancel */}
+                            <TouchableOpacity activeOpacity={0.7} onPress={() => setModal(false)} style={{ width: '47%', backgroundColor: '#fff', borderRadius: 12, gap: 5, borderColor: darkerBlue, borderWidth: 1, height: 45, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ color: darkerBlue, fontSize: responsiveFontSize(2.2), fontWeight: "600" }}>Cancel</Text>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 19, height: 19, alignItems: 'center', backgroundColor: darkerBlue, borderRadius: 5, borderColor: darkerBlue, borderWidth: 1 }}>
+                                    <Ionicons name="close" size={13} style={{ color: '#fff' }} />
+                                </View>
+                            </TouchableOpacity>
+
+                            {/* Buy Now */}
+                            <TouchableOpacity style={{ height: 45, backgroundColor: darkerBlue, borderRadius: 12, justifyContent: 'center', flexDirection: 'row', width: '47%', alignSelf: 'center', elevation: 4, gap: 5, alignItems: 'center' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
+                                    <Text style={{ color: '#fff', fontWeight: '500', fontSize: responsiveFontSize(2.2) }}>Buy Now</Text>
+
+                                    <View style={{ backgroundColor: '#fff', width: 19, height: 19, borderRadius: 4, alignItems: 'center', justifyContent: 'center', borderColor: 'red', borderEndWidth: 0.6 }}>
+                                        <Icon3 name="save" size={13} color={darkerBlue} />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal >
+        </View >
     );
 };
 
